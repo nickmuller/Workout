@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Workout;
+using System.Globalization;
 
 namespace Workout
 {
@@ -8,6 +8,9 @@ namespace Workout
     {
         public static async Task Main(string[] args)
         {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("nl-NL");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("nl-NL");
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");

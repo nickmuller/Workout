@@ -1,0 +1,41 @@
+﻿html, body {
+}
+
+#app {
+}
+
+#app-loader {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+
+    .brand {
+        font-size: 6rem;
+        position: relative;
+
+        &-r, &-g, &-u, &-s {
+            pointer-events: none;
+        }
+    }
+
+    .progress {
+        position: absolute;
+        height: 2px;
+        bottom: 10%;
+        left: 10%;
+        width: 80%;
+
+        .progress-bar {
+            width: var(--blazor-load-percentage, 0%);
+        }
+    }
+}
+
+header {
+}
+
+main {
+}

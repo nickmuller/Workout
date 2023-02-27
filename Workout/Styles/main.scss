@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+// Configuration and helpers
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+// Vendors extensions
+
+// Vendors
+@import "vendors/blazor";
+
+// Vendors overwrites
+
+// Base stuff
+
+// Layout-related sections
+@import "layout/main";
+@import "layout/nav";
+
+// Components
+
+// Page-specific styles
+
+// Themes
