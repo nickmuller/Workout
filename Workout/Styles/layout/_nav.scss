@@ -1,2 +1,25 @@
 ﻿nav {
+    .nav-item {
+        display: flex;
+
+        .nav-link {
+            font-weight: 500;
+            letter-spacing: -.02em;
+            text-transform: uppercase;
+            color: $text-muted;
+            text-decoration: none;
+            position: relative;
+            transition: all .4s;
+            padding: 8px 0;
+        }
+
+        .nav-link:focus,
+        .nav-link:hover {
+            color: $text-high-emphasis-color;
+        }
+
+        .nav-link.active {
+            color: #fff;
+        }
+    }
 }

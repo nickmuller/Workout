@@ -1,7 +1,21 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<nav>
+    <ul>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
+                Maandag - Schouders en armen
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="benen" Match="NavLinkMatch.Prefix">
+                Woensdag - Benen
+            </NavLink>
+        </li>
+        <li class="nav-item">
+            <NavLink class="nav-link" href="borstenrug" Match="NavLinkMatch.Prefix">
+                Vrijdag - Borst en rug
+            </NavLink>
+        </li>
+    </ul>
+</nav>
