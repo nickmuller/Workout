@@ -1,4 +1,11 @@
-﻿html, body {
+﻿body {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+    text-align: left;
+    background-color: #111111;
 }
 
 #app {
@@ -13,12 +20,12 @@
     overflow: hidden;
 
     .brand {
+        color: #fff;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
         font-size: 6rem;
         position: relative;
-
-        &-r, &-g, &-u, &-s {
-            pointer-events: none;
-        }
+        pointer-events: none;
     }
 
     .progress {

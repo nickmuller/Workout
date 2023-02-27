@@ -9,16 +9,19 @@
 
 // Vendors
 @import "vendors/blazor";
+@import "vendors/reset";
 
 // Vendors overwrites
 
 // Base stuff
+@import "base/animations";
 
 // Layout-related sections
 @import "layout/main";
 @import "layout/nav";
 
 // Components
+@import "components/progress";
 
 // Page-specific styles
 

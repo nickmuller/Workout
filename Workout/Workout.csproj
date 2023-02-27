@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -19,9 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Styles\base\" />
-    <Folder Include="Styles\components\" />
     <Folder Include="Styles\pages\" />
+    <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
 </Project>
