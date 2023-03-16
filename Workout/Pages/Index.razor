@@ -1,4 +1,7 @@
 ﻿@page "/"
+@attribute [Authorize]
+@inject GoogleDriveService GoogleDriveService
+@inject ILogger<MainLayout> Logger
 
 <nav>
     <ul>
@@ -19,3 +22,49 @@
         </li>
     </ul>
 </nav>
+
+<button @onclick="CreateFile">Create file test</button>
+
+@if (isLoading)
+{
+    <p>loading...</p>
+}
+else if (model != null)
+{
+    <p>@model.Changed</p>
+}
+else
+{
+    <p>Geen data gevonden.</p>
+}
+
+@code
+{
+    private WorkoutModel? model;
+    private bool isLoading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            isLoading = true;
+            model = await GoogleDriveService.OpenAsync();
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, e.Message);
+            throw;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task CreateFile()
+    {
+        var m = model ?? new WorkoutModel();
+        m.Changed = DateTime.Now;
+        await GoogleDriveService.OpslaanAsync(m);
+    }
+}

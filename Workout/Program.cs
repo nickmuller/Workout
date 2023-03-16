@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;
+using Workout.Authentication;
+using Workout.Services.Google;
 
 namespace Workout
 {
@@ -14,12 +16,15 @@ namespace Workout
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
-
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddHttpClient<GoogleClient>().AddHttpMessageHandler<GoogleApiAuthorizationMessageHandler>();
+            builder.Services.AddTransient<GoogleApiAuthorizationMessageHandler>();
             builder.Services.AddOidcAuthentication(options =>
             {
                 builder.Configuration.Bind("GoogleAuth", options.ProviderOptions);
+                options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.appdata");
+                options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.file");
             });
+            builder.Services.AddScoped<GoogleDriveService>();
 
             await builder.Build().RunAsync();
         }
