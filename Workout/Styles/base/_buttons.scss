@@ -58,6 +58,8 @@ fieldset:disabled a.btn {
 
 .btn-fw { // full width
     display: flex;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .btn-primary {
