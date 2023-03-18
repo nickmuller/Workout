@@ -1,0 +1,54 @@
+﻿@page "/schoudersenarmen"
+@inject NavigationManager Navigation
+@inject StateService StateService
+@inject GoogleDriveService GoogleDriveService
+
+<PageTitle>Workout - Schouders en armen</PageTitle>
+
+<h1>Schouders en armen</h1>
+
+<AuthorizeView>
+    <Authorized>
+        <p>
+            <button @onclick="VoortgangPersisteren">Voortgang opslaan</button>
+        </p>
+    </Authorized>
+</AuthorizeView>
+
+<p>
+    // todo: alle losse workouts op een eigen pagina (eigen url)?
+    // workout hervatten = ga naar de oefening url en daar kan je gewoon starten (niet halverwege kunnen saven? of wel via querystring oid?)
+    // op elke oefening pagina, als klaar save voortgang en ga naar volgende oefening pagina
+</p>
+
+@code
+{
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthenticationState { get; set; }
+
+    private async Task VoortgangPersisteren()
+    {
+        if (await IsAuthenticated())
+        {
+            var m = StateService.Model ?? new PersistedModel();
+            m.Changed = DateTime.Now;
+            m.Url = Navigation.ToBaseRelativePath(Navigation.Uri);
+            await GoogleDriveService.SaveAsync(m);
+        }
+    }
+
+    private async Task<bool> IsAuthenticated()
+    {
+        if (AuthenticationState is not null)
+        {
+            var authState = await AuthenticationState;
+            var user = authState.User;
+
+            if (user.Identity is not null && user.Identity.IsAuthenticated)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}

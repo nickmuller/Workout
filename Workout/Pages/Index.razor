@@ -1,17 +1,12 @@
 ﻿@page "/"
-@inject GoogleDriveService GoogleDriveService
-@inject ILogger<MainLayout> Logger
+@inject StateService StateService
 
 <AuthorizeView>
     <Authorized>
         <div class="mb-1">
-            @if (isLoading)
+            @if (!string.IsNullOrEmpty(StateService.Model?.Url))
             {
-                <Spinner />
-            }
-            else if (model != null && !string.IsNullOrEmpty(model.Url))
-            {
-                <a href="@model.Url" class="btn btn-fw btn-primary">Workout hervatten</a>
+                <a href="@StateService.Model.Url" class="btn btn-fw btn-primary">Workout hervatten</a>
             }
         </div>
     </Authorized>
@@ -40,48 +35,3 @@
 <div class="mt-5">
     <LoginDisplay/>
 </div>
-
-@code
-{
-    private WorkoutModel? model;
-    private bool isLoading;
-
-    [CascadingParameter]
-    private Task<AuthenticationState>? AuthenticationState { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (await IsAuthenticated())
-        {
-            try
-            {
-                isLoading = true;
-                model = await GoogleDriveService.OpenAsync();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e, e.Message);
-                throw;
-            }
-            finally
-            {
-                isLoading = false;
-            }
-        }
-    }
-
-    private async Task<bool> IsAuthenticated()
-    {
-        if (AuthenticationState is not null)
-        {
-            var authState = await AuthenticationState;
-            var user = authState.User;
-
-            if (user.Identity is not null && user.Identity.IsAuthenticated)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-}

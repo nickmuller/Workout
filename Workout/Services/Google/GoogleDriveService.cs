@@ -13,7 +13,7 @@ public class GoogleDriveService : BaseService
 
     public GoogleDriveService(GoogleClient googleClient) : base(googleClient) { }
 
-    public async Task<WorkoutModel?> OpenAsync()
+    public async Task<PersistedModel?> LoadAsync()
     {
         var fileId = await GetFileIdAsync();
         if (!string.IsNullOrEmpty(fileId))
@@ -22,7 +22,7 @@ public class GoogleDriveService : BaseService
         return null;
     }
 
-    public async Task OpslaanAsync(WorkoutModel model)
+    public async Task SaveAsync(PersistedModel model)
     {
         var fileId = await GetFileIdAsync();
         if (!string.IsNullOrEmpty(fileId))
@@ -39,13 +39,13 @@ public class GoogleDriveService : BaseService
         return file.Id;
     }
 
-    private async Task<WorkoutModel> GetFileAsync(string fileId)
+    private async Task<PersistedModel> GetFileAsync(string fileId)
     {
         using var response = await Client.GetAsync($@"/drive/v3/files/{fileId}?alt=media");
-        return (await response.Content.ReadFromJsonAsync<WorkoutModel>())!;
+        return (await response.Content.ReadFromJsonAsync<PersistedModel>())!;
     }
 
-    private async Task CreateFileAsync(WorkoutModel model)
+    private async Task CreateFileAsync(PersistedModel model)
     {
         var fileContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, MediaTypeNames.Application.Json);
         var metaContent = JsonContent.Create(new { name = FileName });
@@ -54,7 +54,7 @@ public class GoogleDriveService : BaseService
         response.EnsureSuccessStatusCode();
     }
 
-    private async Task UpdateFileAsync(string fileId, WorkoutModel model)
+    private async Task UpdateFileAsync(string fileId, PersistedModel model)
     {
         var fileContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, MediaTypeNames.Application.Json);
         using var response = await Client.PatchAsync($@"/upload/drive/v3/files/{fileId}?uploadType=media", fileContent);
