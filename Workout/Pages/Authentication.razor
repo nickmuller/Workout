@@ -1,8 +1,6 @@
 ﻿@page "/authentication/{action}"
-@inject StateService StateService
-@inject GoogleDriveService GoogleDriveService
 
-<RemoteAuthenticatorView Action="@Action" OnLogInSucceeded="LogInSucceeded">
+<RemoteAuthenticatorView Action="@Action">
     <LogOutSucceeded>
         <Redirect Url="" />
     </LogOutSucceeded>
@@ -10,9 +8,4 @@
 
 @code{
     [Parameter] public string? Action { get; set; }
-
-    private async Task LogInSucceeded(RemoteAuthenticationState arg)
-    {
-        StateService.Model = await GoogleDriveService.LoadAsync();
-    }
 }
