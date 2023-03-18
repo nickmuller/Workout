@@ -25,10 +25,12 @@
 @import "layout/nav";
 
 // Components
+@import "components/fingerprint";
 @import "components/progress";
 @import "components/spinner";
 
 // Page-specific styles
+@import "pages/authentication";
 @import "pages/index";
 
 // Themes

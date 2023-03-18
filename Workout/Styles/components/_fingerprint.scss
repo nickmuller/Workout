@@ -1,0 +1,34 @@
+﻿.fingerprint {
+    margin: 30px auto;
+    position: relative;
+
+    svg {
+        height: 80px;
+        width: 80px;
+        fill: #595c5e4b;
+
+        .finger {
+            animation: finger 2s ease infinite;
+        }
+
+        @for $i from 1 through 11 {
+            .finger:nth-child(#{12-$i}) {
+                animation-delay: #{$i * 50}ms;
+            }
+        }
+    }
+
+    @keyframes finger {
+        0% {
+            fill: #595c5e4b;
+        }
+
+        20% {
+            fill: #1690e8;
+        }
+
+        40% {
+            fill: #595c5e4b;
+        }
+    }
+}

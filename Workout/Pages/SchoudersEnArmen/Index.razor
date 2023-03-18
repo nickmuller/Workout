@@ -7,18 +7,25 @@
 
 <h1>Schouders en armen</h1>
 
+<p>
+    <a href="/schoudersenarmen/oefening1" class="btn btn-fw">Oefening 1</a>
+    <a href="/schoudersenarmen/oefening2" class="btn btn-fw">Oefening 2</a>
+</p>
+
 <AuthorizeView>
     <Authorized>
         <p>
-            <button @onclick="VoortgangPersisteren">Voortgang opslaan</button>
+            Opslaan knop is alleen om mee te testen. Opslaan straks automatisch maken...
         </p>
+        <button class="btn btn-fw" @onclick="VoortgangPersisteren">Voortgang opslaan</button>
     </Authorized>
 </AuthorizeView>
 
 <p>
-    // todo: alle losse workouts op een eigen pagina (eigen url)?
-    // workout hervatten = ga naar de oefening url en daar kan je gewoon starten (niet halverwege kunnen saven? of wel via querystring oid?)
+    // todo: alle losse workouts op een eigen pagina (eigen url)?<br/>
+    // workout hervatten = ga naar de oefening url en daar kan je gewoon starten (niet halverwege kunnen saven? of wel via querystring oid?)<br />
     // op elke oefening pagina, als klaar save voortgang en ga naar volgende oefening pagina
+
 </p>
 
 @code
