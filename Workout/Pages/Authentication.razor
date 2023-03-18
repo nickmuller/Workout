@@ -1,5 +1,10 @@
 ﻿@page "/authentication/{action}"
-<RemoteAuthenticatorView Action="@Action" />
+
+<RemoteAuthenticatorView Action="@Action">
+    <LogOutSucceeded>
+        <Redirect Url="" />
+    </LogOutSucceeded>
+</RemoteAuthenticatorView>
 
 @code{
     [Parameter] public string? Action { get; set; }

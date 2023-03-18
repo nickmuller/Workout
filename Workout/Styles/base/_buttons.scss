@@ -1,0 +1,87 @@
+﻿.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #fff;
+    background-color: #303030;
+    border-color: #303030;
+
+    &:hover {
+        color: #fff;
+        background-color: #212121;
+        border-color: #1d1d1d;
+    }
+
+    &:focus,
+    &.focus {
+        outline: 0;
+        box-shadow: 0 0 0 0 rgba(48, 48, 48, 0.5);
+    }
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        opacity: 0.65;
+        color: #fff;
+        background-color: #303030;
+        border-color: #303030;
+    }
+    // Opinionated: add "hand" cursor to non-disabled .btn elements
+    &:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        background-image: none;
+        color: #fff;
+        background-color: #1d1d1d;
+        border-color: #171717;
+    }
+}
+
+// Future-proof disabling of clicks on `<a>` elements
+a.btn.disabled,
+fieldset:disabled a.btn {
+    pointer-events: none;
+}
+
+.btn-fw { // full width
+    display: flex;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+
+    &:hover {
+        color: #fff;
+        background-color: #b74923;
+        border-color: #ad4521;
+    }
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        color: #fff;
+        background-color: $primary;
+        border-color: $primary;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: #fff;
+        background-color: #ad4521;
+        border-color: #a2411f;
+    }
+}

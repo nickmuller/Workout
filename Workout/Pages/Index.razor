@@ -1,70 +1,87 @@
 ﻿@page "/"
-@attribute [Authorize]
 @inject GoogleDriveService GoogleDriveService
 @inject ILogger<MainLayout> Logger
 
+<AuthorizeView>
+    <Authorized>
+        <div class="mb-1">
+            @if (isLoading)
+            {
+                <Spinner />
+            }
+            else if (model != null && !string.IsNullOrEmpty(model.Url))
+            {
+                <a href="@model.Url" class="btn btn-fw btn-primary">Workout hervatten</a>
+            }
+        </div>
+    </Authorized>
+</AuthorizeView>
+
 <nav>
     <ul>
-        <li class="nav-item">
-            <NavLink class="nav-link" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
-                Maandag - Schouders en armen
+        <li class="mb-1">
+            <NavLink class="btn btn-fw" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
+                Schouders en armen
             </NavLink>
         </li>
-        <li class="nav-item">
-            <NavLink class="nav-link" href="benen" Match="NavLinkMatch.Prefix">
-                Woensdag - Benen
+        <li class="mb-1">
+            <NavLink class="btn btn-fw" href="benen" Match="NavLinkMatch.Prefix">
+                Benen
             </NavLink>
         </li>
-        <li class="nav-item">
-            <NavLink class="nav-link" href="borstenrug" Match="NavLinkMatch.Prefix">
-                Vrijdag - Borst en rug
+        <li class="mb-1">
+            <NavLink class="btn btn-fw" href="borstenrug" Match="NavLinkMatch.Prefix">
+                Borst en rug
             </NavLink>
         </li>
     </ul>
 </nav>
 
-<button @onclick="CreateFile">Create file test</button>
-
-@if (isLoading)
-{
-    <p>loading...</p>
-}
-else if (model != null)
-{
-    <p>@model.Changed</p>
-}
-else
-{
-    <p>Geen data gevonden.</p>
-}
+<div class="mt-5">
+    <LoginDisplay/>
+</div>
 
 @code
 {
     private WorkoutModel? model;
     private bool isLoading;
 
+    [CascadingParameter]
+    private Task<AuthenticationState>? AuthenticationState { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        try
+        if (await IsAuthenticated())
         {
-            isLoading = true;
-            model = await GoogleDriveService.OpenAsync();
-        }
-        catch (Exception e)
-        {
-            Logger.LogError(e, e.Message);
-            throw;
-        }
-        finally
-        {
-            isLoading = false;
+            try
+            {
+                isLoading = true;
+                model = await GoogleDriveService.OpenAsync();
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, e.Message);
+                throw;
+            }
+            finally
+            {
+                isLoading = false;
+            }
         }
     }
 
-    private async Task CreateFile()
+    private async Task<bool> IsAuthenticated()
     {
-        var m = model ?? new WorkoutModel();
-        m.Changed = DateTime.Now;
-        await GoogleDriveService.OpslaanAsync(m);
+        if (AuthenticationState is not null)
+        {
+            var authState = await AuthenticationState;
+            var user = authState.User;
+
+            if (user.Identity is not null && user.Identity.IsAuthenticated)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

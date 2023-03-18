@@ -2,11 +2,11 @@
 
 <AuthorizeView>
     <Authorized>
-        Hello, @context.User.Identity?.Name!
-        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+        <a href="" class="btn btn-fw" title="@context.User.Identity?.Name" @onclick="BeginLogOut">Logout</a>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/login">Log in</a>
+        <a href="authentication/login" class="btn btn-fw"><i class="fa-brands fa-google"></i> Login met Google</a>
+        <p class="login-toelichting">Login om voortgang automatisch op te slaan.</p>
     </NotAuthorized>
 </AuthorizeView>
 

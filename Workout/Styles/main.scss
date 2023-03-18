@@ -15,15 +15,20 @@
 
 // Base stuff
 @import "base/animations";
+@import "base/buttons";
 @import "base/general";
+@import "base/icons";
 
 // Layout-related sections
+@import "layout/login-display";
 @import "layout/main";
 @import "layout/nav";
 
 // Components
 @import "components/progress";
+@import "components/spinner";
 
 // Page-specific styles
+@import "pages/index";
 
 // Themes
