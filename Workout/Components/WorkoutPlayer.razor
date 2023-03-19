@@ -1,0 +1,291 @@
+﻿@implements IDisposable
+@inject NavigationManager Navigation
+@inject StateService StateService
+@inject GoogleDriveService GoogleDriveService
+@inject ILogger<WorkoutPlayer> Logger
+
+<p>
+    &gt;&gt; Modus: @modus.ToString() &lt;&lt;
+</p>
+<br />
+
+@if (isKlaar)
+{
+    <p>HATSEFLATS! HELEMAAL KLAAR!</p>
+}
+
+@if (modus == Modus.Handmatig)
+{
+    @if (resterendeTijdSet == duurSet && resterendeTijdPauze == model.DuurPauze)
+    {
+        <button class="btn btn-fw btn-green" @onclick="Start">Start</button>
+    }
+    else
+    {
+        <button class="btn btn-fw btn-green" @onclick="Start">Hervat</button>
+    }
+}
+else
+{
+    <button class="btn btn-fw btn-red" @onclick="Stop">Stop</button>
+}
+
+<div class="oefening">
+    <p>
+        Oefening: @nummer / @oefeningen.Length
+    </p>
+
+    <h1>@model.Naam</h1>
+    
+    @if (isPauze)
+    {
+        <img src="images/pauze.jpg" alt="Pauze" />
+    }
+    else
+    {
+        <img src="@model.AfbeeldingUrl" alt="@model.Naam" />
+    }
+
+    <div>
+        @if (isPauze)
+        {
+            <p>PAUZE</p>
+            <span>Tijd: @resterendeTijdPauze (@PercentageTijdPauze%)</span>
+            <div class="progress">
+                <div class="progress-bar" style="width: @PercentageTijdPauze%"></div>
+            </div>
+        }
+        else
+        {
+            <span>Tijd: @resterendeTijdSet (@PercentageTijdSet%)</span>
+            <div class="progress">
+                <div class="progress-bar" style="width: @PercentageTijdSet%"></div>
+            </div>
+        }
+    </div>
+    <p>
+        Set: @actueleSet / @model.AantalSets
+    </p>
+    <p>
+        Herhaling: @actueleHerhaling / @model.AantalHerhalingen
+    </p>
+    @if (toonVideo)
+    {
+        <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+        <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
+    }
+    else
+    {
+        <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
+    }
+    <ul>
+        @foreach (var tip in model.Tips)
+        {
+            <li>Tip: @tip</li>
+        }
+    </ul>
+</div>
+
+@if (volgende == default)
+{
+    <p>
+        Laatste oefening!
+    </p>
+    @if (resterendeTijdSet != duurSet)
+    {
+        <button class="btn btn-fw" @onclick="HerstartSet">Herstart set</button>
+    }
+}
+else
+{
+    @if (resterendeTijdSet != duurSet)
+    {
+        <button class="btn btn-fw" @onclick="HerstartSet">Herstart set</button>
+    }
+    <button class="btn btn-fw" @onclick="VolgendeSet">Volgende oefening (@volgende.Naam)</button>
+    <button class="btn btn-fw" @onclick="StartPauze">Start pauze</button>
+}
+
+@code
+{
+    [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
+    [Parameter, EditorRequired] public CategorieType Categorie { get; set; }
+
+    private OefeningModel[] oefeningen = Array.Empty<OefeningModel>();
+    private OefeningModel model;
+    private OefeningModel volgende;
+
+    private TimeSpan duurSet = TimeSpan.FromMinutes(2);
+
+    private Modus modus = Modus.Handmatig;
+    private int nummer;
+    private int actueleSet;
+    private int actueleHerhaling = 0;
+    private TimeSpan resterendeTijdSet;
+    private TimeSpan resterendeTijdPauze;
+    private int PercentageTijdSet => duurSet.TotalSeconds == 0 ? 0 : Convert.ToInt32((duurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / duurSet.TotalSeconds * 100);
+    private int PercentageTijdPauze => model.DuurPauze.TotalSeconds == 0 ? 0 : Convert.ToInt32((model.DuurPauze.TotalSeconds - resterendeTijdPauze.TotalSeconds) / model.DuurPauze.TotalSeconds * 100);
+    private bool isPauze;
+    private bool isKlaar;
+    private bool toonVideo;
+    private Timer? timer;
+
+    protected override void OnInitialized()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var querystring = QueryHelpers.ParseQuery(uri.Query);
+        nummer = querystring.ContainsKey("oefening") ? int.Parse(querystring.GetValueOrDefault("oefening").First()!) : 1;
+        actueleSet = querystring.ContainsKey("set") ? int.Parse(querystring.GetValueOrDefault("set").First()!) : 1;
+
+        oefeningen = Workouts.Oefeningen(Categorie);
+        model = oefeningen[nummer - 1];
+        volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
+        resterendeTijdSet = duurSet;
+        resterendeTijdPauze = model.DuurPauze;
+    }
+    
+    private async Task Start()
+    {
+        modus = Modus.Automatisch;
+        timer = new Timer(_ =>
+        {
+            InvokeAsync(async () =>
+            {
+                try
+                {
+                    await OnTick();
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError(e, $"Exception in {nameof(OnTick)}");
+                    throw;
+                }
+            });
+        }, null, 0, 1000);
+        await VoortgangPersisteren();
+    }
+
+    private async Task OnTick()
+    {
+        if (isPauze)
+        {
+            resterendeTijdPauze = resterendeTijdPauze.Subtract(TimeSpan.FromSeconds(1));
+            if (resterendeTijdPauze <= TimeSpan.Zero)
+            {
+                isPauze = false;
+                await VolgendeSet();
+            }
+        }
+        else
+        {
+            resterendeTijdSet = resterendeTijdSet.Subtract(TimeSpan.FromSeconds(1));
+            actueleHerhaling = Convert.ToInt32(model.AantalHerhalingen / 100.0 * PercentageTijdSet);
+            if (resterendeTijdSet <= TimeSpan.Zero)
+            {
+                isPauze = true;
+            }
+        }
+        StateHasChanged();
+    }
+
+    private void Stop()
+    {
+        modus = Modus.Handmatig;
+        timer?.Change(Timeout.Infinite, Timeout.Infinite); // stop timer
+    }
+
+    private void HerstartSet()
+    {
+        actueleHerhaling = 0;
+        resterendeTijdSet = duurSet;
+        resterendeTijdPauze = model.DuurPauze;
+        isPauze = false;
+    }
+
+    private async Task VolgendeSet()
+    {
+        if (actueleSet < model.AantalSets)
+        {
+            actueleSet++;
+            actueleHerhaling = 0;
+            resterendeTijdSet = duurSet;
+            resterendeTijdPauze = model.DuurPauze;
+            isPauze = false;
+            await VoortgangPersisteren();
+        }
+        else if (volgende == default)
+        {
+            // Dit was de laatste oefening, stoppen
+            Stop();
+            isKlaar = true;
+        }
+        else
+        {
+            // Volgende oefening
+            nummer++;
+            model = oefeningen[nummer - 1];
+            volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
+            actueleSet = 1;
+            actueleHerhaling = 0;
+            resterendeTijdSet = duurSet;
+            resterendeTijdPauze = model.DuurPauze;
+            isPauze = false;
+            await VoortgangPersisteren();
+        }
+    }
+
+    private void StartPauze()
+    {
+        isPauze = true;
+    }
+
+    private async Task VoortgangPersisteren()
+    {
+        var url = Navigation.GetUriWithQueryParameters(new Dictionary<string, object?>
+        {
+            {"oefening", nummer},
+            {"set", actueleSet}
+        });
+
+        if (await IsAuthenticated())
+        {
+            var m = StateService.Model ?? new PersistedModel();
+            m.Changed = DateTime.Now;
+            m.Url = Navigation.ToBaseRelativePath(url);
+            await GoogleDriveService.SaveAsync(m);
+        }
+
+        Navigation.NavigateTo(url);
+    }
+
+    private async Task<bool> IsAuthenticated()
+    {
+        if (AuthenticationState is not null)
+        {
+            var authState = await AuthenticationState;
+            var user = authState.User;
+
+            if (user.Identity is not null && user.Identity.IsAuthenticated)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void ToonVideo()
+    {
+        toonVideo = true;
+    }
+
+    private void VerbergVideo()
+    {
+        toonVideo = false;
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+        AuthenticationState?.Dispose();
+    }
+}

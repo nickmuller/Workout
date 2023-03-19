@@ -3,7 +3,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <div class="mb-1">
+        <div>
             @if (!string.IsNullOrEmpty(StateService.Model?.Url))
             {
                 <a href="@StateService.Model.Url" class="btn btn-fw btn-primary">Workout hervatten</a>
@@ -14,17 +14,17 @@
 
 <nav>
     <ul>
-        <li class="mb-1">
+        <li>
             <NavLink class="btn btn-fw" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
                 Schouders en armen
             </NavLink>
         </li>
-        <li class="mb-1">
+        <li>
             <NavLink class="btn btn-fw" href="benen" Match="NavLinkMatch.Prefix">
                 Benen
             </NavLink>
         </li>
-        <li class="mb-1">
+        <li>
             <NavLink class="btn btn-fw" href="borstenrug" Match="NavLinkMatch.Prefix">
                 Borst en rug
             </NavLink>

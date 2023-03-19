@@ -16,6 +16,7 @@
     color: #fff;
     background-color: #303030;
     border-color: #303030;
+    margin-top: .25rem;
 
     &:hover {
         color: #fff;
@@ -85,5 +86,57 @@ fieldset:disabled a.btn {
         color: #fff;
         background-color: #ad4521;
         border-color: #a2411f;
+    }
+}
+
+.btn-green {
+    color: #fff;
+    background-color: #198754;
+    border-color: #198754;
+
+    &:hover {
+        color: #fff;
+        background-color: #136740;
+        border-color: #115c39;
+    }
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        color: #fff;
+        background-color: #198754;
+        border-color: #198754;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: #fff;
+        background-color: #115c39;
+        border-color: #0f5133;
+    }
+}
+
+.btn-red {
+    color: #fff;
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+
+    &:hover {
+        color: #fff;
+        background-color: #e12e1c;
+        border-color: #d62c1a;
+    }
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        color: #fff;
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: #fff;
+        background-color: #d62c1a;
+        border-color: #ca2a19;
     }
 }
