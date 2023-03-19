@@ -34,6 +34,10 @@ else
     <p>
         Oefening: @nummer / @oefeningen.Length
     </p>
+    @if (volgende == default)
+    {
+        <p>Laatste oefening!</p>
+    }
 
     <h1>@model.Naam</h1>
     
@@ -86,24 +90,15 @@ else
     </ul>
 </div>
 
-@if (volgende == default)
+<button class="btn btn-fw" @onclick="StartPauze" disabled="@(isPauze)">Start pauze</button>
+<button class="btn btn-fw" @onclick="HerstartSet" disabled="@(resterendeTijdSet == duurSet && !isPauze)">Herstart set</button>
+@if (vorige != default || actueleSet > 1)
 {
-    <p>
-        Laatste oefening!
-    </p>
-    @if (resterendeTijdSet != duurSet)
-    {
-        <button class="btn btn-fw" @onclick="HerstartSet">Herstart set</button>
-    }
+    <button class="btn btn-fw" @onclick="VorigeSet">Vorige set (@(actueleSet == 1 ? vorige.Naam : actueleSet - 1))</button>
 }
-else
+@if (volgende != default || actueleSet < model.AantalSets)
 {
-    @if (resterendeTijdSet != duurSet)
-    {
-        <button class="btn btn-fw" @onclick="HerstartSet">Herstart set</button>
-    }
-    <button class="btn btn-fw" @onclick="VolgendeSet">Volgende oefening (@volgende.Naam)</button>
-    <button class="btn btn-fw" @onclick="StartPauze">Start pauze</button>
+    <button class="btn btn-fw" @onclick="VolgendeSet">Volgende set (@(actueleSet == model.AantalSets ? volgende.Naam : actueleSet + 1))</button>
 }
 
 @code
@@ -113,9 +108,10 @@ else
 
     private OefeningModel[] oefeningen = Array.Empty<OefeningModel>();
     private OefeningModel model;
+    private OefeningModel vorige;
     private OefeningModel volgende;
 
-    private TimeSpan duurSet = TimeSpan.FromMinutes(2);
+    private TimeSpan duurSet = TimeSpan.FromMinutes(1);
 
     private Modus modus = Modus.Handmatig;
     private int nummer;
@@ -139,6 +135,7 @@ else
 
         oefeningen = Workouts.Oefeningen(Categorie);
         model = oefeningen[nummer - 1];
+        vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
         volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
         resterendeTijdSet = duurSet;
         resterendeTijdPauze = model.DuurPauze;
@@ -169,11 +166,20 @@ else
     {
         if (isPauze)
         {
-            resterendeTijdPauze = resterendeTijdPauze.Subtract(TimeSpan.FromSeconds(1));
-            if (resterendeTijdPauze <= TimeSpan.Zero)
+            // Laatste set voltooid, pauze is daarna niet nodig
+            if (volgende == default && actueleSet == model.AantalSets)
             {
                 isPauze = false;
                 await VolgendeSet();
+            }
+            else
+            {
+                resterendeTijdPauze = resterendeTijdPauze.Subtract(TimeSpan.FromSeconds(1));
+                if (resterendeTijdPauze <= TimeSpan.Zero)
+                {
+                    isPauze = false;
+                    await VolgendeSet();
+                }
             }
         }
         else
@@ -202,6 +208,37 @@ else
         isPauze = false;
     }
 
+    private async Task VorigeSet()
+    {
+        if (actueleSet > 1)
+        {
+            actueleSet--;
+            actueleHerhaling = 0;
+            resterendeTijdSet = duurSet;
+            resterendeTijdPauze = model.DuurPauze;
+            isPauze = false;
+            await VoortgangPersisteren();
+        }
+        else if (vorige == default)
+        {
+            // Dit is de eerste oefening, doe niks
+        }
+        else
+        {
+            // Vorige oefening
+            nummer--;
+            model = oefeningen[nummer - 1];
+            vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
+            volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
+            actueleSet = 1;
+            actueleHerhaling = 0;
+            resterendeTijdSet = duurSet;
+            resterendeTijdPauze = model.DuurPauze;
+            isPauze = false;
+            await VoortgangPersisteren();
+        }
+    }
+
     private async Task VolgendeSet()
     {
         if (actueleSet < model.AantalSets)
@@ -224,6 +261,7 @@ else
             // Volgende oefening
             nummer++;
             model = oefeningen[nummer - 1];
+            vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
             volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
             actueleSet = 1;
             actueleHerhaling = 0;
@@ -255,7 +293,8 @@ else
             await GoogleDriveService.SaveAsync(m);
         }
 
-        Navigation.NavigateTo(url);
+        if (Navigation.ToAbsoluteUri(Navigation.Uri).AbsolutePath == Navigation.ToAbsoluteUri(url).AbsolutePath)
+            Navigation.NavigateTo(url);
     }
 
     private async Task<bool> IsAuthenticated()
