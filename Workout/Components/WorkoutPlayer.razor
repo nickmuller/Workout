@@ -302,6 +302,10 @@ else
             {"set", actueleSet}
         });
 
+        // update querystring
+        if (Navigation.ToAbsoluteUri(Navigation.Uri).AbsolutePath == Navigation.ToAbsoluteUri(url).AbsolutePath)
+            Navigation.NavigateTo(url);
+
         if (await IsAuthenticated())
         {
             var m = StateService.Model ?? new PersistedModel();
@@ -309,9 +313,6 @@ else
             m.Url = Navigation.ToBaseRelativePath(url);
             await GoogleDriveService.SaveAsync(m);
         }
-
-        if (Navigation.ToAbsoluteUri(Navigation.Uri).AbsolutePath == Navigation.ToAbsoluteUri(url).AbsolutePath)
-            Navigation.NavigateTo(url);
     }
 
     private async Task<bool> IsAuthenticated()
