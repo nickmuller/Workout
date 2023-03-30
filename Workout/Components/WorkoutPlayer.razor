@@ -47,7 +47,32 @@ else
     }
     else
     {
-        <img src="@model.AfbeeldingUrl" alt="@model.Naam" />
+        if (model.InitieelTonen == InitieelTonen.Afbeelding)
+        {
+            <img src="@model.AfbeeldingUrl" alt="@model.Naam" />
+            @if (toonVideo)
+            {
+                <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
+            }
+            else
+            {
+                <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
+            }
+        }
+        if (model.InitieelTonen == InitieelTonen.Video)
+        {
+            <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+            @if (toonAfbeelding)
+            {
+                <img src="@model.AfbeeldingUrl" alt="@model.Naam" />
+                <button class="btn btn-fw" @onclick="VerbergAfbeelding">Verberg afbeelding</button>
+            }
+            else
+            {
+                <button class="btn btn-fw" @onclick="ToonAfbeelding">Toon afbeelding</button>
+            }
+        }
     }
 
     <div>
@@ -73,15 +98,6 @@ else
     <p>
         Herhaling: @actueleHerhaling / @model.AantalHerhalingen
     </p>
-    @if (toonVideo)
-    {
-        <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-        <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
-    }
-    else
-    {
-        <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
-    }
     <ul>
         @foreach (var tip in model.Tips)
         {
@@ -124,6 +140,7 @@ else
     private bool isPauze;
     private bool isKlaar;
     private bool toonVideo;
+    private bool toonAfbeelding;
     private Timer? timer;
 
     protected override void OnInitialized()
@@ -320,6 +337,16 @@ else
     private void VerbergVideo()
     {
         toonVideo = false;
+    }
+
+    private void ToonAfbeelding()
+    {
+        toonAfbeelding = true;
+    }
+
+    private void VerbergAfbeelding()
+    {
+        toonAfbeelding = false;
     }
 
     public void Dispose()

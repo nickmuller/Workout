@@ -1,4 +1,6 @@
-﻿namespace Workout.Models;
+﻿using Workout.Types;
+
+namespace Workout.Models;
 
 public readonly record struct OefeningModel
 (
@@ -8,5 +10,6 @@ public readonly record struct OefeningModel
     TimeSpan DuurPauze,
     string[] Tips,
     string AfbeeldingUrl,
-    string VideoUrl
+    string VideoUrl,
+    InitieelTonen InitieelTonen
 );

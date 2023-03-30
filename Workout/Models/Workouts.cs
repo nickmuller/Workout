@@ -26,7 +26,8 @@ public static class Workouts
             TimeSpan.FromMinutes(1),
             new[] {"Schouderbladen tegen elkaar", "Nek recht houden"},
             "images/arnold-press.gif",
-            "https://www.youtube.com/embed/6Z15_WdXmVw"
+            "https://www.youtube.com/embed/6Z15_WdXmVw",
+            InitieelTonen.Afbeelding
         )
     };
 
@@ -41,7 +42,8 @@ public static class Workouts
             TimeSpan.FromMinutes(1),
             new[] {"Tip 1", "Tip 2"},
             "afbeeldingurl",
-            "videourl"
+            "videourl",
+            InitieelTonen.Afbeelding
         )
     };
 
@@ -56,7 +58,8 @@ public static class Workouts
             TimeSpan.FromMinutes(1),
             new[] {"Tip 1", "Tip 2"},
             "afbeeldingurl",
-            "videourl"
+            "videourl",
+            InitieelTonen.Afbeelding
         )
     };
 
@@ -68,6 +71,7 @@ public static class Workouts
         TimeSpan.FromMinutes(1),
         Array.Empty<string>(),
         "images/jumping-jack.gif",
-        "https://www.youtube.com/embed/HY7Zuo0bybw"
+        "https://www.youtube.com/embed/HY7Zuo0bybw",
+        InitieelTonen.Video
     );
 }
