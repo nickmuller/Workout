@@ -4,117 +4,140 @@
 @inject GoogleDriveService GoogleDriveService
 @inject ILogger<WorkoutPlayer> Logger
 
-<p>
-    &gt;&gt; Modus: @modus.ToString() &lt;&lt;
-</p>
-<br />
-
-@if (isKlaar)
-{
-    <p>HATSEFLATS! HELEMAAL KLAAR!</p>
-}
-
-@if (modus == Modus.Handmatig)
-{
-    @if (resterendeTijdSet == duurSet && resterendeTijdPauze == model.DuurPauze)
-    {
-        <button class="btn btn-fw btn-green" @onclick="Start">Start</button>
-    }
-    else
-    {
-        <button class="btn btn-fw btn-green" @onclick="Start">Hervat</button>
-    }
-}
-else
-{
-    <button class="btn btn-fw btn-red" @onclick="Stop">Stop</button>
-}
-
 <div class="oefening">
-    <p>
-        Oefening: @nummer / @oefeningen.Length
-    </p>
-    @if (volgende == default)
-    {
-        <p>Laatste oefening!</p>
-    }
+    <Stack>
+        <p class="oefening-titel">
+            @model.Naam
+        </p>
+        <p class="oefening-nummer">
+            @nummer / @oefeningen.Length
+        </p>
+    </Stack>
 
-    <h1>@model.Naam</h1>
-    
-    @if (isPauze)
-    {
-        <img src="images/pauze.jpg" alt="Pauze" />
-    }
-    else
-    {
-        if (model.InitieelTonen == InitieelTonen.Afbeelding)
+    <ul class="oefening-tips">
+        @foreach (var tip in model.Tips)
         {
-            <img src="@model.AfbeeldingUrl" alt="@model.Naam" />
-            @if (toonVideo)
-            {
-                <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
-            }
-            else
-            {
-                <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
-            }
+            <li>@tip</li>
         }
-        if (model.InitieelTonen == InitieelTonen.Video)
-        {
-            <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-            @if (toonAfbeelding)
-            {
-                <img src="@model.AfbeeldingUrl" alt="@model.Naam" />
-                <button class="btn btn-fw" @onclick="VerbergAfbeelding">Verberg afbeelding</button>
-            }
-            else
-            {
-                <button class="btn btn-fw" @onclick="ToonAfbeelding">Toon afbeelding</button>
-            }
-        }
-    }
+    </ul>
 
-    <div>
-        @if (isPauze)
-        {
-            <p>PAUZE</p>
-            <span>Tijd: @resterendeTijdPauze (@PercentageTijdPauze%)</span>
-            <div class="progress">
-                <div class="progress-bar" style="width: @PercentageTijdPauze%"></div>
+    @if (model.AantalSets > 1)
+    {
+        <div class="oefening-set">
+            <Stack>
+                <p class="set-titel">
+                    Set
+                </p>
+                <p class="set-nummer">
+                    @actueleSet / @model.AantalSets
+                </p>
+            </Stack>
+
+            <div class="set-blokken">
+                @for (var i = 1; i <= model.AantalSets; i++)
+                {
+                    <div class="set @(actueleSet > i || isKlaar ? "green" : actueleSet == i ? "blue" : string.Empty)"></div>
+                }
             </div>
+        </div>
+    }
+
+    <div class="oefening-afbeelding">
+        @if (isKlaar)
+        {
+            <img src="images/yeah.gif" alt="Yeah" />
+        }
+        else if (isPauze)
+        {
+            <img src="images/pauze.jpg" alt="Pauze"/>
         }
         else
         {
-            <span>Tijd: @resterendeTijdSet (@PercentageTijdSet%)</span>
-            <div class="progress">
-                <div class="progress-bar" style="width: @PercentageTijdSet%"></div>
-            </div>
+            if (model.InitieelTonen == InitieelTonen.Afbeelding)
+            {
+                <img src="@model.AfbeeldingUrl" alt="@model.Naam"/>
+                @if (toonVideo)
+                {
+                    <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
+                }
+                else
+                {
+                    @if (modus == Modus.Handmatig)
+                    {
+                        <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
+                    }
+                }
+            }
+            if (model.InitieelTonen == InitieelTonen.Video)
+            {
+                <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                @if (toonAfbeelding)
+                {
+                    <img src="@model.AfbeeldingUrl" alt="@model.Naam"/>
+                    <button class="btn btn-fw" @onclick="VerbergAfbeelding">Verberg afbeelding</button>
+                }
+                else
+                {
+                    @if (modus == Modus.Handmatig)
+                    {
+                        <button class="btn btn-fw" @onclick="ToonAfbeelding">Toon afbeelding</button>
+                    }
+                }
+            }
         }
     </div>
-    <p>
-        Set: @actueleSet / @model.AantalSets
-    </p>
-    <p>
-        Herhaling: @actueleHerhaling / @model.AantalHerhalingen
-    </p>
-    <ul>
-        @foreach (var tip in model.Tips)
-        {
-            <li>Tip: @tip</li>
-        }
-    </ul>
+    
+    <Stack>
+        <div class="oefening-tijd">
+            @if (isPauze)
+            {
+                <span class="resterende-tijd">@resterendeTijdPauze.ToString(@"m\:ss")</span>
+            }
+            else
+            {
+                <span class="resterende-tijd">@resterendeTijdSet.ToString(@"m\:ss")</span>
+            }
+        </div>
+        <p>
+            @if (model.AantalHerhalingen > 1)
+            {
+                <span>@actueleHerhaling / @model.AantalHerhalingen</span>
+            }
+        </p>
+    </Stack>
 </div>
 
-<button class="btn btn-fw" @onclick="StartPauze" disabled="@(isPauze)">Start pauze</button>
-<button class="btn btn-fw" @onclick="HerstartSet" disabled="@(resterendeTijdSet == duurSet && !isPauze)">Herstart set</button>
-@if (vorige != default || actueleSet > 1)
+<div class="start-stop">
+    @if (modus == Modus.Handmatig)
+    {
+        @if (resterendeTijdSet == duurSet && resterendeTijdPauze == model.DuurPauze)
+        {
+            <button class="btn btn-fw btn-green" @onclick="Start">Start</button>
+        }
+        else
+        {
+            <button class="btn btn-fw btn-green" @onclick="Start" disabled="@isKlaar">Hervat</button>
+        }
+    }
+    else
+    {
+        <button class="btn btn-fw btn-red" @onclick="Stop">Stop</button>
+    }
+</div>
+
+@if (modus == Modus.Handmatig)
 {
-    <button class="btn btn-fw" @onclick="VorigeSet">Vorige set (@(actueleSet == 1 ? vorige.Naam : actueleSet - 1))</button>
-}
-@if (volgende != default || actueleSet < model.AantalSets)
-{
-    <button class="btn btn-fw" @onclick="VolgendeSet">Volgende set (@(actueleSet == model.AantalSets ? volgende.Naam : actueleSet + 1))</button>
+    <button class="btn btn-fw" @onclick="StartPauze" disabled="@(isPauze || isKlaar)">Start pauze</button>
+    <button class="btn btn-fw" @onclick="HerstartSet" disabled="@(resterendeTijdSet == duurSet && !isPauze)">Herstart set</button>
+    @if (vorige != default || actueleSet > 1)
+    {
+        <button class="btn btn-fw" @onclick="VorigeSet">Vorige set (@(actueleSet == 1 ? vorige.Naam : actueleSet - 1))</button>
+    }
+    @if (volgende != default || actueleSet < model.AantalSets)
+    {
+        <button class="btn btn-fw" @onclick="VolgendeSet">Volgende set (@(actueleSet == model.AantalSets ? volgende.Naam : actueleSet + 1))</button>
+    }
 }
 
 @code
@@ -136,7 +159,6 @@ else
     private TimeSpan resterendeTijdSet;
     private TimeSpan resterendeTijdPauze;
     private int PercentageTijdSet => duurSet.TotalSeconds == 0 ? 0 : Convert.ToInt32((duurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / duurSet.TotalSeconds * 100);
-    private int PercentageTijdPauze => model.DuurPauze.TotalSeconds == 0 ? 0 : Convert.ToInt32((model.DuurPauze.TotalSeconds - resterendeTijdPauze.TotalSeconds) / model.DuurPauze.TotalSeconds * 100);
     private bool isPauze;
     private bool isKlaar;
     private bool toonVideo;
@@ -151,6 +173,7 @@ else
         actueleSet = querystring.ContainsKey("set") ? int.Parse(querystring.GetValueOrDefault("set").First()!) : 1;
 
         oefeningen = Workouts.Oefeningen(Categorie);
+        
         model = oefeningen[nummer - 1];
         vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
         volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
@@ -223,6 +246,7 @@ else
         resterendeTijdSet = duurSet;
         resterendeTijdPauze = model.DuurPauze;
         isPauze = false;
+        isKlaar = false;
     }
 
     private async Task VorigeSet()
@@ -234,6 +258,7 @@ else
             resterendeTijdSet = duurSet;
             resterendeTijdPauze = model.DuurPauze;
             isPauze = false;
+            isKlaar = false;
             await VoortgangPersisteren();
         }
         else if (vorige == default)
@@ -252,6 +277,7 @@ else
             resterendeTijdSet = duurSet;
             resterendeTijdPauze = model.DuurPauze;
             isPauze = false;
+            isKlaar = false;
             await VoortgangPersisteren();
         }
     }

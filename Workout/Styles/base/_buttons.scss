@@ -91,8 +91,8 @@ fieldset:disabled a.btn {
 
 .btn-green {
     color: #fff;
-    background-color: #198754;
-    border-color: #198754;
+    background-color: $green;
+    border-color: $green;
 
     &:hover {
         color: #fff;
@@ -103,8 +103,8 @@ fieldset:disabled a.btn {
     &.disabled,
     &:disabled {
         color: #fff;
-        background-color: #198754;
-        border-color: #198754;
+        background-color: $green;
+        border-color: $green;
     }
 
     &:not(:disabled):not(.disabled):active,
@@ -117,8 +117,8 @@ fieldset:disabled a.btn {
 
 .btn-red {
     color: #fff;
-    background-color: #e74c3c;
-    border-color: #e74c3c;
+    background-color: $red;
+    border-color: $red;
 
     &:hover {
         color: #fff;
@@ -129,8 +129,8 @@ fieldset:disabled a.btn {
     &.disabled,
     &:disabled {
         color: #fff;
-        background-color: #e74c3c;
-        border-color: #e74c3c;
+        background-color: $red;
+        border-color: $red;
     }
 
     &:not(:disabled):not(.disabled):active,

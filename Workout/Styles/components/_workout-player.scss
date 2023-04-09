@@ -1,6 +1,73 @@
 ﻿.oefening {
+    &-titel,
+    &-nummer {
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+
+    &-nummer {
+        color: $text-muted;
+    }
+
+    &-set {
+        margin: 0.5rem 0;
+
+        .set-titel,
+        .set-nummer {
+            color: $text-muted;
+        }
+
+        .set-blokken {
+            display: grid;
+            grid-gap: 0.3rem;
+            margin-top: 0.25rem;
+
+            .set {
+                background: #303030;
+                border-radius: 0.15rem;
+                height: 0.5rem;
+                grid-row: 1;
+
+                &.green {
+                    background: $green;
+                }
+
+                &.blue {
+                    background: $blue;
+                }
+            }
+        }
+    }
+
+    &-afbeelding {
+        margin-top: 0.25rem;
+    }
+
+    &-tijd {
+        padding-left: 35%;
+        margin-top: 0.25rem;
+
+        .resterende-tijd {
+            font-family: "Rajdhani", sans-serif;
+            font-weight: 600;
+            font-size: 3rem;
+            line-height: 1;
+        }
+    }
+
+    &-tips {
+        list-style: inside;
+        margin-top: 0.25rem;
+    }
+
     img,
     embed {
         max-width: 255px;
     }
+}
+
+.start-stop {
+    margin: 1rem 0;
 }
