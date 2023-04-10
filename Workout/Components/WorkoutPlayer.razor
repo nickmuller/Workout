@@ -21,27 +21,6 @@
         }
     </ul>
 
-    @if (model.AantalSets > 1)
-    {
-        <div class="oefening-set">
-            <Stack>
-                <p class="set-titel">
-                    Set
-                </p>
-                <p class="set-nummer">
-                    @actueleSet / @model.AantalSets
-                </p>
-            </Stack>
-
-            <div class="set-blokken">
-                @for (var i = 1; i <= model.AantalSets; i++)
-                {
-                    <div class="set @(actueleSet > i || isKlaar ? "green" : actueleSet == i ? "blue" : string.Empty)"></div>
-                }
-            </div>
-        </div>
-    }
-
     <div class="oefening-afbeelding">
         @if (isKlaar)
         {
@@ -89,6 +68,12 @@
     </div>
     
     <Stack>
+        <p class="oefening-herhalingen">
+            @if (model.AantalHerhalingen > 1)
+            {
+                <span>@actueleHerhaling / @model.AantalHerhalingen</span>
+            }
+        </p>
         <div class="oefening-tijd">
             @if (isPauze)
             {
@@ -99,10 +84,10 @@
                 <span class="resterende-tijd">@resterendeTijdSet.ToString(@"m\:ss")</span>
             }
         </div>
-        <p>
-            @if (model.AantalHerhalingen > 1)
+        <p class="oefening-sets">
+            @if (model.AantalSets > 1)
             {
-                <span>@actueleHerhaling / @model.AantalHerhalingen</span>
+                <span>@actueleSet / @model.AantalSets</span>
             }
         </p>
     </Stack>

@@ -11,42 +11,23 @@
         color: $text-muted;
     }
 
-    &-set {
-        margin: 0.5rem 0;
-
-        .set-titel,
-        .set-nummer {
-            color: $text-muted;
-        }
-
-        .set-blokken {
-            display: grid;
-            grid-gap: 0.3rem;
-            margin-top: 0.25rem;
-
-            .set {
-                background: #303030;
-                border-radius: 0.15rem;
-                height: 0.5rem;
-                grid-row: 1;
-
-                &.green {
-                    background: $green;
-                }
-
-                &.blue {
-                    background: $blue;
-                }
-            }
-        }
+    &-afbeelding {
+        margin-top: 0.5rem;
     }
 
-    &-afbeelding {
-        margin-top: 0.25rem;
+    &-herhalingen,
+    &-sets {
+        width: 50px;
+    }
+
+    &-sets {
+        text-align: right;
     }
 
     &-tijd {
-        padding-left: 35%;
+        // fix verschuiven van tijd bij aftellen door fixed width met margin left
+        width: 110px;
+        margin-left: 30px;
         margin-top: 0.25rem;
 
         .resterende-tijd {
