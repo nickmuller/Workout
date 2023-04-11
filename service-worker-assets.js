@@ -341,7 +341,7 @@
       "url": "_framework\/Workout.dll"
     },
     {
-      "hash": "sha256-txk5ws8Cj3xUFMTYtF5p1VtNqsibSSnbhdpae4AoiSQ=",
+      "hash": "sha256-NMMHw2MuPA\/W+9fBudbtBD+wz75IdEXImNl06q4O9KI=",
       "url": "appsettings.json"
     },
     {
@@ -349,5 +349,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "ALZOUKa\/"
+  "version": "W3LiBafF"
 };
