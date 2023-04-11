@@ -28,7 +28,7 @@ jobs:
     - name: Build CSS with Dart Sass
       run: |
         npx --package sass@latest sass --version
-        npx --package sass@latest sass Styles/main.scss:wwwroot/css/main.css --style expanded --source-map
+        npx --package sass@latest sass Workout/Styles/main.scss:Workout/wwwroot/css/main.css --style expanded --source-map
         ls -Al dist-sass/css
 
     # changes the base-tag in index.html from '/' to 'Workout' to match GitHub Pages repository subdirectory
