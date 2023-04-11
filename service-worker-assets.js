@@ -1,6 +1,14 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
+      "hash": "sha256-mAUJnJkakr8utbKXkRTlvciI1cnDjUVXs9fOKK4baVA=",
+      "url": "css\/main.css"
+    },
+    {
+      "hash": "sha256-l5lEbDlUhY7XGJCHYaSDOcaj\/hJ67h9eD8u6bf5czRg=",
+      "url": "css\/main.css.map"
+    },
+    {
       "hash": "sha256-4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=",
       "url": "favicon.png"
     },
@@ -341,5 +349,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "p0ifrrfj"
+  "version": "8ethfbAt"
 };
