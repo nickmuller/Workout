@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+env:
+  NODE: 16
+  
 jobs:
   deploy:
 
@@ -17,6 +20,16 @@ jobs:
         dotnet-version: 7.0.x
     - name: dotnet publish
       run: dotnet publish Workout/Workout.csproj -c Release -o release
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: "${{ env.NODE }}"
+    - name: Build CSS with Dart Sass
+      run: |
+        npx --package sass@latest sass --version
+        npx --package sass@latest sass Styles/main.scss:wwwroot/css/main.css --style expanded --source-map
+        ls -Al dist-sass/css
 
     # changes the base-tag in index.html from '/' to 'Workout' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to Workout
