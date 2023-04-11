@@ -96,7 +96,7 @@
 <div class="start-stop">
     @if (modus == Modus.Handmatig)
     {
-        @if (resterendeTijdSet == duurSet && resterendeTijdPauze == model.DuurPauze)
+        @if (resterendeTijdSet == model.DuurSet && resterendeTijdPauze == model.DuurPauze)
         {
             <button class="btn btn-fw btn-green" @onclick="Start">Start</button>
         }
@@ -114,7 +114,7 @@
 @if (modus == Modus.Handmatig)
 {
     <button class="btn btn-fw" @onclick="StartPauze" disabled="@(isPauze || isKlaar)">Start pauze</button>
-    <button class="btn btn-fw" @onclick="HerstartSet" disabled="@(resterendeTijdSet == duurSet && !isPauze)">Herstart set</button>
+    <button class="btn btn-fw" @onclick="HerstartSet" disabled="@(resterendeTijdSet == model.DuurSet && !isPauze)">Herstart set</button>
     @if (vorige != default || actueleSet > 1)
     {
         <button class="btn btn-fw" @onclick="VorigeSet">Vorige set (@(actueleSet == 1 ? vorige.Naam : actueleSet - 1))</button>
@@ -135,15 +135,13 @@
     private OefeningModel vorige;
     private OefeningModel volgende;
 
-    private TimeSpan duurSet = TimeSpan.FromMinutes(1);
-
     private Modus modus = Modus.Handmatig;
     private int nummer;
     private int actueleSet;
     private int actueleHerhaling = 0;
     private TimeSpan resterendeTijdSet;
     private TimeSpan resterendeTijdPauze;
-    private int PercentageTijdSet => duurSet.TotalSeconds == 0 ? 0 : Convert.ToInt32((duurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / duurSet.TotalSeconds * 100);
+    private int PercentageTijdSet => model.DuurSet.TotalSeconds == 0 ? 0 : Convert.ToInt32((model.DuurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / model.DuurSet.TotalSeconds * 100);
     private bool isPauze;
     private bool isKlaar;
     private bool toonVideo;
@@ -162,7 +160,7 @@
         model = oefeningen[nummer - 1];
         vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
         volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
-        resterendeTijdSet = duurSet;
+        resterendeTijdSet = model.DuurSet;
         resterendeTijdPauze = model.DuurPauze;
     }
     
@@ -228,7 +226,7 @@
     private void HerstartSet()
     {
         actueleHerhaling = 0;
-        resterendeTijdSet = duurSet;
+        resterendeTijdSet = model.DuurSet;
         resterendeTijdPauze = model.DuurPauze;
         isPauze = false;
         isKlaar = false;
@@ -240,7 +238,7 @@
         {
             actueleSet--;
             actueleHerhaling = 0;
-            resterendeTijdSet = duurSet;
+            resterendeTijdSet = model.DuurSet;
             resterendeTijdPauze = model.DuurPauze;
             isPauze = false;
             isKlaar = false;
@@ -259,7 +257,7 @@
             volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
             actueleSet = 1;
             actueleHerhaling = 0;
-            resterendeTijdSet = duurSet;
+            resterendeTijdSet = model.DuurSet;
             resterendeTijdPauze = model.DuurPauze;
             isPauze = false;
             isKlaar = false;
@@ -273,7 +271,7 @@
         {
             actueleSet++;
             actueleHerhaling = 0;
-            resterendeTijdSet = duurSet;
+            resterendeTijdSet = model.DuurSet;
             resterendeTijdPauze = model.DuurPauze;
             isPauze = false;
             await VoortgangPersisteren();
@@ -293,7 +291,7 @@
             volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
             actueleSet = 1;
             actueleHerhaling = 0;
-            resterendeTijdSet = duurSet;
+            resterendeTijdSet = model.DuurSet;
             resterendeTijdPauze = model.DuurPauze;
             isPauze = false;
             await VoortgangPersisteren();
