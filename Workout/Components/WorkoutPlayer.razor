@@ -4,124 +4,127 @@
 @inject GoogleDriveService GoogleDriveService
 @inject ILogger<WorkoutPlayer> Logger
 
-<div class="oefening">
-    <Stack>
-        <p class="oefening-titel">
-            @model.Naam
-        </p>
-        <p class="oefening-nummer">
-            @nummer / @oefeningen.Length
-        </p>
-    </Stack>
+@if (player != null)
+{
+    <div class="oefening">
+        <Stack>
+            <p class="oefening-titel">
+                @player.Oefening.Naam
+            </p>
+            <p class="oefening-nummer">
+                @player.Oefeningnummer / @player.AantalOefeningen
+            </p>
+        </Stack>
 
-    <ul class="oefening-tips">
-        @foreach (var tip in model.Tips)
-        {
-            <li>@tip</li>
-        }
-    </ul>
+        <ul class="oefening-tips">
+            @foreach (var tip in player.Oefening.Tips)
+            {
+                <li>@tip</li>
+            }
+        </ul>
 
-    <div class="oefening-afbeelding">
-        @if (isKlaar)
-        {
-            <img src="images/yeah.gif" alt="Yeah" />
-        }
-        else if (isPauze)
-        {
-            <img src="images/pauze.jpg" alt="Pauze"/>
-        }
-        else
-        {
-            if (model.InitieelTonen == InitieelTonen.Afbeelding)
+        <div class="oefening-afbeelding">
+            @if (player.IsKlaar)
             {
-                <img src="@model.AfbeeldingUrl" alt="@model.Naam"/>
-                @if (toonVideo)
-                {
-                    <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                    <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
-                }
-                else
-                {
-                    @if (modus == Modus.Handmatig)
-                    {
-                        <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
-                    }
-                }
+                <img src="images/yeah.gif" alt="Yeah" />
             }
-            if (model.InitieelTonen == InitieelTonen.Video)
+            else if (player.IsPauze)
             {
-                <embed src="@model.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                @if (toonAfbeelding)
-                {
-                    <img src="@model.AfbeeldingUrl" alt="@model.Naam"/>
-                    <button class="btn btn-fw" @onclick="VerbergAfbeelding">Verberg afbeelding</button>
-                }
-                else
-                {
-                    @if (modus == Modus.Handmatig)
-                    {
-                        <button class="btn btn-fw" @onclick="ToonAfbeelding">Toon afbeelding</button>
-                    }
-                }
-            }
-        }
-    </div>
-    
-    <Stack>
-        <p class="oefening-herhalingen">
-            @if (model.AantalHerhalingen > 1)
-            {
-                <span>@actueleHerhaling / @model.AantalHerhalingen</span>
-            }
-        </p>
-        <div class="oefening-tijd">
-            @if (isPauze)
-            {
-                <span class="resterende-tijd">@resterendeTijdPauze.ToString(@"m\:ss")</span>
+                <img src="images/pauze.jpg" alt="Pauze"/>
             }
             else
             {
-                <span class="resterende-tijd">@resterendeTijdSet.ToString(@"m\:ss")</span>
+                if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
+                {
+                    <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam" />
+                    @if (toonVideo)
+                    {
+                        <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                        <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
+                    }
+                    else
+                    {
+                        @if (player.Modus == Modus.Handmatig)
+                        {
+                            <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
+                        }
+                    }
+                }
+                if (player.Oefening.InitieelTonen == InitieelTonen.Video)
+                {
+                    <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    @if (toonAfbeelding)
+                    {
+                        <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam" />
+                        <button class="btn btn-fw" @onclick="VerbergAfbeelding">Verberg afbeelding</button>
+                    }
+                    else
+                    {
+                        @if (player.Modus == Modus.Handmatig)
+                        {
+                            <button class="btn btn-fw" @onclick="ToonAfbeelding">Toon afbeelding</button>
+                        }
+                    }
+                }
             }
         </div>
-        <p class="oefening-sets">
-            @if (model.AantalSets > 1)
-            {
-                <span>@actueleSet / @model.AantalSets</span>
-            }
-        </p>
-    </Stack>
-</div>
+        
+        <Stack>
+            <p class="oefening-herhalingen">
+                @if (player.Oefening.AantalHerhalingen > 1)
+                {
+                    <span>@player.Herhaling / @player.Oefening.AantalHerhalingen</span>
+                }
+            </p>
+            <div class="oefening-tijd">
+                @if (player.IsPauze)
+                {
+                    <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
+                }
+                else
+                {
+                    <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
+                }
+            </div>
+            <p class="oefening-sets">
+                @if (player.Oefening.AantalSets > 1)
+                {
+                    <span>@player.Set / @player.Oefening.AantalSets</span>
+                }
+            </p>
+        </Stack>
+    </div>
 
-<div class="start-stop">
-    @if (modus == Modus.Handmatig)
-    {
-        @if (resterendeTijdSet == model.DuurSet && resterendeTijdPauze == model.DuurPauze)
+    <div class="start-stop">
+        @if (player.Modus == Modus.Handmatig)
         {
-            <button class="btn btn-fw btn-green" @onclick="Start">Start</button>
+            @if (player.ResterendeTijdSet == player.Oefening.DuurSet && player.ResterendeTijdPauze == player.Oefening.DuurPauze)
+            {
+                <button class="btn btn-fw btn-green" @onclick="() => player.Start()">Start</button>
+            }
+            else
+            {
+                <button class="btn btn-fw btn-green" @onclick="() => player.Start()" disabled="@player.IsKlaar">Hervat</button>
+            }
         }
         else
         {
-            <button class="btn btn-fw btn-green" @onclick="Start" disabled="@isKlaar">Hervat</button>
+            <button class="btn btn-fw btn-red" @onclick="() => player.Stop()">Stop</button>
         }
-    }
-    else
-    {
-        <button class="btn btn-fw btn-red" @onclick="Stop">Stop</button>
-    }
-</div>
+    </div>
 
-@if (modus == Modus.Handmatig)
-{
-    <button class="btn btn-fw" @onclick="StartPauze" disabled="@(isPauze || isKlaar)">Start pauze</button>
-    <button class="btn btn-fw" @onclick="HerstartSet" disabled="@(resterendeTijdSet == model.DuurSet && !isPauze)">Herstart set</button>
-    @if (vorige != default || actueleSet > 1)
+    @if (player.Modus == Modus.Handmatig)
     {
-        <button class="btn btn-fw" @onclick="VorigeSet">Vorige set (@(actueleSet == 1 ? vorige.Naam : actueleSet - 1))</button>
-    }
-    @if (volgende != default || actueleSet < model.AantalSets)
-    {
-        <button class="btn btn-fw" @onclick="VolgendeSet">Volgende set (@(actueleSet == model.AantalSets ? volgende.Naam : actueleSet + 1))</button>
+        <button class="btn btn-fw" @onclick="() => player.StartPauze()" disabled="@(player.IsPauze || player.IsKlaar)">Start pauze</button>
+        <button class="btn btn-fw" @onclick="() => player.HerstartSet()" disabled="@(player.ResterendeTijdSet == player.Oefening.DuurSet && !player.IsPauze)">Herstart set</button>
+        @if (player.Vorige != default || player.Set > 1)
+        {
+            <button class="btn btn-fw" @onclick="() => player.VorigeSet()">Vorige set (@(player.Set == 1 ? player.Vorige.Naam : player.Set - 1))</button>
+        }
+        @if (player.Volgende != default || player.Set < player.Oefening.AantalSets)
+        {
+            <button class="btn btn-fw" @onclick="() => player.VolgendeSet()">Volgende set (@(player.Set == player.Oefening.AantalSets ? player.Volgende.Naam : player.Set + 1))</button>
+        }
     }
 }
 
@@ -130,185 +133,49 @@
     [CascadingParameter] private Task<AuthenticationState>? AuthenticationState { get; set; }
     [Parameter, EditorRequired] public CategorieType Categorie { get; set; }
 
-    private OefeningModel[] oefeningen = Array.Empty<OefeningModel>();
-    private OefeningModel model;
-    private OefeningModel vorige;
-    private OefeningModel volgende;
-
-    private Modus modus = Modus.Handmatig;
-    private int nummer;
-    private int actueleSet;
-    private int actueleHerhaling = 0;
-    private TimeSpan resterendeTijdSet;
-    private TimeSpan resterendeTijdPauze;
-    private int PercentageTijdSet => model.DuurSet.TotalSeconds == 0 ? 0 : Convert.ToInt32((model.DuurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / model.DuurSet.TotalSeconds * 100);
-    private bool isPauze;
-    private bool isKlaar;
+    private Player? player;
     private bool toonVideo;
     private bool toonAfbeelding;
-    private Timer? timer;
 
     protected override void OnInitialized()
     {
         var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
         var querystring = QueryHelpers.ParseQuery(uri.Query);
-        nummer = querystring.ContainsKey("oefening") ? int.Parse(querystring.GetValueOrDefault("oefening").First()!) : 1;
-        actueleSet = querystring.ContainsKey("set") ? int.Parse(querystring.GetValueOrDefault("set").First()!) : 1;
-
-        oefeningen = Workouts.Oefeningen(Categorie);
+        var oefeningnummer = querystring.ContainsKey("oefening") ? int.Parse(querystring.GetValueOrDefault("oefening").First()!) : 1;
+        var set = querystring.ContainsKey("set") ? int.Parse(querystring.GetValueOrDefault("set").First()!) : 1;
         
-        model = oefeningen[nummer - 1];
-        vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
-        volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
-        resterendeTijdSet = model.DuurSet;
-        resterendeTijdPauze = model.DuurPauze;
-    }
-    
-    private async Task Start()
-    {
-        modus = Modus.Automatisch;
-        timer = new Timer(_ =>
-        {
-            InvokeAsync(async () =>
-            {
-                try
-                {
-                    await OnTick();
-                }
-                catch (Exception e)
-                {
-                    Logger.LogError(e, $"Exception in {nameof(OnTick)}");
-                    throw;
-                }
-            });
-        }, null, 0, 1000);
-        await VoortgangPersisteren();
+        player = new Player(Categorie, oefeningnummer, set);
+        player.OnTick += PlayerTick;
+        player.OnSetChange += PlayerSetChanged;
     }
 
-    private async Task OnTick()
+    private void PlayerTick()
     {
-        if (isPauze)
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void PlayerSetChanged()
+    {
+        InvokeAsync(async () =>
         {
-            // Laatste set voltooid, pauze is daarna niet nodig
-            if (volgende == default && actueleSet == model.AantalSets)
+            try
             {
-                isPauze = false;
-                await VolgendeSet();
+                await VoortgangPersisteren();
             }
-            else
+            catch (Exception e)
             {
-                resterendeTijdPauze = resterendeTijdPauze.Subtract(TimeSpan.FromSeconds(1));
-                if (resterendeTijdPauze <= TimeSpan.Zero)
-                {
-                    isPauze = false;
-                    await VolgendeSet();
-                }
+                Logger.LogError(e, $"Exception in {nameof(PlayerSetChanged)}");
+                throw;
             }
-        }
-        else
-        {
-            resterendeTijdSet = resterendeTijdSet.Subtract(TimeSpan.FromSeconds(1));
-            actueleHerhaling = Convert.ToInt32(model.AantalHerhalingen / 100.0 * PercentageTijdSet);
-            if (resterendeTijdSet <= TimeSpan.Zero)
-            {
-                isPauze = true;
-            }
-        }
-        StateHasChanged();
-    }
-
-    private void Stop()
-    {
-        modus = Modus.Handmatig;
-        timer?.Change(Timeout.Infinite, Timeout.Infinite); // stop timer
-    }
-
-    private void HerstartSet()
-    {
-        actueleHerhaling = 0;
-        resterendeTijdSet = model.DuurSet;
-        resterendeTijdPauze = model.DuurPauze;
-        isPauze = false;
-        isKlaar = false;
-    }
-
-    private async Task VorigeSet()
-    {
-        if (actueleSet > 1)
-        {
-            actueleSet--;
-            actueleHerhaling = 0;
-            resterendeTijdSet = model.DuurSet;
-            resterendeTijdPauze = model.DuurPauze;
-            isPauze = false;
-            isKlaar = false;
-            await VoortgangPersisteren();
-        }
-        else if (vorige == default)
-        {
-            // Dit is de eerste oefening, doe niks
-        }
-        else
-        {
-            // Vorige oefening
-            nummer--;
-            model = oefeningen[nummer - 1];
-            vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
-            volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
-            actueleSet = 1;
-            actueleHerhaling = 0;
-            resterendeTijdSet = model.DuurSet;
-            resterendeTijdPauze = model.DuurPauze;
-            isPauze = false;
-            isKlaar = false;
-            await VoortgangPersisteren();
-        }
-    }
-
-    private async Task VolgendeSet()
-    {
-        if (actueleSet < model.AantalSets)
-        {
-            actueleSet++;
-            actueleHerhaling = 0;
-            resterendeTijdSet = model.DuurSet;
-            resterendeTijdPauze = model.DuurPauze;
-            isPauze = false;
-            await VoortgangPersisteren();
-        }
-        else if (volgende == default)
-        {
-            // Dit was de laatste oefening, stoppen
-            Stop();
-            isKlaar = true;
-        }
-        else
-        {
-            // Volgende oefening
-            nummer++;
-            model = oefeningen[nummer - 1];
-            vorige = nummer > 1 ? oefeningen.Skip(nummer - 2).Take(1).Single() : default;
-            volgende = oefeningen.Skip(nummer).Take(1).SingleOrDefault();
-            actueleSet = 1;
-            actueleHerhaling = 0;
-            resterendeTijdSet = model.DuurSet;
-            resterendeTijdPauze = model.DuurPauze;
-            isPauze = false;
-            await VoortgangPersisteren();
-        }
-    }
-
-    private void StartPauze()
-    {
-        isPauze = true;
+        });
     }
 
     private async Task VoortgangPersisteren()
     {
         var url = Navigation.GetUriWithQueryParameters(new Dictionary<string, object?>
         {
-            {"oefening", nummer},
-            {"set", actueleSet}
+            {"oefening", player!.Oefeningnummer},
+            {"set", player!.Set}
         });
 
         // update querystring
@@ -361,7 +228,12 @@
 
     public void Dispose()
     {
-        timer?.Dispose();
         AuthenticationState?.Dispose();
+        if (player != null)
+        {
+            player.OnTick -= PlayerTick;
+            player.OnSetChange -= PlayerSetChanged;
+            player.Dispose();
+        }
     }
 }
