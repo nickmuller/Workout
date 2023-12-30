@@ -199,6 +199,7 @@ public static class Workouts
         Naam = "Warmup",
         AantalSets = 1,
         AantalHerhalingen = 1,
+        DuurSet = TimeSpan.Zero,
         AfbeeldingUrl = "images/jumping-jack.gif",
         VideoUrl = "https://www.youtube.com/embed/HY7Zuo0bybw?start=52",
         InitieelTonen = InitieelTonen.Video

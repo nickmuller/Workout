@@ -69,30 +69,33 @@
             }
         </div>
         
-        <Stack>
-            <p class="oefening-herhalingen">
-                @if (player.Oefening.AantalHerhalingen > 1)
-                {
-                    <span>@player.Oefening.AantalHerhalingen</span>
-                }
-            </p>
-            <div class="oefening-tijd">
-                @if (player.IsPauze)
-                {
-                    <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
-                }
-                else
-                {
-                    <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
-                }
-            </div>
-            <p class="oefening-sets">
-                @if (player.Oefening.AantalSets > 1)
-                {
-                    <span>@player.Set / @player.Oefening.AantalSets</span>
-                }
-            </p>
-        </Stack>
+        @if (player.Oefening.DuurSet > TimeSpan.Zero || player.IsPauze)
+        {
+            <Stack>
+                <p class="oefening-herhalingen">
+                    @if (player.Oefening.AantalHerhalingen > 1)
+                    {
+                        <span>@(player.Oefening.AantalHerhalingen)x</span>
+                    }
+                </p>
+                <div class="oefening-tijd">
+                    @if (player.IsPauze)
+                    {
+                        <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
+                    }
+                    else
+                    {
+                        <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
+                    }
+                </div>
+                <p class="oefening-sets">
+                    @if (player.Oefening.AantalSets > 1)
+                    {
+                        <span>set&nbsp;@player.Set/@player.Oefening.AantalSets</span>
+                    }
+                </p>
+            </Stack>
+        }
     </div>
 
     <div class="start-stop">
@@ -115,16 +118,10 @@
 
     @if (player.Modus == Modus.Handmatig)
     {
-        <button class="btn btn-fw" @onclick="() => player.StartPauze()" disabled="@(player.IsPauze || player.IsKlaar)">Start pauze</button>
-        <button class="btn btn-fw" @onclick="() => player.HerstartSet()" disabled="@(player.ResterendeTijdSet == player.Oefening.DuurSet && !player.IsPauze)">Herstart set</button>
-        @if (player.Vorige != default || player.Set > 1)
-        {
-            <button class="btn btn-fw" @onclick="() => player.VorigeSet()">Vorige set (@(player.Set == 1 ? player.Vorige.Naam : player.Set - 1))</button>
-        }
-        @if (player.Volgende != default || player.Set < player.Oefening.AantalSets)
-        {
-            <button class="btn btn-fw" @onclick="() => player.VolgendeSet()">Volgende set (@(player.Set == player.Oefening.AantalSets ? player.Volgende.Naam : player.Set + 1))</button>
-        }
+        <Stack>
+            <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.Set == 1 && !player.IsPauze)">&lt;</button>
+            <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets)">&gt;</button>
+        </Stack>
     }
 }
 

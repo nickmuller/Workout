@@ -109,7 +109,8 @@ public class Player : IDisposable
         }
         else if (Vorige == default)
         {
-            // Dit is de eerste oefening, doe niks
+            // Dit is de eerste oefening
+            HerstartSet();
         }
         else
         {
