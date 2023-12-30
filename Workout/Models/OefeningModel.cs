@@ -2,15 +2,16 @@
 
 namespace Workout.Models;
 
-public readonly record struct OefeningModel
-(
+public readonly record struct OefeningModel(
     string Naam,
     int AantalSets,
     int AantalHerhalingen,
-    TimeSpan DuurSet,
-    TimeSpan DuurPauze,
-    string[] Tips,
     string AfbeeldingUrl,
-    string VideoUrl,
-    InitieelTonen InitieelTonen
-);
+    string VideoUrl
+)
+{
+    public string[] Tips { get; init; } = Array.Empty<string>();
+    public TimeSpan DuurSet { get; init; } = TimeSpan.FromMinutes(1);
+    public TimeSpan DuurPauze { get; init; } = TimeSpan.FromMinutes(1);
+    public InitieelTonen InitieelTonen { get; init; } = InitieelTonen.Afbeelding;
+}

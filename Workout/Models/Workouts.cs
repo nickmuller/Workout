@@ -19,255 +19,188 @@ public static class Workouts
     {
         Warmup,
         new OefeningModel
-        (
-            "Arnold Press",
-            3,
-            12,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new[] {"Schouderbladen tegen elkaar", "Nek recht, niet buigen"},
-            "images/arnold-press.gif",
-            "https://www.youtube.com/embed/6Z15_WdXmVw?start=10",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Arnold Press",
+            AantalSets = 3,
+            AantalHerhalingen = 12,
+            Tips = new[] {"Schouderbladen tegen elkaar", "Nek recht, niet buigen"},
+            AfbeeldingUrl = "images/arnold-press.gif",
+            VideoUrl = "https://www.youtube.com/embed/6Z15_WdXmVw?start=10"
+        },
         new OefeningModel
-        (
-            "Side raises",
-            3,
-            12,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
-            "images/side-raises.gif",
-            "https://www.youtube.com/embed/3VcKaXpzqRo?start=37",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Side raises",
+            AantalSets = 3,
+            AantalHerhalingen = 12,
+            Tips = new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
+            AfbeeldingUrl = "images/side-raises.gif",
+            VideoUrl = "https://www.youtube.com/embed/3VcKaXpzqRo?start=37"
+        },
         new OefeningModel
-        (
-            "Shoulder presses",
-            3,
-            12,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
-            "images/shoulder-presses.gif",
-            "https://www.youtube.com/embed/B-aVuyhvLHU?start=19",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Shoulder presses",
+            AantalSets = 3,
+            AantalHerhalingen = 12,
+            Tips = new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
+            AfbeeldingUrl = "images/shoulder-presses.gif",
+            VideoUrl = "https://www.youtube.com/embed/B-aVuyhvLHU?start=19"
+        },
         new OefeningModel
-        (
-            "Alternate curls",
-            4,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
-            "images/alternate-curls.gif",
-            "https://www.youtube.com/embed/sAq_ocpRh_I?start=32",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Alternate curls",
+            AantalSets = 4,
+            AantalHerhalingen = 10,
+            Tips = new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
+            AfbeeldingUrl = "images/alternate-curls.gif",
+            VideoUrl = "https://www.youtube.com/embed/sAq_ocpRh_I?start=32"
+        },
         new OefeningModel
-        (
-            "Zottman curls",
-            4,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
-            "images/zottman-curl.gif",
-            "https://www.youtube.com/embed/ZrpRBgswtHs?start=60",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Zottman curls",
+            AantalSets = 4,
+            AantalHerhalingen = 10,
+            Tips = new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
+            AfbeeldingUrl = "images/zottman-curl.gif",
+            VideoUrl = "https://www.youtube.com/embed/ZrpRBgswtHs?start=60"
+        },
         new OefeningModel
-        (
-            "Triceps extensions",
-            3,
-            15,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
-            "images/triceps-extensions.gif",
-            "https://www.youtube.com/embed/-Vyt2QdsR7E?start=25",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Triceps extensions",
+            AantalSets = 3,
+            AantalHerhalingen = 15,
+            Tips = new[] {"Schouderbladen tegen elkaar", "Pols recht, niet buigen"},
+            AfbeeldingUrl = "images/triceps-extensions.gif",
+            VideoUrl = "https://www.youtube.com/embed/-Vyt2QdsR7E?start=25"
+        },
         new OefeningModel
-        (
-            "Diamond push-ups",
-            3,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/diamond-push-ups.gif",
-            "https://www.youtube.com/embed/J0DnG1_S92I?start=52",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Diamond push-ups",
+            AantalSets = 3,
+            AantalHerhalingen = 10,
+            AfbeeldingUrl = "images/diamond-push-ups.gif",
+            VideoUrl = "https://www.youtube.com/embed/J0DnG1_S92I?start=52"
+        },
     };
 
     private static OefeningModel[] Benen => new[]
     {
         Warmup,
         new OefeningModel
-        (
-            "Goblet squats",
-            3,
-            15,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/goblet-squats.gif",
-            "https://www.youtube.com/embed/MeIiIdhvXT4?start=60",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Goblet squats",
+            AantalSets = 3,
+            AantalHerhalingen = 15,
+            AfbeeldingUrl = "images/goblet-squats.gif",
+            VideoUrl = "https://www.youtube.com/embed/MeIiIdhvXT4?start=60"
+        },
         new OefeningModel
-        (
-            "Dumbbell lunges",
-            4,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new []{"5 herhalingen per been", "Knie bijna in 90 graden", "Andere knie net niet op de grond"},
-            "images/dumbbell-lunges.gif",
-            "https://www.youtube.com/embed/D7KaRcUTQeE?start=46",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Dumbbell lunges",
+            AantalSets = 4,
+            AantalHerhalingen = 10,
+            Tips = new []{"5 herhalingen per been", "Knie bijna in 90 graden", "Andere knie net niet op de grond"},
+            AfbeeldingUrl = "images/dumbbell-lunges.gif",
+            VideoUrl = "https://www.youtube.com/embed/D7KaRcUTQeE?start=46"
+        },
         new OefeningModel
-        (
-            "Dumbbell step-up",
-            4,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new []{"5 herhalingen per been"},
-            "images/dumbbell-step-up.gif",
-            "https://www.youtube.com/embed/WCFCdxzFBa4?start=28",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Dumbbell step-up",
+            AantalSets = 4,
+            AantalHerhalingen = 10,
+            Tips = new []{"5 herhalingen per been"},
+            AfbeeldingUrl = "images/dumbbell-step-up.gif",
+            VideoUrl = "https://www.youtube.com/embed/WCFCdxzFBa4?start=28"
+        },
         new OefeningModel
-        (
-            "Jump squats",
-            3,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/jump-squats.gif",
-            "https://www.youtube.com/embed/A-cFYWvaHr0?start=144",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Jump squats",
+            AantalSets = 3,
+            AantalHerhalingen = 10,
+            AfbeeldingUrl = "images/jump-squats.gif",
+            VideoUrl = "https://www.youtube.com/embed/A-cFYWvaHr0?start=144"
+        },
         new OefeningModel
-        (
-            "Dumbbell deadlifts",
-            5,
-            8,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new []{"Schouderbladen tegen elkaar", "Nek recht", "Dumbbells schuin voor benen"},
-            "images/dumbbell-deadlifts.gif",
-            "https://www.youtube.com/embed/lJ3QwaXNJfw?start=98",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Dumbbell deadlifts",
+            AantalSets = 5,
+            AantalHerhalingen = 8,
+            Tips = new []{"Schouderbladen tegen elkaar", "Nek recht", "Dumbbells schuin voor benen"},
+            AfbeeldingUrl = "images/dumbbell-deadlifts.gif",
+            VideoUrl = "https://www.youtube.com/embed/lJ3QwaXNJfw?start=98"
+        },
         new OefeningModel
-        (
-            "Calf raises",
-            4,
-            15,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/calf-raises.gif",
-            "https://www.youtube.com/embed/lJ3QwaXNJfw?start=98",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Calf raises",
+            AantalSets = 4,
+            AantalHerhalingen = 15,
+            AfbeeldingUrl = "images/calf-raises.gif",
+            VideoUrl = "https://www.youtube.com/embed/lJ3QwaXNJfw?start=98"
+        },
     };
 
     private static OefeningModel[] BorstEnRug => new[]
     {
         Warmup,
         new OefeningModel
-        (
-            "Push-ups",
-            3,
-            20,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/push-up.gif",
-            "https://www.youtube.com/embed/IODxDxX7oi4?start=36",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Push-ups",
+            AantalSets = 3,
+            AantalHerhalingen = 20,
+            AfbeeldingUrl = "images/push-up.gif",
+            VideoUrl = "https://www.youtube.com/embed/IODxDxX7oi4?start=36"
+        },
         new OefeningModel
-        (
-            "Dumbbell fly",
-            3,
-            12,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/dumbbell-fly.gif",
-            "https://www.youtube.com/embed/eozdVDA78K0?start=104",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Dumbbell fly",
+            AantalSets = 3,
+            AantalHerhalingen = 12,
+            AfbeeldingUrl = "images/dumbbell-fly.gif",
+            VideoUrl = "https://www.youtube.com/embed/eozdVDA78K0?start=104"
+        },
         new OefeningModel
-        (
-            "Dumbbell pullovers",
-            5,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            Array.Empty<string>(),
-            "images/dumbbell-pullovers.gif",
-            "https://www.youtube.com/embed/gwAN-Njz3Hg?start=93",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Dumbbell pullovers",
+            AantalSets = 5,
+            AantalHerhalingen = 10,
+            AfbeeldingUrl = "images/dumbbell-pullovers.gif",
+            VideoUrl = "https://www.youtube.com/embed/gwAN-Njz3Hg?start=93"
+        },
         new OefeningModel
-        (
-            "Floor presses",
-            3,
-            12,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new []{"Op de grond", "Armen comfortabel in 45 graden"},
-            "images/dumbbell-press.gif",
-            "https://www.youtube.com/embed/uUGDRwge4F8?start=48",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Floor presses",
+            AantalSets = 3,
+            AantalHerhalingen = 12,
+            Tips = new []{"Op de grond", "Armen comfortabel in 45 graden"},
+            AfbeeldingUrl = "images/dumbbell-press.gif",
+            VideoUrl = "https://www.youtube.com/embed/uUGDRwge4F8?start=48"
+        },
         new OefeningModel
-        (
-            "Dumbbell arm rows",
-            5,
-            10,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new []{"5 herhalingen per arm", "Lichaam stil houden", "Elleboog iets boven rug", "Elleboog niet volledig strekken"},
-            "images/dumbbell-arm-rows.gif",
-            "https://www.youtube.com/embed/pYcpY20QaE8?start=82",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Dumbbell arm rows",
+            AantalSets = 5,
+            AantalHerhalingen = 10,
+            Tips = new []{"5 herhalingen per arm", "Lichaam stil houden", "Elleboog iets boven rug", "Elleboog niet volledig strekken"},
+            AfbeeldingUrl = "images/dumbbell-arm-rows.gif",
+            VideoUrl = "https://www.youtube.com/embed/pYcpY20QaE8?start=82"
+        },
         new OefeningModel
-        (
-            "Bent over raises",
-            3,
-            15,
-            TimeSpan.FromMinutes(1),
-            TimeSpan.FromMinutes(1),
-            new []{"Buig iets voorover", "Rug en nek recht", "Armen 90 graden tov borst", "Armen bij strekken iets boven rug"},
-            "images/bent-over-raises.gif",
-            "https://www.youtube.com/embed/ttvfGg9d76c?start=61",
-            InitieelTonen.Afbeelding
-        ),
+        {
+            Naam = "Bent over raises",
+            AantalSets = 3,
+            AantalHerhalingen = 15,
+            Tips = new []{"Buig iets voorover", "Rug en nek recht", "Armen 90 graden tov borst", "Armen bij strekken iets boven rug"},
+            AfbeeldingUrl = "images/bent-over-raises.gif",
+            VideoUrl = "https://www.youtube.com/embed/ttvfGg9d76c?start=61"
+        },
     };
 
-    private static OefeningModel Warmup => new
-    (
-        "Warmup",
-        1,
-        1,
-        TimeSpan.FromMinutes(1),
-        TimeSpan.Zero,
-        Array.Empty<string>(),
-        "images/jumping-jack.gif",
-        "https://www.youtube.com/embed/HY7Zuo0bybw?start=52",
-        InitieelTonen.Video
-    );
+    private static OefeningModel Warmup => new()
+    {
+        Naam = "Warmup",
+        AantalSets = 1,
+        AantalHerhalingen = 1,
+        AfbeeldingUrl = "images/jumping-jack.gif",
+        VideoUrl = "https://www.youtube.com/embed/HY7Zuo0bybw?start=52",
+        InitieelTonen = InitieelTonen.Video
+    };
 }
