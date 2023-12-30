@@ -12,6 +12,6 @@ public readonly record struct OefeningModel(
 {
     public string[] Tips { get; init; } = Array.Empty<string>();
     public TimeSpan DuurSet { get; init; } = TimeSpan.FromMinutes(1);
-    public TimeSpan DuurPauze { get; init; } = TimeSpan.FromMinutes(1);
+    public TimeSpan DuurPauze { get; init; } = TimeSpan.FromSeconds(40);
     public InitieelTonen InitieelTonen { get; init; } = InitieelTonen.Afbeelding;
 }
