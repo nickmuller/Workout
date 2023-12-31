@@ -123,6 +123,14 @@
             <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets)">&gt;</button>
         </Stack>
     }
+
+    @if (player.Set == player.Oefening.AantalSets && player.IsPauze)
+    {
+        <div class="volgende-set-preview">
+            <span> &gt;&gt; @player.Volgende.Naam</span>
+            <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
+        </div>
+    }
 }
 
 @code

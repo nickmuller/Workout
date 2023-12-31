@@ -54,3 +54,17 @@
 .start-stop {
     margin: 1rem 0;
 }
+
+.volgende-set-preview {
+    color: $text-muted;
+    margin: 1rem 0;
+    max-width: 255px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    img {
+        max-width: 100px;
+        margin-left: .5rem;
+    }
+}
