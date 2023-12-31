@@ -117,8 +117,6 @@
     [Parameter, EditorRequired] public CategorieType Categorie { get; set; }
 
     private Player? player;
-    private bool toonVideo;
-    private bool toonAfbeelding;
 
     protected override void OnInitialized()
     {
@@ -187,26 +185,6 @@
             }
         }
         return false;
-    }
-
-    private void ToonVideo()
-    {
-        toonVideo = true;
-    }
-
-    private void VerbergVideo()
-    {
-        toonVideo = false;
-    }
-
-    private void ToonAfbeelding()
-    {
-        toonAfbeelding = true;
-    }
-
-    private void VerbergAfbeelding()
-    {
-        toonAfbeelding = false;
     }
 
     public void Dispose()
