@@ -6,6 +6,14 @@
 
 @if (player != null)
 {
+    @if (player.WorkoutStart != null)
+    {
+        <p class="workout-start">
+            start: @player.WorkoutStart.Value.ToString("HH:mm"),
+            duur: @(((player.WorkoutEind ?? DateTime.Now) - player.WorkoutStart.Value).ToString("hh\\:mm"))
+        </p>
+    }
+
     <div class="oefening">
         <Stack>
             <p class="oefening-titel">
@@ -24,14 +32,14 @@
         </ul>
 
         <div class="oefening-midden-container">
-            @if (player.Oefening.AantalHerhalingen > 1)
+            @if (player.Oefening.AantalHerhalingen > 1 && !player.IsKlaar)
             {
                 <p class="oefening-herhalingen">
                     <span>@(player.Oefening.AantalHerhalingen)x</span>
                 </p>
             }
 
-            @if (player.Oefening.AantalSets > 1)
+            @if (player.Oefening.AantalSets > 1 && !player.IsKlaar)
             {
                 <p class="oefening-sets">
                     <span>@player.Set&nbsp;/&nbsp;@player.Oefening.AantalSets</span>

@@ -22,6 +22,8 @@ public class Player : IDisposable
     public TimeSpan ResterendeTijdPauze => resterendeTijdPauze;
     public bool IsPauze { get; private set; }
     public bool IsKlaar { get; private set; }
+    public DateTime? WorkoutStart { get; private set; }
+    public DateTime? WorkoutEind { get; private set; }
 
     public event Action? OnTick;
     public event Action? OnSetChange;
@@ -41,6 +43,7 @@ public class Player : IDisposable
 
     public void Start()
     {
+        WorkoutStart ??= DateTime.Now;
         Modus = Modus.Automatisch;
         timer?.Change(0, 1000);
         OnSetChange?.Invoke();
@@ -145,6 +148,7 @@ public class Player : IDisposable
             // Dit was de laatste oefening, stoppen
             Stop();
             IsKlaar = true;
+            WorkoutEind ??= DateTime.Now;
         }
         else
         {

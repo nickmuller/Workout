@@ -1,4 +1,10 @@
-﻿.oefening {
+﻿.workout-start {
+    color: $text-muted;
+    text-align: center;
+    margin-bottom: .5rem;
+}
+
+.oefening {
     max-width: 255px;
 
     &-titel,
@@ -10,7 +16,6 @@
     }
 
     &-nummer {
-        color: $text-muted;
     }
 
     &-midden-container {
