@@ -13,24 +13,43 @@
         color: $text-muted;
     }
 
-    &-afbeelding {
+    &-midden-container {
+        position: relative;
         margin-top: 0.5rem;
     }
 
     &-herhalingen,
     &-sets {
-        width: 50px;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    &-herhalingen {
+        text-align: right;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        background-color: #000;
+        padding: 10px;
     }
 
     &-sets {
-        text-align: right;
+        text-transform: uppercase;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        background-color: #000;
+        padding: 10px;
+    }
+
+    &-afbeelding {
     }
 
     &-tijd {
-        // fix verschuiven van tijd bij aftellen door fixed width met margin left
-        width: 110px;
-        margin-left: 30px;
-        margin-top: 0.25rem;
+        margin-top: .25rem;
+        text-align: center;
 
         .resterende-tijd {
             font-family: "Rajdhani", sans-serif;

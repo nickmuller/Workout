@@ -23,96 +23,74 @@
             }
         </ul>
 
-        <div class="oefening-afbeelding">
-            @if (player.IsKlaar)
-            {
-                <img src="images/yeah.gif" alt="Yeah" />
-            }
-            else if (player.IsPauze)
-            {
-                <img src="images/pauze.jpg" alt="Pauze"/>
-            }
-            else
-            {
-                if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
+        <div class="oefening-midden-container">
+            <p class="oefening-herhalingen">
+                @if (player.Oefening.AantalHerhalingen > 1)
+                {
+                    <span>@(player.Oefening.AantalHerhalingen)x</span>
+                }
+            </p>
+
+            <p class="oefening-sets">
+                @if (player.Oefening.AantalSets > 1)
+                {
+                    <span>@player.Set&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
+                }
+            </p>
+
+            <div class="oefening-afbeelding">
+                @if (player.IsKlaar)
+                {
+                    <img src="images/yeah.gif" alt="Yeah" />
+                }
+                else if (player.IsPauze)
+                {
+                    <img src="images/pauze.jpg" alt="Pauze"/>
+                }
+                else if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
                 {
                     <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam" />
-                    @if (toonVideo)
-                    {
-                        <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                        <button class="btn btn-fw" @onclick="VerbergVideo">Verberg video</button>
-                    }
-                    else
-                    {
-                        @if (player.Modus == Modus.Handmatig)
-                        {
-                            <button class="btn btn-fw" @onclick="ToonVideo">Toon video</button>
-                        }
-                    }
                 }
-                if (player.Oefening.InitieelTonen == InitieelTonen.Video)
+                else if (player.Oefening.InitieelTonen == InitieelTonen.Video)
                 {
                     <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                    @if (toonAfbeelding)
-                    {
-                        <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam" />
-                        <button class="btn btn-fw" @onclick="VerbergAfbeelding">Verberg afbeelding</button>
-                    }
-                    else
-                    {
-                        @if (player.Modus == Modus.Handmatig)
-                        {
-                            <button class="btn btn-fw" @onclick="ToonAfbeelding">Toon afbeelding</button>
-                        }
-                    }
                 }
-            }
+            </div>
         </div>
-        
-        @if (player.Oefening.DuurSet > TimeSpan.Zero || player.IsPauze)
+
+        @if ((player.Oefening.DuurSet > TimeSpan.Zero || player.IsPauze) && !player.IsKlaar)
         {
-            <Stack>
-                <p class="oefening-herhalingen">
-                    @if (player.Oefening.AantalHerhalingen > 1)
-                    {
-                        <span>@(player.Oefening.AantalHerhalingen)x</span>
-                    }
-                </p>
-                <div class="oefening-tijd">
-                    @if (player.IsPauze)
-                    {
-                        <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
-                    }
-                    else
-                    {
-                        <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
-                    }
-                </div>
-                <p class="oefening-sets">
-                    @if (player.Oefening.AantalSets > 1)
-                    {
-                        <span>set&nbsp;@player.Set/@player.Oefening.AantalSets</span>
-                    }
-                </p>
-            </Stack>
+            <div class="oefening-tijd">
+                @if (player.IsPauze)
+                {
+                    <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
+                }
+                else
+                {
+                    <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
+                }
+            </div>
         }
     </div>
 
     <div class="start-stop">
-        @if (player.Modus == Modus.Handmatig)
+        @if (!player.IsKlaar)
         {
-            @if (player.ResterendeTijdSet == player.Oefening.DuurSet && player.ResterendeTijdPauze == player.Oefening.DuurPauze)
+            @if (player.Modus == Modus.Handmatig)
             {
-                <button class="btn btn-fw btn-green" @onclick="() => player.Start()">Start</button>
+                @if (player.ResterendeTijdSet == player.Oefening.DuurSet && player.ResterendeTijdPauze == player.Oefening.DuurPauze)
+                {
+                    <button class="btn btn-fw btn-green" @onclick="() => player.Start()">Start</button>
+                }
+                else
+                {
+                    <button class="btn btn-fw btn-green" @onclick="() => player.Start()" disabled="@player.IsKlaar">Hervat</button>
+                }
             }
             else
             {
-                <button class="btn btn-fw btn-green" @onclick="() => player.Start()" disabled="@player.IsKlaar">Hervat</button>
+                <button class="btn btn-fw btn-red" @onclick="() => player.Stop()">Stop</button>
             }
-        }
-        else
-        {
-            <button class="btn btn-fw btn-red" @onclick="() => player.Stop()">Stop</button>
         }
     </div>
 
