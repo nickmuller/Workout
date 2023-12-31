@@ -48,15 +48,15 @@
       "System.Net.Http.Json.dll": "sha256-PRacfhT9Mg9DH\/RNzSoITMiyrcmeWGdyFkI3NvVlBXs=",
       "System.Net.Primitives.dll": "sha256-nOoLJh4+suOf3q43JBSknW99ybub9wjOpNW1tKX4V2I=",
       "System.ObjectModel.dll": "sha256-yUvIC3Sr3hnkZCBwBziLOgCIAqQUibEX1utIC3YKOT8=",
-      "System.Private.CoreLib.dll": "sha256-wcxWwn8ZUpCgiQ5oeAUDc8yaMAydtvc4TgvGihURrts=",
+      "System.Private.CoreLib.dll": "sha256-oz1lNfB\/T8J0KVPuS4H6v2QAitsHQP5NsnamsKimbME=",
       "System.Private.Uri.dll": "sha256-Q+JveggUfFCYtaR13i3ntdxmOPo4CKHgn9SEI73kgXU=",
-      "System.Runtime.dll": "sha256-uJ4fWV+4CI8ydym931MFfmRTxI44dEhB3u32eVXCoEo=",
+      "System.Runtime.dll": "sha256-PGY11905BBfGkcwM5Z1bxuUc702IPPeSXd2t03GQS+4=",
       "System.Runtime.InteropServices.JavaScript.dll": "sha256-V6M5CXR+JpCjLiC7yftWX0J58hkjLibTP7jbc1e+sL8=",
       "System.Security.Claims.dll": "sha256-16TU0Lwqyw1OfQk1oglyjQ8SRbv6GHpX\/cm9XOHNKNI=",
       "System.Text.Encodings.Web.dll": "sha256-5qS3xZoJ9mkyvHuU3ptWQCzekH+NiHdpnfFooUJn5MY=",
       "System.Text.Json.dll": "sha256-afAMKjVIuAuWbhDO7ueh9UlqYa+QQonKqQ8LTY+T3uw=",
       "System.Threading.dll": "sha256-3iW2uXCAH35MEfs2Gu4a0xTV3vGgQliM3sRA4ljArZc=",
-      "Workout.dll": "sha256-DyovIeJp3V5\/+GL4wzWKwEMH8GgYnZO7ttRaYAI4lt8="
+      "Workout.dll": "sha256-b\/PZItn2jQ6XiHsHieDxJ+7cV3+l9FJ\/IfB53QC0Mz4="
     },
     "extensions": null,
     "lazyAssembly": null,
