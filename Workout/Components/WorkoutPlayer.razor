@@ -24,19 +24,19 @@
         </ul>
 
         <div class="oefening-midden-container">
-            <p class="oefening-herhalingen">
-                @if (player.Oefening.AantalHerhalingen > 1)
-                {
+            @if (player.Oefening.AantalHerhalingen > 1)
+            {
+                <p class="oefening-herhalingen">
                     <span>@(player.Oefening.AantalHerhalingen)x</span>
-                }
-            </p>
+                </p>
+            }
 
-            <p class="oefening-sets">
-                @if (player.Oefening.AantalSets > 1)
-                {
+            @if (player.Oefening.AantalSets > 1)
+            {
+                <p class="oefening-sets">
                     <span>@player.Set&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
-                }
-            </p>
+                </p>
+            }
 
             <div class="oefening-afbeelding">
                 @if (player.IsKlaar)
