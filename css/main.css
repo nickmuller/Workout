@@ -350,6 +350,46 @@ small {
   margin-bottom: 3rem;
 }
 
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-3 {
+  margin-left: 1rem;
+}
+
+.ml-4 {
+  margin-left: 1.5rem;
+}
+
+.ml-5 {
+  margin-left: 3rem;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.mr-3 {
+  margin-right: 1rem;
+}
+
+.mr-4 {
+  margin-right: 1.5rem;
+}
+
+.mr-5 {
+  margin-right: 3rem;
+}
+
 .fa-google {
   color: #4285f4;
   font-size: 1.5rem;
@@ -582,19 +622,35 @@ nav .nav-item .nav-link.active {
 .oefening-nummer {
   color: rgba(255, 255, 255, 0.38);
 }
-.oefening-afbeelding {
+.oefening-midden-container {
+  position: relative;
   margin-top: 0.5rem;
 }
 .oefening-herhalingen, .oefening-sets {
-  width: 50px;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.oefening-herhalingen {
+  text-align: right;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background-color: #000;
+  padding: 10px;
 }
 .oefening-sets {
-  text-align: right;
+  text-transform: uppercase;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  background-color: #000;
+  padding: 10px;
 }
 .oefening-tijd {
-  width: 110px;
-  margin-left: 30px;
   margin-top: 0.25rem;
+  text-align: center;
 }
 .oefening-tijd .resterende-tijd {
   font-family: "Rajdhani", sans-serif;
@@ -613,6 +669,19 @@ nav .nav-item .nav-link.active {
 
 .start-stop {
   margin: 1rem 0;
+}
+
+.volgende-set-preview {
+  color: rgba(255, 255, 255, 0.38);
+  margin: 1rem 0;
+  max-width: 255px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.volgende-set-preview img {
+  max-width: 100px;
+  margin-left: 0.5rem;
 }
 
 .authentication {
