@@ -14,20 +14,20 @@
     <link href="css/main.css" rel="stylesheet" />
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
 </head>
 
 <body>
-    <div id="app">
-        <div id="app-loader">
-            <span class="brand animation-float-in">
-                WORKOUT
-            </span>
+    <div id="app-loader">
+        <span class="brand animation-float-in">
+            WORKOUT
+        </span>
+        <img src="images/gym-25.svg" alt="logo" class="logo animation-fade-in" />
 
-            <div class="progress">
-                <div class="progress-bar"></div>
-            </div>
+        <div class="progress">
+            <div class="progress-bar"></div>
         </div>
+    </div>
+    <div id="app">
     </div>
 
     <div id="blazor-error-ui">
@@ -35,7 +35,12 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        Blazor.start().then(function () {
+            document.getElementById('app-loader').classList.add("animation-fade-out-up");
+        });
+    </script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 
