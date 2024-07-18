@@ -14,10 +14,12 @@
 }
 
 #app {
+    display: grid;
+    justify-items: center;
+    width: 400px;
 }
 
 .brand {
-    color: #fff;
     font-family: "Rajdhani", sans-serif;
     font-weight: 600;
     font-size: 4rem;
@@ -25,24 +27,32 @@
 }
 
 #app-loader {
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+    color: #111;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 400px;
+    z-index: 1;
 
     .brand {
-        font-size: 6rem;
         pointer-events: none;
     }
 
+    .logo {
+        width: 80%;
+    }
+
     .progress {
-        position: absolute;
         height: 2px;
-        bottom: 10%;
         left: 10%;
         width: 80%;
+        margin-top: 20px;
 
         .progress-bar {
             width: var(--blazor-load-percentage, 0%);

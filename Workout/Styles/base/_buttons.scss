@@ -63,10 +63,10 @@ fieldset:disabled a.btn {
     box-sizing: border-box;
 }
 
-.btn-primary {
+.btn-orange {
     color: #fff;
-    background-color: $primary;
-    border-color: $primary;
+    background-color: $orange;
+    border-color: $orange;
 
     &:hover {
         color: #fff;
@@ -77,8 +77,8 @@ fieldset:disabled a.btn {
     &.disabled,
     &:disabled {
         color: #fff;
-        background-color: $primary;
-        border-color: $primary;
+        background-color: $orange;
+        border-color: $orange;
     }
 
     &:not(:disabled):not(.disabled):active,
