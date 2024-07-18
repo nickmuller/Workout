@@ -13,7 +13,7 @@
       "url": "favicon.png"
     },
     {
-      "hash": "sha256-b5anr9cCu3+RnHTe5S2bznI\/TiNRFWX6s3geNQUoY2Y=",
+      "hash": "sha256-ojfTP5cPDwkj6eq\/V1\/IwN2ykV\/bK3GmjLy02QdbYos=",
       "url": "icon-512.png"
     },
     {
@@ -113,7 +113,7 @@
       "url": "index.html"
     },
     {
-      "hash": "sha256-p\/W32TxGkIFJQ6r\/ELbPWyGY7aH7uyM+UeY5yNDvZYc=",
+      "hash": "sha256-2N7psthC4Oc4Ewrz1VBQwPPjMrkIShYt1B5FggGnBPc=",
       "url": "manifest.json"
     },
     {
@@ -353,5 +353,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "3U7rGdHk"
+  "version": "sqSqVJ9S"
 };
