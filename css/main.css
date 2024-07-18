@@ -465,7 +465,7 @@ body {
 #app {
   display: grid;
   justify-items: center;
-  width: 400px;
+  width: 414px;
 }
 
 .brand {
@@ -486,7 +486,7 @@ body {
   position: fixed;
   top: 0;
   height: 100%;
-  width: 400px;
+  width: 414px;
   z-index: 1;
 }
 #app-loader .brand {

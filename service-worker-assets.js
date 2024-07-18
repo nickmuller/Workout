@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-n3HbPh\/kDbwzRXMZQu69B\/k7EHcdhGNSfx1mZDFshjg=",
+      "hash": "sha256-yFEe\/hc2zCZo3eFkgqaU5cSVDsYEehIGgm4h4Rz8LUQ=",
       "url": "css\/main.css"
     },
     {
@@ -353,5 +353,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "sqSqVJ9S"
+  "version": "\/Z+2\/gV\/"
 };
