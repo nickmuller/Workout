@@ -18,10 +18,7 @@
 
 <body>
     <div id="app-loader">
-        <span class="brand animation-float-in">
-            WORKOUT
-        </span>
-        <img src="images/gym-25.svg" alt="logo" class="logo animation-fade-in" />
+        <img src="images/gym-25.svg" alt="logo" class="logo" />
 
         <div class="progress">
             <div class="progress-bar"></div>
@@ -38,7 +35,7 @@
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script>
         Blazor.start().then(function () {
-            document.getElementById('app-loader').classList.add("animation-fade-out-up");
+            document.getElementById('app-loader').classList.add("animation-loader-hide");
         });
     </script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
