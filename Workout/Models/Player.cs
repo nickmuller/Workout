@@ -130,7 +130,7 @@ public class Player : IDisposable
             Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
-            IsPauze = true;
+            IsPauze = Vorige != default; // warmup heeft geen pauze
             IsKlaar = false;
             OnSetChange?.Invoke();
         }
@@ -138,7 +138,7 @@ public class Player : IDisposable
 
     public void VolgendeSet()
     {
-        if (!IsPauze && Volgende != default)
+        if (!IsPauze && Vorige != default && Volgende != default)
         {
             IsPauze = true;
         }

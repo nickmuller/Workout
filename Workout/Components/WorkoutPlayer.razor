@@ -51,10 +51,6 @@
                 {
                     <img src="images/yeah.gif" alt="Yeah" />
                 }
-                else if (player.IsPauze)
-                {
-                    <img src="images/pauze.jpg" alt="Pauze"/>
-                }
                 else if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
                 {
                     <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam" />
@@ -62,6 +58,25 @@
                 else if (player.Oefening.InitieelTonen == InitieelTonen.Video)
                 {
                     <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                }
+                
+                @if (player.IsPauze)
+                {
+                    <div class="pauze-achtergrond">
+                        <div class="pauze">
+                            Pauze
+                        </div>
+                    </div>
+
+                    @if (player.Set == player.Oefening.AantalSets)
+                    {
+                        <div class="volgende-set-preview">
+                            <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
+                            <div class="naam-volgende-oefening">
+                                @player.Volgende.Naam
+                            </div>
+                        </div>
+                    }
                 }
             </div>
         </div>
@@ -102,21 +117,10 @@
         }
     </div>
 
-    @if (player.Modus == Modus.Handmatig)
-    {
-        <Stack>
-            <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.Set == 1 && !player.IsPauze)">&lt;</button>
-            <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets && player.IsKlaar)">&gt;</button>
-        </Stack>
-    }
-
-    @if (player.Set == player.Oefening.AantalSets && player.IsPauze)
-    {
-        <div class="volgende-set-preview">
-            <span> &gt;&gt; @player.Volgende.Naam</span>
-            <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
-        </div>
-    }
+    <Stack>
+        <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.Set == 1 && !player.IsPauze)">&lt;</button>
+        <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets && player.IsKlaar)">&gt;</button>
+    </Stack>
 }
 
 @code
