@@ -100,13 +100,17 @@ public class Player : IDisposable
 
     public void VorigeSet()
     {
-        if (Set > 1)
+        if (IsPauze)
+        {
+            IsPauze = false;
+        }
+        else if (Set > 1)
         {
             Set--;
             Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
-            IsPauze = false;
+            IsPauze = true;
             IsKlaar = false;
             OnSetChange?.Invoke();
         }
@@ -122,11 +126,11 @@ public class Player : IDisposable
             oefening = oefeningen[Oefeningnummer - 1];
             Vorige = Oefeningnummer > 1 ? oefeningen.Skip(Oefeningnummer - 2).Take(1).Single() : default;
             Volgende = oefeningen.Skip(Oefeningnummer).Take(1).SingleOrDefault();
-            Set = 1;
+            Set = oefening.AantalSets;
             Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
-            IsPauze = false;
+            IsPauze = true;
             IsKlaar = false;
             OnSetChange?.Invoke();
         }
@@ -134,7 +138,11 @@ public class Player : IDisposable
 
     public void VolgendeSet()
     {
-        if (Set < oefening.AantalSets)
+        if (!IsPauze && Volgende != default)
+        {
+            IsPauze = true;
+        }
+        else if (Set < oefening.AantalSets)
         {
             Set++;
             Herhaling = 0;

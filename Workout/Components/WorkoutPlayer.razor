@@ -106,7 +106,7 @@
     {
         <Stack>
             <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.Set == 1 && !player.IsPauze)">&lt;</button>
-            <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets)">&gt;</button>
+            <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets && player.IsKlaar)">&gt;</button>
         </Stack>
     }
 
