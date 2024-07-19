@@ -197,7 +197,6 @@
 
     public void Dispose()
     {
-        AuthenticationState?.Dispose();
         if (player != null)
         {
             player.OnTick -= PlayerTick;

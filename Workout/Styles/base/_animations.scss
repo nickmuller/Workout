@@ -1,4 +1,28 @@
-﻿.animation-float-in {
+﻿.animation-loader-hide {
+    animation-name: loader-hide;
+    animation-duration: 300ms;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+}
+
+@keyframes loader-hide {
+    0% {
+        opacity: 1
+    }
+
+    99% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+}
+
+.animation-float-in {
     animation: float-in 1s 1 linear;
     animation-fill-mode: forwards;
     transform: matrix(1,0,0,1,0,-15);
@@ -71,7 +95,7 @@
 }
 
 .animation-fade-out-up {
-    animation: fade-out-up 1s 1s 1 linear;
+    animation: fade-out-up 1s 1 linear;
     animation-fill-mode: forwards;
     opacity: 1;
 }
