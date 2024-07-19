@@ -22,12 +22,8 @@ public class Program
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddHttpClient<GoogleClient>().AddHttpMessageHandler<GoogleApiAuthorizationMessageHandler>();
         builder.Services.AddTransient<GoogleApiAuthorizationMessageHandler>();
-        builder.Services.AddOidcAuthentication(options =>
-        {
-            builder.Configuration.Bind("GoogleAuth", options.ProviderOptions);
-            options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.appdata");
-            options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.file");
-        }).AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, WorkoutUserFactory>();
+        builder.Services.AddOidcAuthentication(options => builder.Configuration.Bind("GoogleAuth", options.ProviderOptions))
+            .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, WorkoutUserFactory>();
 
         builder.Services.AddSingleton<StateService>();
         builder.Services.AddSingleton<GoogleDriveService>();

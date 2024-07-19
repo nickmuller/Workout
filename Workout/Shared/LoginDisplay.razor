@@ -8,9 +8,17 @@
         <a href="authentication/login" class="btn btn-fw"><i class="fa-brands fa-google"></i> Login met Google</a>
         <p class="login-toelichting">Login om voortgang automatisch op te slaan.</p>
     </NotAuthorized>
+    <Authorizing>
+        <a href="authentication/login" class="btn btn-fw"><i class="fa-brands fa-google"></i> Login met Google</a>
+        <p class="login-toelichting">Login om voortgang automatisch op te slaan.</p>
+    </Authorizing>
 </AuthorizeView>
 
 @code{
+    // Let op: de silentlogin van de OidcAuthentication via AuthenticationService.js gaat gelijk af nadat blazor geladen is.
+    // Hierdoor wordt gelijk de html in Authorizing getoont. Na een paar seconden is die klaar en ben je niet ingelogd,
+    // dus dan wordt de html in NotAuthorized getoont. De html is gelijk zodat de gebruiker hier niks van merkt.
+
     private void BeginLogOut()
     {
         Navigation.NavigateToLogout("authentication/logout");
