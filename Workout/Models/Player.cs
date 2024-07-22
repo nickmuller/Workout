@@ -17,7 +17,16 @@ public class Player : IDisposable
     public int Oefeningnummer { get; private set; }
     public int AantalOefeningen => oefeningen.Length;
     public int Set { get; private set; }
-    public int Herhaling { get; private set; }
+    public int Herhaling
+    {
+        get
+        {
+            var percentageTijdSet = oefening.DuurSet.TotalSeconds == 0 ? 0
+                : Convert.ToInt32((oefening.DuurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / oefening.DuurSet.TotalSeconds * 100);
+            return Convert.ToInt32(oefening.AantalHerhalingen / 100.0 * percentageTijdSet);
+        }
+    }
+
     public TimeSpan ResterendeTijdSet => resterendeTijdSet;
     public TimeSpan ResterendeTijdPauze => resterendeTijdPauze;
     public bool IsPauze { get; private set; }
@@ -59,39 +68,22 @@ public class Player : IDisposable
     {
         if (IsPauze)
         {
-            // Laatste set voltooid, pauze is daarna niet nodig
-            if (Volgende == default && Set == oefening.AantalSets)
-            {
-                IsPauze = false;
+            resterendeTijdPauze = resterendeTijdPauze.Subtract(TimeSpan.FromSeconds(1));
+            if (resterendeTijdPauze <= TimeSpan.Zero)
                 VolgendeSet();
-            }
-            else
-            {
-                resterendeTijdPauze = resterendeTijdPauze.Subtract(TimeSpan.FromSeconds(1));
-                if (resterendeTijdPauze <= TimeSpan.Zero)
-                {
-                    IsPauze = false;
-                    VolgendeSet();
-                }
-            }
         }
         else
         {
             resterendeTijdSet = resterendeTijdSet.Subtract(TimeSpan.FromSeconds(1));
-            var percentageTijdSet = oefening.DuurSet.TotalSeconds == 0 ? 0
-                : Convert.ToInt32((oefening.DuurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / oefening.DuurSet.TotalSeconds * 100);
-            Herhaling = Convert.ToInt32(oefening.AantalHerhalingen / 100.0 * percentageTijdSet);
             if (resterendeTijdSet <= TimeSpan.Zero)
-            {
                 IsPauze = true;
-            }
         }
+
         OnTick?.Invoke();
     }
 
     public void HerstartSet()
     {
-        Herhaling = 0;
         resterendeTijdSet = oefening.DuurSet;
         resterendeTijdPauze = oefening.DuurPauze;
         IsPauze = false;
@@ -107,7 +99,6 @@ public class Player : IDisposable
         else if (Set > 1)
         {
             Set--;
-            Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = true;
@@ -127,7 +118,6 @@ public class Player : IDisposable
             Vorige = Oefeningnummer > 1 ? oefeningen.Skip(Oefeningnummer - 2).Take(1).Single() : default;
             Volgende = oefeningen.Skip(Oefeningnummer).Take(1).SingleOrDefault();
             Set = oefening.AantalSets;
-            Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = Vorige != default; // warmup heeft geen pauze
@@ -145,7 +135,6 @@ public class Player : IDisposable
         else if (Set < oefening.AantalSets)
         {
             Set++;
-            Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
@@ -155,6 +144,7 @@ public class Player : IDisposable
         {
             // Dit was de laatste oefening, stoppen
             Stop();
+            IsPauze = false;
             IsKlaar = true;
             WorkoutEind ??= DateTime.Now;
         }
@@ -166,7 +156,6 @@ public class Player : IDisposable
             Vorige = Oefeningnummer > 1 ? oefeningen.Skip(Oefeningnummer - 2).Take(1).Single() : default;
             Volgende = oefeningen.Skip(Oefeningnummer).Take(1).SingleOrDefault();
             Set = 1;
-            Herhaling = 0;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
