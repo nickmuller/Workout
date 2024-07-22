@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-kgCTqOpMmVZ2hbMSmh9l9Sp4BR1DP9GDyqH10GQB\/P0=",
+      "hash": "sha256-KFAH7tgTLFaBVyvLNWv3l9OZ\/EdD20owbiQQxUGr9j0=",
       "url": "css\/main.css"
     },
     {
@@ -141,7 +141,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-310zj7S5nHBLD1bMONcVlimfqih\/VA66au9MPDINlyI=",
+      "hash": "sha256-fbhL9vqiuj93GX86C70zbLtgrSffxRg7BCYwy0seK5c=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -337,7 +337,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-34DwoCWx1Xf+Fjl0GB0CoK1ruQGw\/+wkyjOxY+evbMw=",
+      "hash": "sha256-ikKKCtHXBh9r9hjycXpDskGk88EAAVngm4CGiEjkczM=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -349,5 +349,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "elBDL+rU"
+  "version": "wCUPBjxh"
 };

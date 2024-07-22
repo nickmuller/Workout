@@ -736,7 +736,7 @@ nav .nav-item .nav-link.active {
   max-height: 255px;
 }
 .oefening-afbeelding .pauze-achtergrond {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   inset: 0;
   position: absolute;
 }
