@@ -496,6 +496,10 @@ body {
   position: relative;
 }
 
+body.wake-lock-active header::first-letter {
+  color: #1690e8;
+}
+
 #app-loader {
   display: flex;
   justify-content: center;

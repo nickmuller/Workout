@@ -1,11 +1,11 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-KFAH7tgTLFaBVyvLNWv3l9OZ\/EdD20owbiQQxUGr9j0=",
+      "hash": "sha256-\/Q6fQsEfbhp9NXSCqtMukkB+k8A7iqN6VKvcspp1gp8=",
       "url": "css\/main.css"
     },
     {
-      "hash": "sha256-lBVAUygNRZo7ME8CV4\/V7OT5VeKRPZOaVoWFKeaRrKk=",
+      "hash": "sha256-VQSMVnKsxRGMNjfc6GWhgwgTqggyezd39\/ya0hVdCR4=",
       "url": "css\/main.css.map"
     },
     {
@@ -109,12 +109,16 @@
       "url": "images\/zottman-curl.gif"
     },
     {
-      "hash": "sha256-vTtcsGrZQ617aYmDp9Ijqy4CRPUztDEBusUZ0M3UJI4=",
+      "hash": "sha256-KrAZ1op\/162kwAOY8DP+1tabA4BEpVjIKxWbS\/tB2KU=",
       "url": "index.html"
     },
     {
       "hash": "sha256-V6Z0WiZnkwMbQd\/ZWMO1xGRylYjVDALIlRMHMDET6rI=",
       "url": "manifest.json"
+    },
+    {
+      "hash": "sha256-iaP04IMnv58O7h073KJfQqDB26BlINdBOpZTLxaVYIg=",
+      "url": "scripts\/screen-wake-lock.js"
     },
     {
       "hash": "sha256-gvHfnndfEu1tRf0rFb5988rWq7ITIotOaE8+AMbKYbc=",
@@ -141,7 +145,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-7u9Ih1srYUdgRkwiOTab3LxoOQxzqWqdw7feEVxLFjU=",
+      "hash": "sha256-I93SQM7em5q1SwOgaZ6EGv2oWpHAhtvfZVRsU3GZwpE=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -337,7 +341,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-EuBtqGRZ0CPdrApZXelFBfY9KLwePkQpr5GquuUt9a8=",
+      "hash": "sha256-O88OYloQgDD+4DOsaWo2TSu14sgOF4nq7LU0ho\/xsYY=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -349,5 +353,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "GBvk4MQl"
+  "version": "Bj\/\/buCe"
 };
