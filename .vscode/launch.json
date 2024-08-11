@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "blazorwasm",
+        "name": "Launch and Debug Blazor WebAssembly Application",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/Workout",
+        "url": "https://localhost:7297",
+        "browser": "chrome"
+      },
+      {
+        "name": "Watch",
+        "type": "coreclr",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/Workout",
+        "program": "dotnet",
+        "args": [
+          "watch",
+          "--project",
+          ".",
+          "--verbose" // Let's us confirm browser connects with hot reload capabilities
+        ],
+        //"preLaunchTask": "build" // Ensure we don't watch an unbuilt site
+      },
+    ]
+  }

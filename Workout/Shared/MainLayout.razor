@@ -1,7 +1,16 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
-<header>
-    <a href="" class="brand">WORKOUT</a>
+<header class="">
+    @if (NavigationManager.Uri == NavigationManager.BaseUri)
+    {
+        <h1>WORKOUT</h1>
+        <a href="" class="font-rajdhani font-semibold text-6xl transition-opacity duration-200 hover:opacity-80">WORKOUT</a>
+    }
+    else
+    {
+        <a href="" class="font-rajdhani font-semibold text-6xl transition-opacity duration-200 hover:opacity-80">WORKOUT</a>
+    }
 </header>
 <main>
     @Body

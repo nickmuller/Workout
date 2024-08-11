@@ -3,39 +3,43 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Workout</title>
     <base href="/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/f343a7c13c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Rajdhani:wght@600&display=swap">
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link href="css/main.css" rel="stylesheet" />
-    <link href="manifest.json" rel="manifest" />
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icon-512.png" sizes="512x512" />
 </head>
 
-<body>
-    <div id="app-loader">
-        <img src="images/gym-25.svg" alt="logo" class="logo" />
+<body class="min-h-screen bg-black text-white">
+    <div id="app" class="opacity-0 transition-opacity delay-1000 duration-300"></div>
+    <div id="app-loader" class="flex justify-center items-center flex-col overflow-hidden bg-white text-black absolute inset-0 -z-10
+        transition-opacity delay-1000 duration-300">
+        <img src="images/gym-25.svg" alt="logo" class="h-4/5" />
 
-        <div class="progress">
-            <div class="progress-bar"></div>
+        <div class="linear-progress h-1 mt-5 overflow-hidden w-3/5 relative bg-white
+                after:bg-primary after:absolute after:inset-0 after:origin-top-left 
+                after:transition-transform after:[scale:var(--blazor-load-percentage,0%)_100%]">
         </div>
     </div>
-    <div id="app">
-    </div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a class="dismiss">🗙</a>
+    <div id="blazor-error-ui" class="hidden">
+        <div class="flex justify-between bottom-0 left-0 fixed w-full z-50 py-2.5 px-5 border-t-2 text-lg bg-red-500 border-red-600 text-white">
+            <p>
+                An unhandled error has occurred.
+            </p>
+            <a class="dismiss cursor-pointer">🗙</a>
+        </div>
     </div>
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script>
         Blazor.start().then(function () {
-            document.getElementById('app-loader').classList.add("animation-loader-hide");
+            document.getElementById('app').classList.add("opacity-100");
+            document.getElementById('app-loader').classList.add("opacity-0");
         });
     </script>
     <script src="scripts/screen-wake-lock.js"></script>
