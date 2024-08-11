@@ -2,15 +2,17 @@
 
 <AuthorizeView>
     <Authorized>
-        <a href="" class="btn btn-fw" title="@context.User.Identity?.Name" @onclick="BeginLogOut">Logout</a>
+        <a href="" class="btn btn-link" title="@context.User.Identity?.Name" @onclick="BeginLogOut">Logout</a>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/login" class="btn btn-fw"><i class="fa-brands fa-google"></i> Login met Google</a>
-        <p class="login-toelichting">Login om voortgang automatisch op te slaan.</p>
+        <a href="authentication/login" class="btn btn-link" title="Login om voortgang automatisch op te slaan">
+            Login
+        </a>
     </NotAuthorized>
     <Authorizing>
-        <a href="authentication/login" class="btn btn-fw"><i class="fa-brands fa-google"></i> Login met Google</a>
-        <p class="login-toelichting">Login om voortgang automatisch op te slaan.</p>
+        <a href="authentication/login" class="btn btn-link" title="Login om voortgang automatisch op te slaan">
+            Login
+        </a>
     </Authorizing>
 </AuthorizeView>
 

@@ -140,3 +140,34 @@ fieldset:disabled a.btn {
         border-color: #ca2a19;
     }
 }
+
+.btn-link {
+    color: $primary;
+    background-color: transparent;
+    border-color: transparent;
+
+    &:hover {
+        color: $primary;
+        background-color: transparent;
+        border-color: transparent;
+        opacity: .8;
+    }
+
+    &:focus,
+    &.focus {
+        outline: 0;
+        box-shadow: none;
+    }
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        color: $text-muted;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: $primary;
+        background-color: transparent;
+        border-color: transparent;
+    }
+}

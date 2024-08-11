@@ -1,37 +1,49 @@
 ﻿@page "/"
 @inject StateService StateService
 
-<AuthorizeView>
-    <Authorized>
-        <div>
-            @if (!string.IsNullOrEmpty(StateService.Model?.Url))
-            {
-                <a href="@StateService.Model.Url" class="btn btn-fw btn-orange">Workout hervatten</a>
-            }
-        </div>
-    </Authorized>
-</AuthorizeView>
+<Header>
+    <Middle>
+        <h1 class="header-title">
+            WORKOUT
+        </h1>
+    </Middle>
+    <Right>
+        <LoginDisplay />
+    </Right>
+</Header>
 
-<nav>
-    <ul>
-        <li>
-            <NavLink class="btn btn-fw" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
-                Schouders en armen
-            </NavLink>
-        </li>
-        <li>
-            <NavLink class="btn btn-fw" href="benen" Match="NavLinkMatch.Prefix">
-                Benen
-            </NavLink>
-        </li>
-        <li>
-            <NavLink class="btn btn-fw" href="borstenrug" Match="NavLinkMatch.Prefix">
-                Borst en rug
-            </NavLink>
-        </li>
-    </ul>
-</nav>
+<div class="container">
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
+                    <img src="images/gym-23.svg" alt="schouders en armen" />
+                    <p>Schouders en armen</p>
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="benen" Match="NavLinkMatch.Prefix">
+                    <img src="images/gym-14.svg" alt="benen" />
+                    <p>Benen</p>
+                </NavLink>
+            </li>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="borstenrug" Match="NavLinkMatch.Prefix">
+                    <img src="images/gym-22.svg" alt="borst en rug" />
+                    <p>Borst en rug</p>
+                </NavLink>
+            </li>
+        </ul>
+    </nav>
 
-<div class="mt-5">
-    <LoginDisplay/>
+    <AuthorizeView>
+        <Authorized>
+            <div>
+                @if (!string.IsNullOrEmpty(StateService.Model?.Url))
+                {
+                    <a href="@StateService.Model.Url" class="btn btn-fw btn-orange">Workout hervatten</a>
+                }
+            </div>
+        </Authorized>
+    </AuthorizeView>
 </div>

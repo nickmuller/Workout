@@ -3,31 +3,7 @@
     font-size: $font-size-base;
     font-weight: 400;
     line-height: 1.5;
-    color: #fff;
-    text-align: left;
-    background-color: #111111;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-#app {
-    display: grid;
-    justify-items: center;
-    width: 414px;
-}
-
-.brand {
-    font-family: "Rajdhani", sans-serif;
-    font-weight: 600;
-    font-size: 4rem;
-    position: relative;
-}
-
-body.wake-lock-active header::first-letter {
-    color: $primary;
+    color: #000;
 }
 
 #app-loader {
@@ -36,24 +12,18 @@ body.wake-lock-active header::first-letter {
     align-items: center;
     flex-direction: column;
     overflow: hidden;
-    color: #111;
     background-color: #fff;
     position: fixed;
-    top: 0;
-    height: 100%;
-    width: 414px;
+    inset: 0;
     z-index: 1;
-
-    .brand {
-        pointer-events: none;
-    }
 
     .logo {
         width: 80%;
+        max-height: 75%;
     }
 
     .progress {
-        height: 2px;
+        height: 4px;
         left: 10%;
         width: 80%;
         margin-top: 20px;
@@ -64,16 +34,8 @@ body.wake-lock-active header::first-letter {
     }
 }
 
-header {
-    .brand {
-        transition: all .2s;
-
-        &:hover {
-            opacity: 0.8;
-        }
-    }
-}
-
-main {
-    width: 255px;
+.container {
+    width: 50%;
+    margin: 1rem auto;
+    padding: 0 1rem;
 }

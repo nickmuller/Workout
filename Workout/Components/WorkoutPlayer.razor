@@ -6,6 +6,60 @@
 
 @if (player != null)
 {
+    <Header>
+        <Left>
+            <a href="" class="btn btn-link home-link"><i class="fa-solid fa-arrow-left"></i></a>
+        </Left>
+        <Middle>
+            <h1 class="header-title">
+                @player.Oefening.Naam
+            </h1>
+        </Middle>
+        <Right>
+            <LoginDisplay />
+        </Right>
+    </Header>
+
+    <div class="oefening-afbeelding">
+        @if (player.IsKlaar)
+        {
+            <img src="images/yeah.gif" alt="Yeah"/>
+        }
+        else if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
+        {
+            <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam"/>
+        }
+        else if (player.Oefening.InitieelTonen == InitieelTonen.Video)
+        {
+            <div class="embed-container">
+                <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+            </div>
+        }
+
+        @if (player.IsPauze)
+        {
+            <div class="pauze-achtergrond">
+                <div class="pauze">
+                    Pauze
+                </div>
+            </div>
+
+            @if (player.Set == player.Oefening.AantalSets)
+            {
+                <div class="volgende-set-preview">
+                    <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
+                    <div class="naam-volgende-oefening">
+                        @player.Volgende.Naam
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    // todo: hieronder stylen
+
+
+
     @if (player.WorkoutStart != null)
     {
         <p class="workout-start">
@@ -16,22 +70,26 @@
 
     <div class="oefening">
         <Stack>
-            <p class="oefening-titel">
-                @player.Oefening.Naam
-            </p>
+
+
+
             <p class="oefening-nummer">
                 @player.Oefeningnummer / @player.AantalOefeningen
             </p>
         </Stack>
 
-        <ul class="oefening-tips">
-            @foreach (var tip in player.Oefening.Tips)
-            {
-                <li>@tip</li>
-            }
-        </ul>
+        
+        
+        @* weg? *@
+        <p class="oefening-nummer">
+            @player.Oefeningnummer / @player.AantalOefeningen
+        </p>
+        
 
         <div class="oefening-midden-container">
+            
+            
+
             @if (player.Oefening.AantalHerhalingen > 1 && !player.IsKlaar)
             {
                 <p class="oefening-herhalingen">
@@ -46,40 +104,19 @@
                 </p>
             }
 
-            <div class="oefening-afbeelding">
-                @if (player.IsKlaar)
-                {
-                    <img src="images/yeah.gif" alt="Yeah" />
-                }
-                else if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
-                {
-                    <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam" />
-                }
-                else if (player.Oefening.InitieelTonen == InitieelTonen.Video)
-                {
-                    <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                }
-                
-                @if (player.IsPauze)
-                {
-                    <div class="pauze-achtergrond">
-                        <div class="pauze">
-                            Pauze
-                        </div>
-                    </div>
-
-                    @if (player.Set == player.Oefening.AantalSets)
-                    {
-                        <div class="volgende-set-preview">
-                            <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
-                            <div class="naam-volgende-oefening">
-                                @player.Volgende.Naam
-                            </div>
-                        </div>
-                    }
-                }
-            </div>
         </div>
+
+        
+        
+
+
+        <ul class="oefening-tips">
+            @foreach (var tip in player.Oefening.Tips)
+            {
+                <li>@tip</li>
+            }
+        </ul>
+
 
         @if ((player.Oefening.DuurSet > TimeSpan.Zero || player.IsPauze) && !player.IsKlaar)
         {

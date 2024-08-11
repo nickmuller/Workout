@@ -1,6 +1,14 @@
 ﻿@page "/authentication/{action}"
 
-<div class="authentication">
+<Header>
+    <Middle>
+        <h1 class="header-title">
+            WORKOUT
+        </h1>
+    </Middle>
+</Header>
+
+<div class="authentication center">
     <RemoteAuthenticatorView Action="@Action">
         <LoggingIn>
             <p class="authentication-description">Checking login state...</p>

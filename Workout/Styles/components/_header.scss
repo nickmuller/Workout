@@ -1,0 +1,31 @@
+﻿.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: .5rem 0;
+    color: #fff;
+    background-color: #111111;
+}
+
+.header-left {
+    justify-self: start;
+    padding-left: 1.25rem;
+}
+
+.header-middle {
+    justify-self: center;
+}
+
+.header-right {
+    justify-self: end;
+    padding-right: 1.25rem;
+}
+
+.header-title {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 2rem;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin: .5rem 0;
+}

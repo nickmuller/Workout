@@ -17,16 +17,6 @@ public class Player : IDisposable
     public int Oefeningnummer { get; private set; }
     public int AantalOefeningen => oefeningen.Length;
     public int Set { get; private set; }
-    public int Herhaling
-    {
-        get
-        {
-            var percentageTijdSet = oefening.DuurSet.TotalSeconds == 0 ? 0
-                : Convert.ToInt32((oefening.DuurSet.TotalSeconds - resterendeTijdSet.TotalSeconds) / oefening.DuurSet.TotalSeconds * 100);
-            return Convert.ToInt32(oefening.AantalHerhalingen / 100.0 * percentageTijdSet);
-        }
-    }
-
     public TimeSpan ResterendeTijdSet => resterendeTijdSet;
     public TimeSpan ResterendeTijdPauze => resterendeTijdPauze;
     public bool IsPauze { get; private set; }
@@ -161,11 +151,6 @@ public class Player : IDisposable
             IsPauze = false;
             OnSetChange?.Invoke();
         }
-    }
-
-    public void StartPauze()
-    {
-        IsPauze = true;
     }
 
     public void Dispose()
