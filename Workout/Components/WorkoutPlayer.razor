@@ -96,8 +96,8 @@
                 <div>
                     <div class="oefening-tijd">
                         <svg class="loading-progress @(player.Modus == Modus.Handmatig ? "red" : "blue")">
-                            <circle r="40%" cx="50%" cy="50%"/>
-                            <circle r="40%" cx="50%" cy="50%" style="stroke-dasharray: calc(3.141 * @(player.PercentageTijd)% * 0.8), 500%;"/>
+                            <circle r="40%" cx="50%" cy="50%" />
+                            <circle r="40%" cx="50%" cy="50%" style="stroke-dasharray: calc(3.141 * @(player.PercentageTijd)% * 0.8), 500%;" />
                         </svg>
 
                         <div class="loading-progress-text center">
@@ -110,7 +110,7 @@
                                 <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
                             }
                         </div>
-                        
+
                         <div class="start-stop">
                             @if (!player.IsKlaar)
                             {
