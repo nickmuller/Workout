@@ -20,6 +20,10 @@
         </Right>
     </Header>
 
+    <div class="progress">
+        <div class="progress-bar" style="width: @(player.PercentageSetsAfgerond)%"></div>
+    </div>
+
     <div class="oefening-afbeelding">
         @if (player.IsKlaar)
         {
@@ -44,7 +48,7 @@
                 </div>
             </div>
 
-            @if (player.Set == player.Oefening.AantalSets)
+            @if (player.SetNummer == player.Oefening.AantalSets)
             {
                 <div class="volgende-set-preview">
                     <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
@@ -100,7 +104,7 @@
             @if (player.Oefening.AantalSets > 1 && !player.IsKlaar)
             {
                 <p class="oefening-sets">
-                    <span>@player.Set&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
+                    <span>@player.SetNummer&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
                 </p>
             }
 
@@ -155,8 +159,8 @@
     </div>
 
     <Stack>
-        <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.Set == 1 && !player.IsPauze)">&lt;</button>
-        <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.Set == player.Oefening.AantalSets && player.IsKlaar)">&gt;</button>
+        <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.SetNummer == 1 && !player.IsPauze)">&lt;</button>
+        <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.SetNummer == player.Oefening.AantalSets && player.IsKlaar)">&gt;</button>
     </Stack>
 }
 
@@ -205,7 +209,7 @@
         var url = Navigation.GetUriWithQueryParameters(new Dictionary<string, object?>
         {
             {"oefening", player!.Oefeningnummer},
-            {"set", player!.Set}
+            {"set", player!.SetNummer}
         });
 
         // update querystring

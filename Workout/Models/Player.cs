@@ -16,7 +16,10 @@ public class Player : IDisposable
     public Modus Modus { get; private set; } = Modus.Handmatig;
     public int Oefeningnummer { get; private set; }
     public int AantalOefeningen => oefeningen.Length;
-    public int Set { get; private set; }
+    public int AantalSetsAfgerond => oefeningen.Where((_, i) => i < Oefeningnummer - 1).Sum(o => o.AantalSets) + SetNummer - 1 + (IsKlaar ? 1 : 0);
+    public int TotaalAantalSets => oefeningen.Sum(o => o.AantalSets);
+    public int PercentageSetsAfgerond => (int)Math.Round((double)AantalSetsAfgerond / TotaalAantalSets * 100);
+    public int SetNummer { get; private set; }
     public TimeSpan ResterendeTijdSet => resterendeTijdSet;
     public TimeSpan ResterendeTijdPauze => resterendeTijdPauze;
     public bool IsPauze { get; private set; }
@@ -27,11 +30,11 @@ public class Player : IDisposable
     public event Action? OnTick;
     public event Action? OnSetChange;
 
-    public Player(CategorieType categorie, int oefeningnummer, int set)
+    public Player(CategorieType categorie, int oefeningnummer, int setNummer)
     {
         oefeningen = Workouts.Oefeningen(categorie);
         Oefeningnummer = oefeningnummer;
-        Set = set;
+        SetNummer = setNummer;
         oefening = oefeningen[oefeningnummer - 1];
         Vorige = oefeningnummer > 1 ? oefeningen.Skip(oefeningnummer - 2).Take(1).Single() : default;
         Volgende = oefeningen.Skip(oefeningnummer).Take(1).SingleOrDefault();
@@ -86,9 +89,11 @@ public class Player : IDisposable
         {
             IsPauze = false;
         }
-        else if (Set > 1)
+        else if (SetNummer > 1)
         {
-            Set--;
+            if (!IsKlaar)
+                SetNummer--;
+
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = true;
@@ -107,7 +112,7 @@ public class Player : IDisposable
             oefening = oefeningen[Oefeningnummer - 1];
             Vorige = Oefeningnummer > 1 ? oefeningen.Skip(Oefeningnummer - 2).Take(1).Single() : default;
             Volgende = oefeningen.Skip(Oefeningnummer).Take(1).SingleOrDefault();
-            Set = oefening.AantalSets;
+            SetNummer = oefening.AantalSets;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = Vorige != default; // warmup heeft geen pauze
@@ -122,9 +127,9 @@ public class Player : IDisposable
         {
             IsPauze = true;
         }
-        else if (Set < oefening.AantalSets)
+        else if (SetNummer < oefening.AantalSets)
         {
-            Set++;
+            SetNummer++;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
@@ -145,7 +150,7 @@ public class Player : IDisposable
             oefening = oefeningen[Oefeningnummer - 1];
             Vorige = Oefeningnummer > 1 ? oefeningen.Skip(Oefeningnummer - 2).Take(1).Single() : default;
             Volgende = oefeningen.Skip(Oefeningnummer).Take(1).SingleOrDefault();
-            Set = 1;
+            SetNummer = 1;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
