@@ -839,7 +839,7 @@ nav img {
 }
 .oefening-controls .link-links i,
 .oefening-controls .link-rechts i {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 
 .start-stop .btn {
@@ -856,8 +856,8 @@ nav img {
 .oefening-tijd .loading-progress {
   position: relative;
   display: block;
-  width: 16rem;
-  height: 16rem;
+  width: 12rem;
+  height: 12rem;
   margin: 0 auto;
 }
 .oefening-tijd .loading-progress circle {
@@ -876,7 +876,7 @@ nav img {
   transition: stroke-dasharray 0.05s ease-in-out;
 }
 .oefening-tijd .loading-progress-text {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-family: "Rajdhani", sans-serif;
   font-weight: 600;
 }
