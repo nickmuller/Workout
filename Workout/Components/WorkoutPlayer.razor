@@ -6,162 +6,139 @@
 
 @if (player != null)
 {
-    <Header>
-        <Left>
-            <a href="" class="btn btn-link home-link"><i class="fa-solid fa-arrow-left"></i></a>
-        </Left>
-        <Middle>
-            <h1 class="header-title">
-                @player.Oefening.Naam
-            </h1>
-        </Middle>
-        <Right>
-            <LoginDisplay />
-        </Right>
-    </Header>
+    <div class="workout-player">
+        <Header>
+            <Left>
+                <a href="" class="btn btn-link home-link"><i class="fa-solid fa-arrow-left"></i></a>
+            </Left>
+            <Middle>
+                <h1 class="header-title">
+                    @player.Oefening.Naam
+                </h1>
+            </Middle>
+            <Right>
+                <LoginDisplay />
+            </Right>
+        </Header>
 
-    <div class="progress">
-        <div class="progress-bar" style="width: @(player.PercentageSetsAfgerond)%"></div>
-    </div>
-
-    <div class="oefening-afbeelding">
-        @if (player.IsKlaar)
-        {
-            <img src="images/yeah.gif" alt="Yeah"/>
-        }
-        else if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
-        {
-            <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam"/>
-        }
-        else if (player.Oefening.InitieelTonen == InitieelTonen.Video)
-        {
-            <div class="embed-container">
-                <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-            </div>
-        }
-
-        @if (player.IsPauze)
-        {
-            <div class="pauze-achtergrond">
-                <div class="pauze">
-                    Pauze
-                </div>
-            </div>
-
-            @if (player.SetNummer == player.Oefening.AantalSets)
-            {
-                <div class="volgende-set-preview">
-                    <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
-                    <div class="naam-volgende-oefening">
-                        @player.Volgende.Naam
-                    </div>
-                </div>
-            }
-        }
-    </div>
-
-    // todo: hieronder stylen
-
-
-
-    @if (player.WorkoutStart != null)
-    {
-        <p class="workout-start">
-            start: @player.WorkoutStart.Value.ToString("HH:mm"),
-            duur: @(((player.WorkoutEind ?? DateTime.Now) - player.WorkoutStart.Value).ToString("hh\\:mm"))
-        </p>
-    }
-
-    <div class="oefening">
-        <Stack>
-
-
-
-            <p class="oefening-nummer">
-                @player.Oefeningnummer / @player.AantalOefeningen
-            </p>
-        </Stack>
-
-        
-        
-        @* weg? *@
-        <p class="oefening-nummer">
-            @player.Oefeningnummer / @player.AantalOefeningen
-        </p>
-        
-
-        <div class="oefening-midden-container">
-            
-            
-
-            @if (player.Oefening.AantalHerhalingen > 1 && !player.IsKlaar)
-            {
-                <p class="oefening-herhalingen">
-                    <span>@(player.Oefening.AantalHerhalingen)x</span>
-                </p>
-            }
-
-            @if (player.Oefening.AantalSets > 1 && !player.IsKlaar)
-            {
-                <p class="oefening-sets">
-                    <span>@player.SetNummer&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
-                </p>
-            }
-
+        <div class="progress">
+            <div class="progress-bar" style="width: @(player.PercentageSetsAfgerond)%"></div>
         </div>
 
-        
-        
-
-
-        <ul class="oefening-tips">
-            @foreach (var tip in player.Oefening.Tips)
+        <div class="oefening-afbeelding">
+            @if (player.IsKlaar)
             {
-                <li>@tip</li>
+                <img src="images/yeah.gif" alt="Yeah"/>
             }
-        </ul>
+            else if (player.Oefening.InitieelTonen == InitieelTonen.Afbeelding)
+            {
+                <img src="@player.Oefening.AfbeeldingUrl" alt="@player.Oefening.Naam"/>
+            }
+            else if (player.Oefening.InitieelTonen == InitieelTonen.Video)
+            {
+                <div class="embed-container">
+                    <embed src="@player.Oefening.VideoUrl" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                </div>
+            }
 
+            @if (player.IsPauze)
+            {
+                <div class="pauze-achtergrond">
+                    <div class="pauze">
+                        Pauze
+                    </div>
+                </div>
 
-        @if ((player.Oefening.DuurSet > TimeSpan.Zero || player.IsPauze) && !player.IsKlaar)
-        {
-            <div class="oefening-tijd">
-                @if (player.IsPauze)
+                @if (player.SetNummer == player.Oefening.AantalSets && player.Volgende != default)
                 {
-                    <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
+                    <div class="volgende-set-preview">
+                        <img src="@player.Volgende.AfbeeldingUrl" alt="@player.Volgende.Naam" />
+                        <div class="naam-volgende-oefening">
+                            @player.Volgende.Naam
+                        </div>
+                    </div>
                 }
-                else
-                {
-                    <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
-                }
-            </div>
-        }
+            }
+        </div>
+
+        <div class="oefening-footer">
+            <Stack Class="oefening-info">
+                <ul class="oefening-tips">
+                    @foreach (var tip in player.Oefening.Tips)
+                    {
+                        <li>@tip</li>
+                    }
+                </ul>
+
+                <div class="oefening-sets-en-herhalingen">
+                    @if (player.Oefening.AantalSets > 1 && !player.IsKlaar)
+                    {
+                        <p class="oefening-sets">
+                            <span>@player.SetNummer&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
+                        </p>
+                    }
+
+                    @if (player.Oefening.AantalHerhalingen > 1 && !player.IsKlaar)
+                    {
+                        <p class="oefening-herhalingen">
+                            <span>@(player.Oefening.AantalHerhalingen)x</span>
+                        </p>
+                    }
+                </div>
+            </Stack>
+
+            <Stack Class="oefening-controls">
+                <button class="btn btn-fw btn-link link-links" @onclick="() => player.VorigeSet()"
+                        disabled="@(player.Vorige == default && player.SetNummer == 1 && !player.IsPauze)">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
+                </button>
+                
+                <div>
+                    <div class="oefening-tijd">
+                        <svg class="loading-progress @(player.Modus == Modus.Handmatig ? "red" : "blue")">
+                            <circle r="40%" cx="50%" cy="50%"/>
+                            <circle r="40%" cx="50%" cy="50%" style="stroke-dasharray: calc(3.141 * @(player.PercentageTijd)% * 0.8), 500%;"/>
+                        </svg>
+
+                        <div class="loading-progress-text center">
+                            @if (player.IsPauze)
+                            {
+                                <span class="resterende-tijd">@player.ResterendeTijdPauze.ToString(@"m\:ss")</span>
+                            }
+                            else
+                            {
+                                <span class="resterende-tijd">@player.ResterendeTijdSet.ToString(@"m\:ss")</span>
+                            }
+                        </div>
+                        
+                        <div class="start-stop">
+                            @if (!player.IsKlaar)
+                            {
+                                @if (player.Modus == Modus.Handmatig)
+                                {
+                                    <button class="btn btn-link" @onclick="() => player.Start()"></button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-link" @onclick="() => player.Stop()"></button>
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <p class="workout-start" style="visibility: @(player.WorkoutStart == null ? "hidden" : "visible")">
+                        @($"{player.WorkoutStart:HH:mm}")
+                        - @(player.WorkoutDuur != null ? (int)player.WorkoutDuur.Value.TotalMinutes : 0) minuten
+                    </p>
+                </div>
+
+                <button class="btn btn-fw btn-link link-rechts" @onclick="() => player.VolgendeSet()"
+                        disabled="@(player.Volgende == default && player.SetNummer == player.Oefening.AantalSets && player.IsKlaar)">
+                    <i class="fa-solid fa-circle-chevron-right"></i>
+                </button>
+            </Stack>
+        </div>
     </div>
-
-    <div class="start-stop">
-        @if (!player.IsKlaar)
-        {
-            @if (player.Modus == Modus.Handmatig)
-            {
-                @if (player.ResterendeTijdSet == player.Oefening.DuurSet && player.ResterendeTijdPauze == player.Oefening.DuurPauze)
-                {
-                    <button class="btn btn-fw btn-green" @onclick="() => player.Start()">Start</button>
-                }
-                else
-                {
-                    <button class="btn btn-fw btn-green" @onclick="() => player.Start()" disabled="@player.IsKlaar">Hervat</button>
-                }
-            }
-            else
-            {
-                <button class="btn btn-fw btn-red" @onclick="() => player.Stop()">Stop</button>
-            }
-        }
-    </div>
-
-    <Stack>
-        <button class="btn btn-fw mr-1" @onclick="() => player.VorigeSet()" disabled="@(player.Vorige == default && player.SetNummer == 1 && !player.IsPauze)">&lt;</button>
-        <button class="btn btn-fw" @onclick="() => player.VolgendeSet()" disabled="@(player.Volgende == default && player.SetNummer == player.Oefening.AantalSets && player.IsKlaar)">&gt;</button>
-    </Stack>
 }
 
 @code

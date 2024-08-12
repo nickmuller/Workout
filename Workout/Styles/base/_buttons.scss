@@ -162,6 +162,8 @@ fieldset:disabled a.btn {
     &.disabled,
     &:disabled {
         color: $text-muted;
+        background-color: transparent;
+        border-color: transparent;
     }
 
     &:not(:disabled):not(.disabled):active,

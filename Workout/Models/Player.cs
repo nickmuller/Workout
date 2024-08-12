@@ -22,10 +22,14 @@ public class Player : IDisposable
     public int SetNummer { get; private set; }
     public TimeSpan ResterendeTijdSet => resterendeTijdSet;
     public TimeSpan ResterendeTijdPauze => resterendeTijdPauze;
+    public int PercentageTijd => IsPauze
+        ? (int)Math.Round(resterendeTijdPauze.TotalSeconds / oefening.DuurPauze.TotalSeconds * 100)
+        : (int)Math.Round(resterendeTijdSet.TotalSeconds / oefening.DuurSet.TotalSeconds * 100);
     public bool IsPauze { get; private set; }
     public bool IsKlaar { get; private set; }
     public DateTime? WorkoutStart { get; private set; }
     public DateTime? WorkoutEind { get; private set; }
+    public TimeSpan? WorkoutDuur => WorkoutStart.HasValue ? (WorkoutEind ?? DateTime.Now) - WorkoutStart.Value : null;
 
     public event Action? OnTick;
     public event Action? OnSetChange;
