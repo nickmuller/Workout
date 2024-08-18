@@ -1,0 +1,65 @@
+﻿﻿@if (showConfirmation)
+{
+    <button type="button" class="btn btn-fw" @onclick="AnnulerenClick">Annuleren</button>
+}
+
+<button type="button" class="@Class" @onclick="ButtonClick" disabled="@Disabled">
+    @if (showConfirmation)
+    {
+        @ConfirmText
+    }
+    else
+    {
+        @Text
+    }
+    @if (bezig)
+    {
+        <Spinner/>
+    }
+</button>
+
+@code {
+    [Parameter, EditorRequired] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter, EditorRequired] public string Text { get; set; } = null!;
+    [Parameter] public string ConfirmText { get; set; } = "Zeker?";
+    [Parameter] public bool UseConfirm { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Class { get; set; } = "btn btn-fw";
+
+    private bool bezig;
+    private bool showConfirmation;
+
+    private async Task ButtonClick(MouseEventArgs e)
+    {
+        if (UseConfirm)
+        {
+            if (showConfirmation)
+            {
+                if (!bezig)
+                {
+                    bezig = true;
+                    if (OnClick.HasDelegate)
+                        await OnClick.InvokeAsync(e);
+                    bezig = false;
+                }
+            }
+
+            showConfirmation = !showConfirmation;
+        }
+        else
+        {
+            if (!bezig)
+            {
+                bezig = true;
+                if (OnClick.HasDelegate)
+                    await OnClick.InvokeAsync(e);
+                bezig = false;
+            }
+        }
+    }
+
+    private void AnnulerenClick()
+    {
+        showConfirmation = false;
+    }
+}

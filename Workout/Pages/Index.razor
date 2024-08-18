@@ -41,11 +41,8 @@
         <Authorized>
             <div>
                 <div class="gewicht">
-                    <InputNumber TValue="decimal" @bind-Value="@gewicht" step=".1"></InputNumber>
-
-                    <button class="btn btn-fw" @onclick="GewichtLoggen">
-                        Log kg
-                    </button>
+                    <InputNumber TValue="decimal" @bind-Value="@gewicht" step=".1" inputmode="decimal" />
+                    <SpinnerButton Text="Log kg" OnClick="GewichtLoggen" />
                 </div>
 
                 @if (!string.IsNullOrEmpty(StateService.Model?.Url))
