@@ -751,6 +751,10 @@ nav img {
   justify-content: center;
   min-height: 56.25%;
   position: relative;
+  max-width: 88.8888888889vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .oefening-afbeelding .embed-container {
   position: relative;
