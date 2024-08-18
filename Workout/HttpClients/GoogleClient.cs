@@ -14,7 +14,7 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
     public async Task<WorkoutState?> LoadStateAsync()
     {
         var fileId = await GetFileIdAsync(StateFileName);
-        return !string.IsNullOrEmpty(fileId) ? await GetFileAsync(fileId) : null;
+        return !string.IsNullOrEmpty(fileId) ? await GetFileAsync<WorkoutState>(fileId) : null;
     }
 
     public Task SaveStateAsync(WorkoutState state)
@@ -22,7 +22,7 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         return CreateOrUpdateFileAsync(StateFileName, state);
     }
 
-    public Task SaveWorkoutLogAsync(Player player)
+    public async Task SaveWorkoutLogAsync(Player player)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} workout.json";
 
@@ -31,21 +31,38 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
 
         var log = new WorkoutLog
         {
-            Created = DateTime.Now,
-            Changed = DateTime.Now,
             WorkoutStart = player.WorkoutStart.Value,
             WorkoutEind = player.WorkoutEind,
             Categorie = player.Categorie
         };
 
-        return CreateOrUpdateFileAsync(fileName, log);
+        var fileId = await GetFileIdAsync(fileName);
+        if (string.IsNullOrEmpty(fileId))
+        {
+            var logFile = new WorkoutLogFile
+            {
+                Created = DateTime.Now,
+                Changed = DateTime.Now,
+                WorkoutLijst = [log]
+            };
+
+            await CreateFileAsync(fileName, logFile);
+        }
+        else
+        {
+            var logFile = await GetFileAsync<WorkoutLogFile>(fileId);
+            logFile.Changed = DateTime.Now;
+            logFile.WorkoutLijst.Add(log);
+
+            await UpdateFileAsync(fileId, logFile);
+        }
     }
 
     public Task SavePersoonlijkeGegevensLogAsync(int gewicht)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} persoonlijke info.json";
 
-        var log = new PersoonlijkeGegevensLog
+        var log = new PersoonlijkeGegevensLogFile
         {
             Created = DateTime.Now,
             Changed = DateTime.Now,
@@ -63,10 +80,10 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         return file.Id;
     }
 
-    private async Task<WorkoutState> GetFileAsync(string fileId)
+    private async Task<T> GetFileAsync<T>(string fileId) where T : class
     {
         using var response = await client.GetAsync($"/drive/v3/files/{fileId}?alt=media");
-        return (await response.Content.ReadFromJsonAsync<WorkoutState>())!;
+        return (await response.Content.ReadFromJsonAsync<T>())!;
     }
 
     private async Task CreateOrUpdateFileAsync(string fileName, object content)

@@ -13,14 +13,19 @@ public class WorkoutState : FileBaseModel
     public string? Url { get; set; }
 }
 
-public class WorkoutLog : FileBaseModel
+public class WorkoutLogFile : FileBaseModel
+{
+    public List<WorkoutLog> WorkoutLijst { get; set; } = [];
+}
+
+public class WorkoutLog
 {
     public required DateTime WorkoutStart { get; set; }
     public DateTime? WorkoutEind { get; set; }
     public required CategorieType Categorie { get; set; }
 }
 
-public class PersoonlijkeGegevensLog : FileBaseModel
+public class PersoonlijkeGegevensLogFile : FileBaseModel
 {
     public required int Gewicht { get; set; }
 }
