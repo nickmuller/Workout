@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject StateService StateService
+@inject GoogleClient GoogleClient
 
 <Header>
     <Middle>
@@ -39,6 +40,15 @@
     <AuthorizeView>
         <Authorized>
             <div>
+                <div class="gewicht">
+                    <label>Gewicht:</label>
+                    <InputNumber TValue="decimal" @bind-Value="@gewicht" step=".1"></InputNumber>
+
+                    <button class="btn btn-fw" @onclick="GewichtLoggen">
+                        Loggen
+                    </button>
+                </div>
+
                 @if (!string.IsNullOrEmpty(StateService.Model?.Url))
                 {
                     <a href="@StateService.Model.Url" class="btn btn-fw btn-orange">Workout hervatten</a>
@@ -47,3 +57,13 @@
         </Authorized>
     </AuthorizeView>
 </div>
+
+@code
+{
+    private decimal gewicht;
+
+    private Task GewichtLoggen()
+    {
+        return GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
+    }
+}

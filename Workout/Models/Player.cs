@@ -148,6 +148,7 @@ public class Player : IDisposable
         {
             // Dit was de laatste oefening, stoppen
             Stop();
+            resterendeTijdSet = TimeSpan.Zero;
             IsPauze = false;
             IsKlaar = true;
             WorkoutEind ??= DateTime.Now;
