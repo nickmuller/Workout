@@ -24,7 +24,6 @@ public class Program
         builder.Services.AddMemoryCache();
         builder.Services.Configure<JsonSerializerOptions>(options =>
         {
-            options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
             options.PropertyNameCaseInsensitive = true;
             options.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
         });

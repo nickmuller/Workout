@@ -34,6 +34,8 @@ public class Player : IDisposable
 
     public event Action? OnTick;
     public event Action? OnSetChange;
+    public event Action? OnStart;
+    public event Action? OnEind;
 
     public Player(CategorieType categorie, int oefeningnummer, int setNummer)
     {
@@ -54,6 +56,7 @@ public class Player : IDisposable
         WorkoutStart ??= DateTime.Now;
         Modus = Modus.Automatisch;
         timer?.Change(0, 1000);
+        OnStart?.Invoke();
         OnSetChange?.Invoke();
     }
 
@@ -148,6 +151,7 @@ public class Player : IDisposable
             IsPauze = false;
             IsKlaar = true;
             WorkoutEind ??= DateTime.Now;
+            OnEind?.Invoke();
         }
         else
         {

@@ -158,6 +158,8 @@
         player = new Player(Categorie, oefeningnummer, set);
         player.OnTick += PlayerTick;
         player.OnSetChange += PlayerSetChanged;
+        player.OnStart += PlayerStart;
+        player.OnEind += PlayerEind;
     }
 
     private void PlayerTick()
@@ -181,6 +183,38 @@
         });
     }
 
+    private void PlayerStart()
+    {
+        InvokeAsync(async () =>
+        {
+            try
+            {
+                await GoogleClient.SaveWorkoutLogAsync(player!);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, $"Exception in {nameof(PlayerStart)}");
+                throw;
+            }
+        });
+    }
+
+    private void PlayerEind()
+    {
+        InvokeAsync(async () =>
+        {
+            try
+            {
+                await GoogleClient.SaveWorkoutLogAsync(player!);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e, $"Exception in {nameof(PlayerEind)}");
+                throw;
+            }
+        });
+    }
+
     private async Task VoortgangPersisteren()
     {
         var url = Navigation.GetUriWithQueryParameters(new Dictionary<string, object?>
@@ -197,7 +231,6 @@
         {
             var relativeUrl = Navigation.ToBaseRelativePath(url);
             await StateService.SaveUrlAsync(relativeUrl);
-            await GoogleClient.SaveWorkoutLogAsync(player);
         }
     }
 
