@@ -58,7 +58,7 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         }
     }
 
-    public Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
+    public Task SavePersoonlijkeGegevensLogAsync(double gewicht)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} persoonlijke info.json";
 

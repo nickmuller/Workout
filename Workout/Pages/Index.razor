@@ -41,8 +41,8 @@
         <Authorized>
             <div>
                 <div class="gewicht">
-                    <InputNumber TValue="decimal" @bind-Value="@gewicht" step="any" inputmode="decimal" pattern="[0-9]*" name="gewicht" unit="kgs" autoComplete="off" />
-                    <SpinnerButton Text="Log kg" OnClick="GewichtLoggen" />
+                    <Slider @bind-Value="@gewicht" Step=".1" Min="40" Max="100" ValueLabelFormat="0.# kg" />
+                    <SpinnerButton Text="Log gewicht" OnClick="GewichtLoggen" />
                 </div>
 
                 @if (!string.IsNullOrEmpty(StateService.Model?.Url))
@@ -56,7 +56,7 @@
 
 @code
 {
-    private decimal gewicht;
+    private double gewicht = 70;
 
     private Task GewichtLoggen()
     {

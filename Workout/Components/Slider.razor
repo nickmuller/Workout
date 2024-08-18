@@ -1,0 +1,30 @@
+﻿@using System.Globalization
+<div class="slider-container">
+    <div class="slider-label">
+        @Value.ToString(ValueLabelFormat, CultureInfo.InvariantCulture)
+    </div>
+    <input type="range" class="slider"
+           min="@Min.ToString(null, CultureInfo.InvariantCulture)"
+           max="@Max.ToString(null, CultureInfo.InvariantCulture)"
+           step="@Step.ToString(null, CultureInfo.InvariantCulture)"
+           @bind-value="@value" @bind-value:event="oninput" />
+</div>
+
+@code {
+    [Parameter, EditorRequired] public double Value { get; set; }
+    [Parameter] public EventCallback<double> ValueChanged { get; set; }
+    [Parameter] public double Min { get; set; }
+    [Parameter] public double Max { get; set; } = 100;
+    [Parameter] public double Step { get; set; } = 1;
+    [Parameter] public string? ValueLabelFormat { get; set; }
+
+    private string value
+    {
+        get => Value.ToString(null, CultureInfo.InvariantCulture);
+        set
+        {
+            Value = double.Parse(value, CultureInfo.InvariantCulture);
+            ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

@@ -27,5 +27,5 @@ public class WorkoutLog
 
 public class PersoonlijkeGegevensLogFile : FileBaseModel
 {
-    public required decimal Gewicht { get; set; }
+    public required double Gewicht { get; set; }
 }
