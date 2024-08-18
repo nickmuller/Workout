@@ -1,7 +1,7 @@
 ﻿@implements IDisposable
 @inject NavigationManager Navigation
 @inject StateService StateService
-@inject GoogleDriveService GoogleDriveService
+@inject GoogleClient GoogleClient
 @inject ILogger<WorkoutPlayer> Logger
 
 @if (player != null)
@@ -195,10 +195,9 @@
 
         if (await IsAuthenticated())
         {
-            var m = StateService.Model ?? new PersistedModel();
-            m.Changed = DateTime.Now;
-            m.Url = Navigation.ToBaseRelativePath(url);
-            await GoogleDriveService.SaveAsync(m);
+            var relativeUrl = Navigation.ToBaseRelativePath(url);
+            await StateService.SaveUrlAsync(relativeUrl);
+            await GoogleClient.SaveWorkoutLogAsync(player);
         }
     }
 

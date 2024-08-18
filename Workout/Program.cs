@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Workout.Authentication;
+using Workout.HttpClients;
 using Workout.Services;
-using Workout.Services.Google;
 
 namespace Workout;
 
@@ -20,13 +20,16 @@ public class Program
         builder.RootComponents.Add<HeadOutlet>("head::after");
         builder.Logging.SetMinimumLevel(LogLevel.Warning);
         builder.Services.AddCascadingAuthenticationState();
-        builder.Services.AddHttpClient<GoogleClient>().AddHttpMessageHandler<GoogleApiAuthorizationMessageHandler>();
-        builder.Services.AddTransient<GoogleApiAuthorizationMessageHandler>();
-        builder.Services.AddOidcAuthentication(options => builder.Configuration.Bind("GoogleAuth", options.ProviderOptions))
-            .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, WorkoutUserFactory>();
+        builder.Services.AddMemoryCache();
 
-        builder.Services.AddSingleton<StateService>();
-        builder.Services.AddSingleton<GoogleDriveService>();
+        builder.Services.AddOidcAuthentication(options => builder.Configuration.Bind("GoogleAuth", options.ProviderOptions))
+            .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, GoogleUserFactory>();
+
+        builder.Services.AddHttpClient<GoogleClient>(client => client.BaseAddress = new Uri("https://www.googleapis.com"))
+            .AddHttpMessageHandler<GoogleApiAuthorizationMessageHandler>();
+
+        builder.Services.AddTransient<GoogleApiAuthorizationMessageHandler>();
+        builder.Services.AddScoped<StateService>();
 
         await builder.Build().RunAsync();
     }

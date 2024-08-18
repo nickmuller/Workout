@@ -10,6 +10,7 @@ public class Player : IDisposable
     private TimeSpan resterendeTijdSet;
     private TimeSpan resterendeTijdPauze;
 
+    public CategorieType Categorie { get; private set; }
     public OefeningModel Oefening => oefening;
     public OefeningModel Vorige { get; private set; }
     public OefeningModel Volgende { get; private set; }
@@ -36,6 +37,7 @@ public class Player : IDisposable
 
     public Player(CategorieType categorie, int oefeningnummer, int setNummer)
     {
+        Categorie = categorie;
         oefeningen = Workouts.Oefeningen(categorie);
         Oefeningnummer = oefeningnummer;
         SetNummer = setNummer;
