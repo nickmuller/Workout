@@ -41,7 +41,7 @@
         <Authorized>
             <div>
                 <div class="gewicht">
-                    <InputNumber TValue="decimal" @bind-Value="@gewicht" step=".1" inputmode="decimal" pattern="[0-9]+([\.,][0-9]+)?" />
+                    <InputNumber TValue="decimal" @bind-Value="@gewicht" step=".1" inputmode="decimal" pattern="[0-9]+([\.,][0-9]+)?" name="gewicht" unit="kgs" autoComplete="off" />
                     <SpinnerButton Text="Log kg" OnClick="GewichtLoggen" />
                 </div>
 
