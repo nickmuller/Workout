@@ -891,6 +891,7 @@ nav img {
   padding: 0 30px;
   font-weight: 500;
   color: #1690e8;
+  white-space: nowrap;
 }
 
 .gewicht {
