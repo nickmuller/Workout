@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Workout",
   "resources": {
-    "hash": "sha256-YkEBAUr/Tk+U89ecpa5XaVEYggPml8Ba/ugo9DQUkBc=",
+    "hash": "sha256-sP/cjeCWNXb42ZKBuaJdTA8M/Wg6uQWrXmDFIhaGXdY=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.746giovk6l.js": "sha256-juC5sA7gHTLXFEhAKgdM2/RavswpwCtDfjYGsAz2FXg="
     },
@@ -43,7 +43,7 @@
       "System.Collections.Concurrent.wasm": "sha256-LhGEVBWQI7NCw1AhUrPYLHtgehp+iVC6qA/QV/klNrM=",
       "System.Collections.NonGeneric.wasm": "sha256-obaThsPaJmrUccVrKiO1cMNuF9CnKdOtzwjjlKWqO0A=",
       "System.Collections.Specialized.wasm": "sha256-7mUTe3GYg6H16m9t7ZFqDiovUatgISkgjTH46mGNx5w=",
-      "System.Collections.wasm": "sha256-x2GPltRLsJ3wSfLVxMn1Zw+8oB+suAzio1O1qPNCOHo=",
+      "System.Collections.wasm": "sha256-TvXx5yVV+/G8zrRcvN9F9qYP6CKnCu1uKOtecgc1JqU=",
       "System.ComponentModel.Primitives.wasm": "sha256-mGjeGxQ1A1typfQX+MLTTaM+32cfhGi167WLUoLsukk=",
       "System.ComponentModel.TypeConverter.wasm": "sha256-OFQFaqKwGIxFypt71guYxRogmOhNEMSOVHmU32zQQ58=",
       "System.ComponentModel.wasm": "sha256-GPAg/lqvtlGqfal3j6EPgQ+6mqlusQ30qCeS8LYv8ws=",
@@ -65,7 +65,7 @@
       "System.Text.RegularExpressions.wasm": "sha256-8bujMNUMCuxn48zxE7AA6YYcbZJjv76LHEAtNjS6TuE=",
       "System.Threading.wasm": "sha256-/sB9Aucuch2CQz4pnfsZuu5jossTPJjDZbDvKQuEVek=",
       "System.wasm": "sha256-ka1SPMSVGn53xDzeBa40FQCsprKEF+n+wpvvd1HyMNE=",
-      "Workout.wasm": "sha256-t5l1p0npuvmh+kUYgbLanlyKgz3a2DmUSx3f0bthTDk="
+      "Workout.wasm": "sha256-1TRU2biNu+zQSbXp42ZnFdERLhEgZL7o4u9xEyT01CY="
     }
   },
   "cacheBootResources": true,
