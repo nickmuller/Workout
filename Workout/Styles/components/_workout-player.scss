@@ -10,6 +10,11 @@
     justify-content: center;
     min-height: 56.25%;
     position: relative;
+    // Niet groter maken dan 50% van de hoogte van het scherm
+    max-width: calc(50vh / 9 * 16);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     .embed-container {
         position: relative;
