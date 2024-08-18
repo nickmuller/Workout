@@ -689,9 +689,8 @@ nav img {
   transition: width 0.6s ease;
 }
 
-.spinner,
-.spinner-sm {
-  animation: spinner 3s linear infinite;
+.spinner {
+  animation: spinner 1s linear infinite;
   color: #31cc89;
   fill: none;
   stroke: currentColor;
@@ -699,20 +698,8 @@ nav img {
   stroke-dashoffset: 263.4675292969;
   stroke-linecap: round;
   stroke-width: 10;
-  height: 2rem;
-  width: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.spinner-sm {
-  height: 1rem;
-  width: 1rem;
-}
-
-.btn .spinner {
-  height: 1rem;
-  width: 1rem;
+  height: 0.875rem;
+  width: 0.875rem;
   position: relative;
   top: 3px;
   margin-left: 0.25rem;
@@ -720,19 +707,19 @@ nav img {
 
 @keyframes spinner {
   0% {
-    stroke-dasharray: 72.8225097656 15;
-    stroke-dashoffset: 263.4675292969;
+    stroke-dasharray: 72 15;
+    stroke-dashoffset: 263;
   }
-  6% {
-    stroke-dasharray: 1 86.8225097656;
+  26% {
+    stroke-dasharray: 1 86;
     stroke-dashoffset: 150;
   }
   46% {
-    stroke-dasharray: 1 86.8225097656;
+    stroke-dasharray: 1 86;
     stroke-dashoffset: 110;
   }
-  53% {
-    stroke-dasharray: 72.8225097656 15;
+  73% {
+    stroke-dasharray: 72 15;
     stroke-dashoffset: 40;
   }
   100% {

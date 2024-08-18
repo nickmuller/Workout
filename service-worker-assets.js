@@ -1,11 +1,11 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-uDv1q0IaINaczCmAA+rBLgrtmTC4BI2Q8WOyuA\/u+SA=",
+      "hash": "sha256-n0LyqoiIVSEiv5frsA\/puN9Oi5U7LfSfigcmn2M87wg=",
       "url": "css\/main.css"
     },
     {
-      "hash": "sha256-FqpNfO43yH5XVTsX2o4w7SCre4UYpjClMSdmI3wyfys=",
+      "hash": "sha256-xGo3JqBmYyxN1395HcYVJgvSXFzf60haVjBneOF7804=",
       "url": "css\/main.css.map"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-kSbEeZ9\/OEyNegZh8of4auA2ATF55hDR\/\/r193yVVdI=",
+      "hash": "sha256-x1geWCV7DOV+GLFro1jCFI8nvZ9jlLr1sXrUjd5A70Y=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -169,7 +169,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Components.Forms.wasm"
     },
     {
-      "hash": "sha256-4D55TMlrqfcJqIrc+npzOQbKT8skdEbRyt0gYu3aQ7E=",
+      "hash": "sha256-g0BNb0ohYcw3gFBJbfIGU+tY3144sVw30gJloSwg35g=",
       "url": "_framework\/Microsoft.AspNetCore.Components.wasm"
     },
     {
@@ -369,7 +369,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-49MWr6gmGzo+iN4ddoHIEgR0xtdQiARxrgEa95o2rNU=",
+      "hash": "sha256-yZRu098NYr3mhAy\/peA+H19gIkqKrrbhS\/rEo+N2KfA=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -381,5 +381,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "MOfwmWZf"
+  "version": "xB2YIWTV"
 };

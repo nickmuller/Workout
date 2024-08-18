@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Workout",
   "resources": {
-    "hash": "sha256-q3pQyybhhnHXx8sIkGk+PT2FFU2d9ToBAWj0Hh63z1c=",
+    "hash": "sha256-1HHCYOooperZltErK/874b6mC5tlmhJ+pzxXvFj0BYg=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.746giovk6l.js": "sha256-juC5sA7gHTLXFEhAKgdM2/RavswpwCtDfjYGsAz2FXg="
     },
@@ -18,7 +18,7 @@
       "Microsoft.AspNetCore.Authorization.wasm": "sha256-WHV91hKpEkms8mH83PcvILvo1tQWa5ysbLSL6mpPl9g=",
       "Microsoft.AspNetCore.Components.Authorization.wasm": "sha256-WKUUpZQYdxuk9D02LmrpE/u1S/1gAnYZ//ZDMWw0zNc=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-JMmtdcNlmkJl8Ody+Dx5qffKxurAKzM0ZmFrKbNOIlU=",
-      "Microsoft.AspNetCore.Components.wasm": "sha256-4D55TMlrqfcJqIrc+npzOQbKT8skdEbRyt0gYu3aQ7E=",
+      "Microsoft.AspNetCore.Components.wasm": "sha256-g0BNb0ohYcw3gFBJbfIGU+tY3144sVw30gJloSwg35g=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-Kr8hu52OIzukdPk6yX4ApgtwQCItfNJXMc2sNTXEzxQ=",
       "Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm": "sha256-8/4zK6g+wWjeSWJOJ8uBaoH8MxfbZz5Zc2qwskiQD48=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-Ghx4SQp9GeoCcC1C13HdeKVPn5Wj+VK1R6t80iFSLSA=",
@@ -68,7 +68,7 @@
       "System.Text.RegularExpressions.wasm": "sha256-3YU2VEF7BUt4BBRwooG+MZf68VXtzyyzxtzrSqVWLGM=",
       "System.Threading.wasm": "sha256-/sB9Aucuch2CQz4pnfsZuu5jossTPJjDZbDvKQuEVek=",
       "System.wasm": "sha256-ka1SPMSVGn53xDzeBa40FQCsprKEF+n+wpvvd1HyMNE=",
-      "Workout.wasm": "sha256-49MWr6gmGzo+iN4ddoHIEgR0xtdQiARxrgEa95o2rNU="
+      "Workout.wasm": "sha256-yZRu098NYr3mhAy/peA+H19gIkqKrrbhS/rEo+N2KfA="
     }
   },
   "cacheBootResources": true,
