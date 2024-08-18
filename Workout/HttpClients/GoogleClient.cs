@@ -2,12 +2,12 @@
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using Workout.Models;
 
 namespace Workout.HttpClients;
 
-public class GoogleClient(HttpClient client, IMemoryCache cache)
+public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions)
 {
     private const string StateFileName = "workout.json";
 
@@ -57,16 +57,9 @@ public class GoogleClient(HttpClient client, IMemoryCache cache)
 
     private async Task<string?> GetFileIdAsync(string fileName)
     {
-        var files = (await cache.GetOrCreateAsync("files", async e =>
-        {
-            e.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
-
-            using var response = await client.GetAsync("/drive/v3/files?q=trashed=false");
-            var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>();
-            return fileList.Files;
-        }))!;
-
-        var file = files.SingleOrDefault(f => f.Name == fileName);
+        using var response = await client.GetAsync("/drive/v3/files?q=trashed=false");
+        var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>();
+        var file = fileList.Files.SingleOrDefault(f => f.Name == fileName);
         return file.Id;
     }
 
@@ -87,7 +80,7 @@ public class GoogleClient(HttpClient client, IMemoryCache cache)
 
     private async Task CreateFileAsync(string fileName, object content)
     {
-        var fileContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var fileContent = new StringContent(JsonSerializer.Serialize(content, jsonSerializerOptions.Value), Encoding.UTF8, MediaTypeNames.Application.Json);
         var metaContent = JsonContent.Create(new { name = fileName });
         var multipart = new MultipartContent { metaContent, fileContent };
         using var response = await client.PostAsync("/upload/drive/v3/files?uploadType=multipart", multipart);
@@ -96,7 +89,7 @@ public class GoogleClient(HttpClient client, IMemoryCache cache)
 
     private async Task UpdateFileAsync(string fileId, object content)
     {
-        var fileContent = new StringContent(JsonSerializer.Serialize(content), Encoding.UTF8, MediaTypeNames.Application.Json);
+        var fileContent = new StringContent(JsonSerializer.Serialize(content, jsonSerializerOptions.Value), Encoding.UTF8, MediaTypeNames.Application.Json);
         using var response = await client.PatchAsync($"/upload/drive/v3/files/{fileId}?uploadType=media", fileContent);
         response.EnsureSuccessStatusCode();
     }

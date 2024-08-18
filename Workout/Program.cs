@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -21,6 +22,12 @@ public class Program
         builder.Logging.SetMinimumLevel(LogLevel.Warning);
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddMemoryCache();
+        builder.Services.Configure<JsonSerializerOptions>(options =>
+        {
+            options.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+            options.PropertyNameCaseInsensitive = true;
+            options.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+        });
 
         builder.Services.AddOidcAuthentication(options => builder.Configuration.Bind("GoogleAuth", options.ProviderOptions))
             .AddAccountClaimsPrincipalFactory<RemoteAuthenticationState, RemoteUserAccount, GoogleUserFactory>();
