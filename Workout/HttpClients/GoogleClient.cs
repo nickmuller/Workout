@@ -75,7 +75,7 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
     private async Task<string?> GetFileIdAsync(string fileName)
     {
         using var response = await client.GetAsync("/drive/v3/files?q=trashed=false");
-        var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>();
+        var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>(jsonSerializerOptions.Value);
         var file = fileList.Files.SingleOrDefault(f => f.Name == fileName);
         return file.Id;
     }
@@ -83,7 +83,7 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
     private async Task<T> GetFileAsync<T>(string fileId) where T : class
     {
         using var response = await client.GetAsync($"/drive/v3/files/{fileId}?alt=media");
-        return (await response.Content.ReadFromJsonAsync<T>())!;
+        return (await response.Content.ReadFromJsonAsync<T>(jsonSerializerOptions.Value))!;
     }
 
     private async Task CreateOrUpdateFileAsync(string fileName, object content)
