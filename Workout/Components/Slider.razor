@@ -1,5 +1,5 @@
 ﻿@using System.Globalization
-<div class="slider-container">
+<div class="slider-container @Class">
     <div class="slider-label">
         @Value.ToString(ValueLabelFormat, CultureInfo.InvariantCulture)
     </div>
@@ -17,6 +17,7 @@
     [Parameter] public double Max { get; set; } = 100;
     [Parameter] public double Step { get; set; } = 1;
     [Parameter] public string? ValueLabelFormat { get; set; }
+    [Parameter] public string? Class { get; set; }
 
     private string value
     {

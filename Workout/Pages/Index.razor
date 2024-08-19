@@ -1,20 +1,26 @@
 ﻿@page "/"
-@inject StateService StateService
-@inject GoogleClient GoogleClient
 
-<Header>
-    <Middle>
-        <h1 class="header-title">
-            WORKOUT
-        </h1>
-    </Middle>
-    <Right>
-        <LoginDisplay />
-    </Right>
-</Header>
+<div class="index">
+    <Header>
+        <Middle>
+            <h1 class="header-title">
+                WORKOUT
+            </h1>
+        </Middle>
+        <Right>
+            <LoginDisplay/>
+        </Right>
+    </Header>
 
-<div class="center w-50">
     <nav>
+        <ul>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="statistieken" Match="NavLinkMatch.Prefix">
+                    <p>Statistieken</p>
+                </NavLink>
+            </li>
+        </ul>
+
         <ul>
             <li class="nav-item">
                 <NavLink class="nav-link" href="schoudersenarmen" Match="NavLinkMatch.Prefix">
@@ -36,30 +42,4 @@
             </li>
         </ul>
     </nav>
-
-    <AuthorizeView>
-        <Authorized>
-            <div>
-                <div class="gewicht">
-                    <Slider @bind-Value="@gewicht" Step=".1" Min="60" Max="80" ValueLabelFormat="0.# kg" />
-                    <SpinnerButton Text="Log gewicht" OnClick="GewichtLoggen" />
-                </div>
-
-                @if (!string.IsNullOrEmpty(StateService.Model?.Url))
-                {
-                    <a href="@StateService.Model.Url" class="btn btn-fw btn-orange">Workout hervatten</a>
-                }
-            </div>
-        </Authorized>
-    </AuthorizeView>
 </div>
-
-@code
-{
-    private double gewicht = 70;
-
-    private Task GewichtLoggen()
-    {
-        return GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
-    }
-}

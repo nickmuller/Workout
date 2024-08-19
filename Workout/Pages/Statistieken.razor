@@ -1,0 +1,49 @@
+﻿@page "/statistieken"
+@attribute [Authorize]
+@inject GoogleClient GoogleClient
+
+<Header>
+    <Left>
+        <a href="" class="btn btn-link home-link"><i class="fa-solid fa-arrow-left"></i></a>
+    </Left>
+    <Middle>
+        <h1 class="header-title">
+            Statistieken
+        </h1>
+    </Middle>
+    <Right>
+        <LoginDisplay />
+    </Right>
+</Header>
+
+@* -- grafiekje van afgelopen week of deze week? -- *@
+@* M D W D V Z Z *@
+@* 1 2 3 4 5 6 7 *@
+
+<div>
+    @* nth: log button opent popup, daarin getal tonen waarbij je omhoog en omlaag kan scrollen *@
+    @* per 0.1 van 40kg tot 200kg? *@
+    @* (zie screenshot in workout album) *@
+    <div class="gewicht-dropdown-container">
+        <label for="gewicht-dropdown">Gewicht:</label>
+        <InputSelect TValue="double" @bind-Value="gewicht" id="gewicht-dropdown">
+            @for (var i = 40.0m; i <= 200.0m; i += 0.1m)
+            {
+                <option value="@i" selected="@(i == 70.0m)">@i</option>
+            }
+        </InputSelect>
+    </div>
+
+    <Slider @bind-Value="@gewicht" Step=".1" Min="60" Max="80" ValueLabelFormat="0.# kg" Class="gewicht-slider" />
+    <SpinnerButton Text="Log gewicht" Class="btn btn-fw mt-4" OnClick="GewichtLoggen" />
+</div>
+
+@code
+{
+    private double gewicht = 70;
+
+    private Task GewichtLoggen()
+    {
+        return GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
+    }
+}

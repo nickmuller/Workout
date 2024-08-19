@@ -1,0 +1,34 @@
+﻿.gewicht-slider {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.gewicht-dropdown-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.gewicht-dropdown-container label,
+#gewicht-dropdown {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.75rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #fff;
+    background-color: #303030;
+    border-color: #303030;
+    margin-top: .25rem;
+}

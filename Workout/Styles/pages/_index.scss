@@ -1,4 +1,5 @@
-﻿.gewicht {
+﻿.index {
+    height: 100vh;
     display: grid;
-    gap: 0.5rem;
+    grid-template-rows: max-content auto;
 }

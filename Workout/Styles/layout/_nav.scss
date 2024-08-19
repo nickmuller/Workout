@@ -1,9 +1,13 @@
 ﻿nav {
-    .nav-item {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1rem;
+    display: grid;
+    align-content: space-between;
 
+    ul {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .nav-item {
         .nav-link {
             display: flex;
             flex-direction: column;
@@ -22,11 +26,14 @@
         text-align: center;
         background-color: #303030;
         padding: 0.75rem 0.75rem;
+    }
+
+    img + p {
         margin-top: -.75rem;
     }
 
     img {
-        height: 14vh;
+        height: 18vh;
         z-index: 1;
     }
 }
