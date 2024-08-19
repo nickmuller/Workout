@@ -563,7 +563,7 @@ body {
 
 nav {
   display: grid;
-  align-content: space-between;
+  align-items: baseline;
 }
 nav ul {
   display: grid;
