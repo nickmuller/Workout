@@ -153,19 +153,19 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-7GW7RKiZvgCFdrGXNGxmM4vcgk8vZdPtTLWV7fdjlxE=",
+      "hash": "sha256-L5n0JalsFoR7tEI3LrrAcTa7M4X3Y6b6dxQZ7r3UCXE=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-WHV91hKpEkms8mH83PcvILvo1tQWa5ysbLSL6mpPl9g=",
+      "hash": "sha256-nTb\/S5NHtYLkQ6GWnpg9oEmwcV5wvmHP7YeyDmXq+lA=",
       "url": "_framework\/Microsoft.AspNetCore.Authorization.wasm"
     },
     {
-      "hash": "sha256-WKUUpZQYdxuk9D02LmrpE\/u1S\/1gAnYZ\/\/ZDMWw0zNc=",
+      "hash": "sha256-fpngwNQPByVR0Hv2lVxvrhr0KcTO3Mws8frWyF2gM3k=",
       "url": "_framework\/Microsoft.AspNetCore.Components.Authorization.wasm"
     },
     {
-      "hash": "sha256-hdEFaZjWkKPgps5zuNyZNizkrvOKGv7jfXpFUDI5Xhs=",
+      "hash": "sha256-VL6ViEbZpaDRQd3IFi46MrPyryuzIvJHyAlA+J3nwy8=",
       "url": "_framework\/Microsoft.AspNetCore.Components.wasm"
     },
     {
@@ -173,7 +173,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Components.Web.wasm"
     },
     {
-      "hash": "sha256-8\/4zK6g+wWjeSWJOJ8uBaoH8MxfbZz5Zc2qwskiQD48=",
+      "hash": "sha256-+DoOJo3qFlgATlptgFTSNpoAkx\/UFPr0kDz0ZlwlTLw=",
       "url": "_framework\/Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm"
     },
     {
@@ -181,7 +181,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Components.WebAssembly.wasm"
     },
     {
-      "hash": "sha256-mip0hW10k0KdSjZ2v5CqoZ4u514ATb\/XZA5THGlftBc=",
+      "hash": "sha256-YEPyXmTfAoIb6pBUO7gbRedvmZKCEdwQMQVtpJk2Tlk=",
       "url": "_framework\/Microsoft.AspNetCore.Metadata.wasm"
     },
     {
@@ -357,7 +357,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-GtCppec8HJrnWY8tHolYlWE1S0go3uYAcfLkaS1yEPY=",
+      "hash": "sha256-KSf+koNQ5QJ+22OykRE3IPt\/MwIDQXqS5wfokNlKBFk=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -369,5 +369,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "IkbwWYB0"
+  "version": "PqNj\/JbF"
 };
