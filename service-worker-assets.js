@@ -121,11 +121,11 @@
       "url": "images\/zottman-curl.gif"
     },
     {
-      "hash": "sha256-R2zhhOcPGI9WdPjpKdBhWwsOFFxSK4sQCSoDocnJRLs=",
+      "hash": "sha256-uvlgAWlMaKaP507ofxVfQirhGT9En3hA4FahN0nVos8=",
       "url": "index.html"
     },
     {
-      "hash": "sha256-V6Z0WiZnkwMbQd\/ZWMO1xGRylYjVDALIlRMHMDET6rI=",
+      "hash": "sha256-Q1p0DSPzBj\/ViDAaPBB0AsxdETgDbi4mSeLGSLy8nj0=",
       "url": "manifest.webmanifest"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-L5n0JalsFoR7tEI3LrrAcTa7M4X3Y6b6dxQZ7r3UCXE=",
+      "hash": "sha256-lq6MFD+rUCqTJRd1DPdjzM\/959olSDk01\/RfZNYYmfo=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -357,7 +357,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-KSf+koNQ5QJ+22OykRE3IPt\/MwIDQXqS5wfokNlKBFk=",
+      "hash": "sha256-OzU906ykdHpjVlYNqjO8x+iLxz\/uCRqw6Zsi9aKPnlc=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -369,5 +369,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "PqNj\/JbF"
+  "version": "uoh\/AMIA"
 };
