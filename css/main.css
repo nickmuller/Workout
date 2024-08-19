@@ -523,6 +523,11 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #000;
+  overflow-y: hidden;
+}
+
+#app {
+  height: 100vh;
 }
 
 #app-loader {
@@ -556,10 +561,13 @@ body {
   padding: 0 1rem;
 }
 
-nav .nav-item {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
+nav {
+  display: grid;
+  align-content: space-between;
+}
+nav ul {
+  display: grid;
+  gap: 1rem;
 }
 nav .nav-item .nav-link {
   display: flex;
@@ -576,10 +584,12 @@ nav p {
   text-align: center;
   background-color: #303030;
   padding: 0.75rem 0.75rem;
+}
+nav img + p {
   margin-top: -0.75rem;
 }
 nav img {
-  height: 14vh;
+  height: 18vh;
   z-index: 1;
 }
 
@@ -947,9 +957,45 @@ nav img {
   white-space: nowrap;
 }
 
-.gewicht {
+.index {
+  height: 100vh;
   display: grid;
-  gap: 0.5rem;
+  grid-template-rows: max-content auto;
+}
+
+.gewicht-slider {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.gewicht-dropdown-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 80%;
+  margin: 1rem auto;
+}
+
+.gewicht-dropdown-container label,
+#gewicht-dropdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.75rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #fff;
+  background-color: #303030;
+  border-color: #303030;
+  margin-top: 0.25rem;
 }
 
 /*# sourceMappingURL=main.css.map */
