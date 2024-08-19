@@ -58,6 +58,12 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         }
     }
 
+    public async Task<PersoonlijkeGegevensLogFile?> LoadPersoonlijkeGegevensLogAsync()
+    {
+        var fileId = await GetLastFileIdAsync("persoonlijke info");
+        return !string.IsNullOrEmpty(fileId) ? await GetFileAsync<PersoonlijkeGegevensLogFile>(fileId) : null;
+    }
+
     public Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} persoonlijke info.json";
@@ -77,6 +83,18 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         using var response = await client.GetAsync("/drive/v3/files?q=trashed=false");
         var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>(jsonSerializerOptions.Value);
         var file = fileList.Files.SingleOrDefault(f => f.Name == fileName);
+        return file.Id;
+    }
+
+    private async Task<string?> GetLastFileIdAsync(string fileNameContains)
+    {
+        var url = "/drive/v3/files" +
+                  $"?q=trashed=false and name contains '{fileNameContains}'" +
+                  "&orderBy=modifiedTime desc";
+
+        using var response = await client.GetAsync(url);
+        var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>(jsonSerializerOptions.Value);
+        var file = fileList.Files.FirstOrDefault();
         return file.Id;
     }
 

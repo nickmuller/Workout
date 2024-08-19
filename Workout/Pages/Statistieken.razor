@@ -40,7 +40,13 @@
 
 @code
 {
-    private decimal gewicht = 70.0m;
+    private decimal gewicht;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var log = await GoogleClient.LoadPersoonlijkeGegevensLogAsync();
+        gewicht = log?.Gewicht ?? 70.0m;
+    }
 
     private Task GewichtLoggen()
     {
