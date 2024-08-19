@@ -26,10 +26,10 @@
     @* (zie screenshot in workout album) *@
     <div class="gewicht-dropdown-container">
         <label for="gewicht-dropdown">Gewicht:</label>
-        <InputSelect TValue="double" @bind-Value="gewicht" id="gewicht-dropdown">
-            @for (var i = 40.0m; i <= 200.0m; i += 0.1m)
+        <InputSelect @bind-Value="gewicht" id="gewicht-dropdown">
+            @for (var i = 60.0m; i <= 80.0m; i += 0.1m)
             {
-                <option value="@i" selected="@(i == 70.0m)">@i</option>
+                <option value="@i" selected="@(i == gewicht)">@i</option>
             }
         </InputSelect>
     </div>
@@ -40,7 +40,7 @@
 
 @code
 {
-    private double gewicht = 70;
+    private decimal gewicht = 70.0m;
 
     private Task GewichtLoggen()
     {
