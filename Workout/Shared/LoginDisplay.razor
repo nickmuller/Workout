@@ -1,27 +1,27 @@
 ﻿@inject NavigationManager Navigation
 
-<AuthorizeView>
-    <Authorized>
-        <a href="" class="btn btn-link" title="@context.User.Identity?.Name" @onclick="BeginLogOut">Logout</a>
-    </Authorized>
-    <NotAuthorized>
-        <a href="authentication/login" class="btn btn-link" title="Login om voortgang automatisch op te slaan">
-            Login
-        </a>
-    </NotAuthorized>
-    <Authorizing>
-        <a href="authentication/login" class="btn btn-link" title="Login om voortgang automatisch op te slaan">
-            Login
-        </a>
-    </Authorizing>
-</AuthorizeView>
+<div class="login-display">
+    <AuthorizeView>
+        <Authorized>
+            <div class="dropdown">
+                <button class="avatar dropdown-toggle">@context.User.Identity?.Name?.Substring(0, 1)</button>
+                <div class="dropdown-menu dropdown-menu-right-aligned">
+                    <h6 class="dropdown-header">@context.User.Identity?.Name</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="" @onclick="Logout">Logout</a>
+                </div>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <a href="authentication/login" class="btn btn-link" title="Login om voortgang automatisch op te slaan">
+                Login
+            </a>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
 
 @code{
-    // Let op: de silentlogin van de OidcAuthentication via AuthenticationService.js gaat gelijk af nadat blazor geladen is.
-    // Hierdoor wordt gelijk de html in Authorizing getoont. Na een paar seconden is die klaar en ben je niet ingelogd,
-    // dus dan wordt de html in NotAuthorized getoont. De html is gelijk zodat de gebruiker hier niks van merkt.
-
-    private void BeginLogOut()
+    private void Logout()
     {
         Navigation.NavigateToLogout("authentication/logout");
     }
