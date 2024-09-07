@@ -157,7 +157,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-KRYDeviRUzUmOFrOAq8fc9UJm9vSwTmTUTG0sEKNLIA=",
+      "hash": "sha256-Y9omF\/t6e1LAfxZ81BsArlhkljaB7L5P1iqCE\/cN45Y=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -181,7 +181,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Components.Web.wasm"
     },
     {
-      "hash": "sha256-+DoOJo3qFlgATlptgFTSNpoAkx\/UFPr0kDz0ZlwlTLw=",
+      "hash": "sha256-uci7crJ6poDZRX0Nvw\/S+vtJi\/KqqiXezPLiHn6VyqM=",
       "url": "_framework\/Microsoft.AspNetCore.Components.WebAssembly.Authentication.wasm"
     },
     {
@@ -373,7 +373,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-kfO+D6XU+dS\/JLocb8WTgoHmDi+2Vah+sA2Bvm3vdL8=",
+      "hash": "sha256-2iE1E+Mt\/DPTvizTYdmLDt4hgdRJWcKEh4FKlohB9dQ=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -385,5 +385,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "U7VpSP70"
+  "version": "+60XxgOk"
 };
