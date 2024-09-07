@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Workout",
   "resources": {
-    "hash": "sha256-5h67qeETyde3MJHDqg0eX5h1xUU6BxjPp5CPgRnEzyw=",
+    "hash": "sha256-TLh0vtU3eVyJI/dkokDOzquwBuvhIvz/enispgCLsCE=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.746giovk6l.js": "sha256-juC5sA7gHTLXFEhAKgdM2/RavswpwCtDfjYGsAz2FXg="
     },
@@ -68,7 +68,7 @@
       "System.Text.RegularExpressions.wasm": "sha256-3YU2VEF7BUt4BBRwooG+MZf68VXtzyyzxtzrSqVWLGM=",
       "System.Threading.wasm": "sha256-/sB9Aucuch2CQz4pnfsZuu5jossTPJjDZbDvKQuEVek=",
       "System.wasm": "sha256-ka1SPMSVGn53xDzeBa40FQCsprKEF+n+wpvvd1HyMNE=",
-      "Workout.wasm": "sha256-HrdYXIPZeBLulwnY4cSAptqC+B9cuPcZJuHqS655D0c="
+      "Workout.wasm": "sha256-3OHrzeThpq1BGCdlBgBOrt/kwrG7/8JjIEQVzPA/8kw="
     }
   },
   "cacheBootResources": true,

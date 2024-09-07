@@ -388,6 +388,82 @@ fieldset:disabled a.btn {
   border-color: transparent;
 }
 
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 0.875rem;
+  color: #fff;
+  text-align: left;
+  list-style: none;
+  background-color: #333;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #fff;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #f2f2f2;
+  text-decoration: none;
+  background-color: #212121;
+}
+.dropdown-item.active, .dropdown-item:active {
+  color: #f2f2f2;
+  text-decoration: none;
+  background-color: #1c1c1c;
+}
+.dropdown-item.disabled, .dropdown-item:disabled {
+  color: #a8a8a8;
+  background-color: transparent;
+}
+
+.dropdown-header {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: #a8a8a8;
+  white-space: nowrap;
+}
+
+.dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu-right-aligned {
+  right: 0;
+  left: auto;
+}
+
 a {
   text-decoration: none;
 }
@@ -511,10 +587,26 @@ small {
   margin-right: 1rem;
 }
 
-.login-toelichting {
-  color: #6c757d;
-  font-size: 0.72625rem;
-  text-align: center;
+﻿.login-display {
+  z-index: 1;
+}
+
+.avatar {
+  font-weight: bold;
+  font-size: 1rem;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 44px 44px;
+  border-radius: 0.25rem;
+  border: 1px solid #000;
+  cursor: pointer;
+  color: #000;
+  background-color: #fff;
 }
 
 body {
@@ -578,6 +670,10 @@ nav .nav-item .nav-link {
 nav .nav-item .nav-link:focus,
 nav .nav-item .nav-link:hover {
   opacity: 0.8;
+}
+nav .categorie {
+  margin-left: 25%;
+  width: 50%;
 }
 nav p {
   color: #fff;
