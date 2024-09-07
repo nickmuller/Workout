@@ -3,6 +3,10 @@
 @code {
     protected override void OnInitialized()
     {
-        Navigation.NavigateToLogin("authentication/login");
+        var request = new InteractiveRequestOptions { Interaction = InteractionType.SignIn, ReturnUrl = Navigation.Uri };
+        var extraQueryParams = new Dictionary<string, object> { ["preservedExtraQueryParams"] = "true" };
+        request.TryAddAdditionalParameter("extraQueryParams", extraQueryParams);
+
+        Navigation.NavigateToLogin("authentication/login", request);
     }
 }
