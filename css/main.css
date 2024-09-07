@@ -455,7 +455,7 @@ fieldset:disabled a.btn {
   white-space: nowrap;
 }
 
-.dropdown:focus-within .dropdown-menu {
+.dropdown:focus .dropdown-menu, .dropdown:focus-within .dropdown-menu {
   display: block;
 }
 
