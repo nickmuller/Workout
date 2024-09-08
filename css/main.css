@@ -455,7 +455,8 @@ fieldset:disabled a.btn {
   white-space: nowrap;
 }
 
-.dropdown:focus .dropdown-menu, .dropdown:focus-within .dropdown-menu {
+.dropdown:focus .dropdown-menu, .dropdown:focus-within .dropdown-menu,
+.dropdown :has(:focus) .dropdown-menu {
   display: block;
 }
 
