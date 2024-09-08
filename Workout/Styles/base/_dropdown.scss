@@ -73,7 +73,8 @@
 
 .dropdown {
     &:focus,
-    &:focus-within {
+    &:focus-within,
+    :has(:focus) {
         .dropdown-menu {
             display: block;
         }
