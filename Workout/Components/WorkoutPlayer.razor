@@ -1,6 +1,5 @@
 ﻿@implements IDisposable
 @inject NavigationManager Navigation
-@inject StateService StateService
 @inject GoogleClient GoogleClient
 @inject ILogger<WorkoutPlayer> Logger
 
@@ -159,7 +158,6 @@
         
         player = new Player(Categorie, oefeningnummer, set);
         player.OnTick += PlayerTick;
-        player.OnSetChange += PlayerSetChanged;
         player.OnStart += PlayerStart;
         player.OnEind += PlayerEind;
     }
@@ -167,22 +165,6 @@
     private void PlayerTick()
     {
         InvokeAsync(StateHasChanged);
-    }
-
-    private void PlayerSetChanged()
-    {
-        InvokeAsync(async () =>
-        {
-            try
-            {
-                await VoortgangPersisteren();
-            }
-            catch (Exception e)
-            {
-                Logger.LogError(e, $"Exception in {nameof(PlayerSetChanged)}");
-                throw;
-            }
-        });
     }
 
     private void PlayerStart()
@@ -217,25 +199,6 @@
         });
     }
 
-    private async Task VoortgangPersisteren()
-    {
-        var url = Navigation.GetUriWithQueryParameters(new Dictionary<string, object?>
-        {
-            {"oefening", player!.Oefeningnummer},
-            {"set", player!.SetNummer}
-        });
-
-        // update querystring
-        if (Navigation.ToAbsoluteUri(Navigation.Uri).AbsolutePath == Navigation.ToAbsoluteUri(url).AbsolutePath)
-            Navigation.NavigateTo(url);
-
-        if (await IsAuthenticated())
-        {
-            var relativeUrl = Navigation.ToBaseRelativePath(url);
-            await StateService.SaveUrlAsync(relativeUrl);
-        }
-    }
-
     private async Task<bool> IsAuthenticated()
     {
         if (AuthenticationState is not null)
@@ -256,7 +219,6 @@
         if (player != null)
         {
             player.OnTick -= PlayerTick;
-            player.OnSetChange -= PlayerSetChanged;
             player.Dispose();
         }
     }

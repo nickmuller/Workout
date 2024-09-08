@@ -9,19 +9,6 @@ namespace Workout.HttpClients;
 
 public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions)
 {
-    private const string StateFileName = "workout.json";
-
-    public async Task<WorkoutState?> LoadStateAsync()
-    {
-        var fileId = await GetFileIdAsync(StateFileName);
-        return !string.IsNullOrEmpty(fileId) ? await GetFileAsync<WorkoutState>(fileId) : null;
-    }
-
-    public Task SaveStateAsync(WorkoutState state)
-    {
-        return CreateOrUpdateFileAsync(StateFileName, state);
-    }
-
     public async Task SaveWorkoutLogAsync(Player player)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} workout.json";

@@ -55,7 +55,11 @@ public class Player : IDisposable
     {
         WorkoutStart ??= DateTime.Now;
         Modus = Modus.Automatisch;
-        timer?.Change(0, 1000);
+
+        if (oefening.DuurSet == TimeSpan.Zero)
+            IsPauze = true;
+
+        timer?.Change(1000, 1000);
         OnStart?.Invoke();
         OnSetChange?.Invoke();
     }
@@ -124,7 +128,6 @@ public class Player : IDisposable
             SetNummer = oefening.AantalSets;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
-            IsPauze = Vorige != default; // warmup heeft geen pauze
             IsKlaar = false;
             OnSetChange?.Invoke();
         }
@@ -132,29 +135,20 @@ public class Player : IDisposable
 
     public void VolgendeSet()
     {
-        if (Volgende == default)
-        {
-            // Dit was de laatste oefening, stoppen
-            Stop();
-            resterendeTijdSet = TimeSpan.Zero;
-            IsPauze = false;
-            IsKlaar = true;
-            WorkoutEind ??= DateTime.Now;
-            OnEind?.Invoke();
-        }
-        else if (!IsPauze && Vorige != default && Volgende != default)
+        if (!IsPauze && AantalSetsAfgerond + 1 < TotaalAantalSets)
         {
             IsPauze = true;
         }
-        else if (SetNummer < oefening.AantalSets)
+        else if (SetNummer < oefening.AantalSets && IsPauze)
         {
+            // Volgende set
             SetNummer++;
             resterendeTijdSet = oefening.DuurSet;
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
             OnSetChange?.Invoke();
         }
-        else
+        else if (SetNummer == oefening.AantalSets && Volgende != default)
         {
             // Volgende oefening
             Oefeningnummer++;
@@ -166,6 +160,20 @@ public class Player : IDisposable
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
             OnSetChange?.Invoke();
+        }
+        else if (SetNummer == oefening.AantalSets && Volgende == default)
+        {
+            // Dit was de laatste oefening, stoppen
+            Stop();
+            resterendeTijdSet = TimeSpan.Zero;
+            IsPauze = false;
+            IsKlaar = true;
+            WorkoutEind ??= DateTime.Now;
+            OnEind?.Invoke();
+        }
+        else
+        {
+            throw new InvalidOperationException("Onverwachte situatie");
         }
     }
 

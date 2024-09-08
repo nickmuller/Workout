@@ -8,11 +8,6 @@ public abstract class FileBaseModel
     public required DateTime Changed { get; set; }
 }
 
-public class WorkoutState : FileBaseModel
-{
-    public string? Url { get; set; }
-}
-
 public class WorkoutLogFile : FileBaseModel
 {
     public List<WorkoutLog> WorkoutLijst { get; set; } = [];
