@@ -153,7 +153,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-1KNP5AEHLOl7ev2D9uOdVmAMF6wSfkbfwIp92hTOqJQ=",
+      "hash": "sha256-19yYbBTHfMUW1rl0tte\/eHArflAW8t8z9coxSl59aAA=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -169,7 +169,7 @@
       "url": "_framework\/Microsoft.AspNetCore.Components.Forms.wasm"
     },
     {
-      "hash": "sha256-S0M71rJxw40q9PWRFMN+OnmW\/rqoZQHimtvdBPDm28g=",
+      "hash": "sha256-\/2n1A8m4l6GSLTjLueQdpZQaLFjjkk6Pem9qxT9RSgY=",
       "url": "_framework\/Microsoft.AspNetCore.Components.wasm"
     },
     {
@@ -217,7 +217,7 @@
       "url": "_framework\/Microsoft.Extensions.Configuration.wasm"
     },
     {
-      "hash": "sha256-C0Sch78Kz3U63wmARt5w+dDiEKNyrjWwFf+a7\/18gAo=",
+      "hash": "sha256-nLiz7jhDKb3xHyLCjwE7\/oO7uoj0WRQl1tAn4YqtRc4=",
       "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.wasm"
     },
     {
@@ -329,7 +329,7 @@
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
-      "hash": "sha256-A1Ff7vMkDYcAnlm5FS5GHft3Rr8h2xKQCED25RHUf4U=",
+      "hash": "sha256-l3ZyNH157cSEjKlHMNwzZw8xCSA9RkZ7VaYFcDV8fJg=",
       "url": "_framework\/System.Private.Uri.wasm"
     },
     {
@@ -341,7 +341,7 @@
       "url": "_framework\/System.Runtime.Serialization.Primitives.wasm"
     },
     {
-      "hash": "sha256-ynlfCMUplDvZGQ5Zb8Z8GHUxX+E0MLQwb2T01mpO\/wY=",
+      "hash": "sha256-7oLpOwCFmuv10n2lE1JENJP\/tHGMMS+Wh870N3NBwDI=",
       "url": "_framework\/System.Runtime.wasm"
     },
     {
@@ -369,7 +369,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-YKCFSoLEzD40voYa89QmOnzPgSrxBRX\/yeckLzNXvPw=",
+      "hash": "sha256-Zy03SLRiGlXQgEAKEJ3G5z07zkaIhFkZCTyNtm0RW48=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -381,5 +381,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "oAsvnUQE"
+  "version": "JCP0yJve"
 };
