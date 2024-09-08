@@ -2,7 +2,6 @@
 @inject NavigationManager Navigation
 @inject StateService StateService
 @inject GoogleClient GoogleClient
-@inject IJSRuntime JSRuntime
 @inject ILogger<WorkoutPlayer> Logger
 
 @if (player != null)
@@ -191,7 +190,6 @@
             try
             {
                 await GoogleClient.SaveWorkoutLogAsync(player!);
-                await JSRuntime.InvokeVoidAsync("preventIphoneLock");
             }
             catch (Exception e)
             {
