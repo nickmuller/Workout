@@ -74,7 +74,8 @@
 .dropdown {
     &:focus,
     &:focus-within,
-    :has(:focus) {
+    &:active,
+    &:has(:active) {
         .dropdown-menu {
             display: block;
         }
