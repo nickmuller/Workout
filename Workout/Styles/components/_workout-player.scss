@@ -55,12 +55,12 @@
     .volgende-set-preview {
         display: flex;
         align-items: end;
-        justify-content: end;
+        justify-content: center;
         flex-direction: column;
         position: absolute;
         top: 0;
         right: 0;
-        bottom: 3rem;
+        bottom: 0;
         padding: 2rem;
 
         img {
@@ -84,7 +84,7 @@
     color: #fff;
     background-color: #111;
     display: grid;
-    grid-template-rows: auto max-content max-content max-content;
+    grid-template-rows: auto max-content max-content;
 
     .oefening-info {
         align-self: start;
@@ -92,25 +92,35 @@
         white-space: nowrap;
     }
 
+    .oefening-sets-en-herhalingen {
+        padding: 1rem 0;
+    }
+
+    .oefening-herhalingen,
+    .oefening-sets {
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
     .oefening-tips {
         list-style: inside;
         margin-top: 0.25rem;
-    }
-
-    .oefening-sets-en-herhalingen {
-        text-align: right;
-    }
-
-    .oefening-sets,
-    .oefening-herhalingen {
-        font-family: "Rajdhani", sans-serif;
-        font-weight: 600;
-        font-size: 1.2rem;
     }
 }
 
 .oefening-controls {
     padding: .5rem 2rem;
+
+    .link-links {
+        padding-left: 0;
+        justify-content: start;
+    }
+
+    .link-rechts {
+        padding-right: 0;
+        justify-content: end;
+    }
 
     .link-links i,
     .link-rechts i {
@@ -164,7 +174,19 @@
 }
 
 .workout-start {
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
     color: $text-muted;
     text-align: center;
     margin-bottom: .5rem;
+}
+
+
+.is-warmup,
+.is-klaar {
+    .oefening-info,
+    .workout-start {
+        visibility: hidden;
+    }
 }

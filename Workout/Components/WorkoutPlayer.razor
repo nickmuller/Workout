@@ -6,15 +6,24 @@
 
 @if (player != null)
 {
-    <div class="workout-player">
+    <div class="workout-player @(player.IsKlaar ? "is-klaar" : "") @(player.Oefeningnummer == 1 ? "is-warmup" : "")">
         <Header>
             <Left>
                 <a href="" class="btn btn-link home-link"><i class="fa-solid fa-arrow-left"></i></a>
             </Left>
             <Middle>
-                <h1 class="header-title">
-                    @player.Oefening.Naam
-                </h1>
+                @if (player.IsKlaar)
+                {
+                    <h1 class="header-title">
+                        Hoppa!
+                    </h1>
+                }
+                else
+                {
+                    <h1 class="header-title">
+                        @player.Oefening.Naam
+                    </h1>
+                }
             </Middle>
             <Right>
                 <LoginDisplay />
@@ -62,42 +71,36 @@
         </div>
 
         <div class="oefening-footer">
-            <Stack Class="oefening-info">
+            <div class="oefening-info">
+                <Stack Class="oefening-sets-en-herhalingen">
+                    <p class="oefening-herhalingen">
+                        <span>@(player.Oefening.AantalHerhalingen)x</span>
+                    </p>
+
+                    <p class="oefening-sets">
+                        <span>@player.SetNummer&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
+                    </p>
+                </Stack>
+
                 <ul class="oefening-tips">
                     @foreach (var tip in player.Oefening.Tips)
                     {
                         <li>@tip</li>
                     }
                 </ul>
-
-                <div class="oefening-sets-en-herhalingen">
-                    @if (player.Oefening.AantalSets > 1 && !player.IsKlaar)
-                    {
-                        <p class="oefening-sets">
-                            <span>@player.SetNummer&nbsp;/&nbsp;@player.Oefening.AantalSets</span>
-                        </p>
-                    }
-
-                    @if (player.Oefening.AantalHerhalingen > 1 && !player.IsKlaar)
-                    {
-                        <p class="oefening-herhalingen">
-                            <span>@(player.Oefening.AantalHerhalingen)x</span>
-                        </p>
-                    }
-                </div>
-            </Stack>
+            </div>
 
             <Stack Class="oefening-controls">
                 <button class="btn btn-fw btn-link link-links" @onclick="() => player.VorigeSet()"
                         disabled="@(player.Vorige == default && player.SetNummer == 1 && !player.IsPauze)">
-                    <i class="fa-solid fa-circle-chevron-left"></i>
+                    <i class="fa-solid fa-arrow-left"></i>
                 </button>
-                
+
                 <div>
                     <div class="oefening-tijd">
                         <svg class="loading-progress @(player.Modus == Modus.Handmatig ? "red" : "blue")">
-                            <circle r="40%" cx="50%" cy="50%" />
-                            <circle r="40%" cx="50%" cy="50%" style="stroke-dasharray: calc(3.141 * @(player.PercentageTijd)% * 0.8), 500%;" />
+                            <circle r="40%" cx="50%" cy="50%"/>
+                            <circle r="40%" cx="50%" cy="50%" style="stroke-dasharray: calc(3.141 * @(player.PercentageTijd)% * 0.8), 500%;"/>
                         </svg>
 
                         <div class="loading-progress-text center">
@@ -125,18 +128,17 @@
                             }
                         </div>
                     </div>
-
-                    <p class="workout-start" style="visibility: @(player.WorkoutStart == null ? "hidden" : "visible")">
-                        @($"{player.WorkoutStart:HH:mm}")
-                        - @(player.WorkoutDuur != null ? (int)player.WorkoutDuur.Value.TotalMinutes : 0) minuten
-                    </p>
                 </div>
 
                 <button class="btn btn-fw btn-link link-rechts" @onclick="() => player.VolgendeSet()"
                         disabled="@(player.Volgende == default && player.SetNummer == player.Oefening.AantalSets && player.IsKlaar)">
-                    <i class="fa-solid fa-circle-chevron-right"></i>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </Stack>
+
+            <p class="workout-start" style="visibility: @(player.WorkoutStart == null ? "hidden" : "visible")">
+                @(player.WorkoutDuur != null ? (int)player.WorkoutDuur.Value.TotalMinutes : 0) min
+            </p>
         </div>
     </div>
 }

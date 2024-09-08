@@ -94,7 +94,12 @@ public class Player : IDisposable
 
     public void VorigeSet()
     {
-        if (IsPauze)
+        if (Vorige == default)
+        {
+            // Dit is de eerste oefening
+            HerstartSet();
+        }
+        else if (IsPauze)
         {
             IsPauze = false;
         }
@@ -108,11 +113,6 @@ public class Player : IDisposable
             IsPauze = true;
             IsKlaar = false;
             OnSetChange?.Invoke();
-        }
-        else if (Vorige == default)
-        {
-            // Dit is de eerste oefening
-            HerstartSet();
         }
         else
         {
@@ -132,7 +132,17 @@ public class Player : IDisposable
 
     public void VolgendeSet()
     {
-        if (!IsPauze && Vorige != default && Volgende != default)
+        if (Volgende == default)
+        {
+            // Dit was de laatste oefening, stoppen
+            Stop();
+            resterendeTijdSet = TimeSpan.Zero;
+            IsPauze = false;
+            IsKlaar = true;
+            WorkoutEind ??= DateTime.Now;
+            OnEind?.Invoke();
+        }
+        else if (!IsPauze && Vorige != default && Volgende != default)
         {
             IsPauze = true;
         }
@@ -143,16 +153,6 @@ public class Player : IDisposable
             resterendeTijdPauze = oefening.DuurPauze;
             IsPauze = false;
             OnSetChange?.Invoke();
-        }
-        else if (Volgende == default)
-        {
-            // Dit was de laatste oefening, stoppen
-            Stop();
-            resterendeTijdSet = TimeSpan.Zero;
-            IsPauze = false;
-            IsKlaar = true;
-            WorkoutEind ??= DateTime.Now;
-            OnEind?.Invoke();
         }
         else
         {
