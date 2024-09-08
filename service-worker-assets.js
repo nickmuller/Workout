@@ -1,11 +1,11 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-Om3m7u2gM3xKF+\/vSEPB2EZmaW0taGZKYxcXLVFDPtA=",
+      "hash": "sha256-pDJxQdNel8gxl5ZnKziStQ84odZ\/z+phXx1BEfJu+vk=",
       "url": "css\/main.css"
     },
     {
-      "hash": "sha256-uH3cgqA1m8bIibwii6jeUXvRNZC9NZLmpl2\/A7dWJB4=",
+      "hash": "sha256-AJzGBqy7IDugWarb6dWnk8GsIyIj8vPaEMWuwWoroS0=",
       "url": "css\/main.css.map"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-5dmGVLQu3p2CBBKIEjHHF7MpXkAvVBotNm+7iOhona8=",
+      "hash": "sha256-1KNP5AEHLOl7ev2D9uOdVmAMF6wSfkbfwIp92hTOqJQ=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -369,7 +369,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-o8qKPB3ISGBzFS0H6gA7cYmx0p7uTqeYUEMQEQboXT8=",
+      "hash": "sha256-YKCFSoLEzD40voYa89QmOnzPgSrxBRX\/yeckLzNXvPw=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -381,5 +381,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "yy9oi0oe"
+  "version": "oAsvnUQE"
 };
