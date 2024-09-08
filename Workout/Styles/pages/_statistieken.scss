@@ -1,6 +1,12 @@
-﻿.gewicht-slider {
+﻿.gewicht-slider,
+.btn-log-gewicht {
     width: 80%;
     margin: 0 auto;
+    display: block;
+}
+
+.btn-log-gewicht {
+    margin-top: 1.5rem;
 }
 
 .gewicht-dropdown-container {
