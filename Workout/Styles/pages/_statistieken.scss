@@ -64,6 +64,7 @@
 
     .staaf {
         background-color: $primary;
+        border-radius: 0.25rem;
     }
 
     .dag-label {
@@ -74,6 +75,10 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    background-color: #303030;
+    border-color: #303030;
 }
 
 .week-row {
@@ -84,21 +89,18 @@
     color: #fff;
     padding: 10px;
     text-align: center;
-    border: 1px solid #ccc;
-}
-
-.current-month {
-    background-color: #303030;
-    border-color: #303030;
+    border-radius: 0.25rem;
 }
 
 .other-month {
     background-color: #303030;
-    border-color: #303030;
     opacity: .5;
+}
+
+.current-month {
+    background-color: #303030;
 }
 
 .is-log-datum {
     background-color: $primary;
-    border-color: $primary;
 }
