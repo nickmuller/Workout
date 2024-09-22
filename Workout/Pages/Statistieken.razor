@@ -102,9 +102,25 @@
         isLoading = false;
     }
 
-    private Task GewichtLoggen()
+    private async Task GewichtLoggen()
     {
-        return GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
+        await GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
+
+        var log = logs.SingleOrDefault(l => l.Changed.Date == DateTime.Today);
+        if (log is not null)
+        {
+            log.Gewicht = gewicht;
+        }
+        else
+        {
+            logs.RemoveAt(1);
+            logs.Add(new PersoonlijkeGegevensLogFile
+            {
+                Changed = DateTime.Now,
+                Created = DateTime.Now,
+                Gewicht = gewicht
+            });
+        }
     }
 
     private void GenerateCalendar()
