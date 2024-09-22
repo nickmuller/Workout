@@ -1,11 +1,11 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-pDJxQdNel8gxl5ZnKziStQ84odZ\/z+phXx1BEfJu+vk=",
+      "hash": "sha256-\/NOGztz4I2+vGRkseZeIsrwtbkjmu9kAgrRJt0oXZdw=",
       "url": "css\/main.css"
     },
     {
-      "hash": "sha256-AJzGBqy7IDugWarb6dWnk8GsIyIj8vPaEMWuwWoroS0=",
+      "hash": "sha256-1hJtFuEAud2BZv6VN+IPAaX3I6s9hEb6HwS15ewIxZg=",
       "url": "css\/main.css.map"
     },
     {
@@ -153,7 +153,7 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-19yYbBTHfMUW1rl0tte\/eHArflAW8t8z9coxSl59aAA=",
+      "hash": "sha256-r6hPaf\/zeiz0LvpaPAAfM1JYVe5d7zv6t8Tr3mGAHUs=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -273,7 +273,7 @@
       "url": "_framework\/System.Collections.Specialized.wasm"
     },
     {
-      "hash": "sha256-aQPYnqPLleVY7VqDlZhI\/moTGfDcIzBLK6EjXdgBpIQ=",
+      "hash": "sha256-Fb9j2svr3jis3po05VWTWxJHMs496OWQO+ONAOecn\/0=",
       "url": "_framework\/System.Collections.wasm"
     },
     {
@@ -301,7 +301,7 @@
       "url": "_framework\/System.Linq.Expressions.wasm"
     },
     {
-      "hash": "sha256-AGpA3VELETM5DBmqqhheYkSp1HLgn3nJSTD0lNkBNj8=",
+      "hash": "sha256-WNZCU\/jbpFIhW5vukaWzSa+NrpM3WSvrg2akOzQa5Bk=",
       "url": "_framework\/System.Linq.wasm"
     },
     {
@@ -325,7 +325,7 @@
       "url": "_framework\/System.ObjectModel.wasm"
     },
     {
-      "hash": "sha256-TiwgJwEXNsvAsC39Rkq\/SVYo4d6TYZmRQ9N5PqGUX2A=",
+      "hash": "sha256-h2RmZoUb2AkRM1d42+wpbKZuwxWnMSJyDwC33udtVYw=",
       "url": "_framework\/System.Private.CoreLib.wasm"
     },
     {
@@ -341,7 +341,7 @@
       "url": "_framework\/System.Runtime.Serialization.Primitives.wasm"
     },
     {
-      "hash": "sha256-7oLpOwCFmuv10n2lE1JENJP\/tHGMMS+Wh870N3NBwDI=",
+      "hash": "sha256-x0CxKzzVFVlCdruQTRqIcBIXhV2JRcQvAMCiQCpsQbM=",
       "url": "_framework\/System.Runtime.wasm"
     },
     {
@@ -369,7 +369,7 @@
       "url": "_framework\/System.wasm"
     },
     {
-      "hash": "sha256-Zy03SLRiGlXQgEAKEJ3G5z07zkaIhFkZCTyNtm0RW48=",
+      "hash": "sha256-cKg0TMtQsF5Xpau0+31oYIVgp6amJUQ5pc7x6+uf8jY=",
       "url": "_framework\/Workout.wasm"
     },
     {
@@ -381,5 +381,5 @@
       "url": "_content\/Microsoft.AspNetCore.Components.WebAssembly.Authentication\/AuthenticationService.js"
     }
   ],
-  "version": "JCP0yJve"
+  "version": "ChxSIBGb"
 };

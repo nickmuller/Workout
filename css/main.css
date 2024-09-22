@@ -630,9 +630,9 @@ body {
 }
 
 .container {
-  width: 50%;
-  margin: 1rem auto;
-  padding: 0 1rem;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 nav {
@@ -830,7 +830,8 @@ nav img {
   background-color: #adb5bd;
 }
 
-.spinner {
+.spinner,
+.spinner-center {
   animation: spinner 1s linear infinite;
   color: #31cc89;
   fill: none;
@@ -844,6 +845,13 @@ nav img {
   position: relative;
   top: 3px;
   margin-left: 0.25rem;
+}
+
+.spinner-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @keyframes spinner {
@@ -1059,27 +1067,27 @@ nav img {
   grid-template-rows: max-content auto;
 }
 
-.gewicht-slider,
-.btn-log-gewicht {
-  width: 80%;
-  margin: 0 auto;
-  display: block;
-}
-
-.btn-log-gewicht {
-  margin-top: 1.5rem;
-}
-
-.gewicht-dropdown-container {
+.gewicht-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-areas: "label dropdown" "button button";
   gap: 1rem;
-  width: 80%;
-  margin: 1rem auto;
 }
 
-.gewicht-dropdown-container label,
-#gewicht-dropdown {
+.gewicht-container label {
+  grid-area: label;
+}
+
+.gewicht-dropdown {
+  grid-area: dropdown;
+}
+
+.btn-log-gewicht {
+  grid-area: button;
+}
+
+.gewicht-container label,
+.gewicht-dropdown {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1097,7 +1105,61 @@ nav img {
   color: #fff;
   background-color: #303030;
   border-color: #303030;
-  margin-top: 0.25rem;
+  position: relative;
+}
+
+.grafiek-container {
+  padding: 0.75rem 0.75rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #303030;
+  border-color: #303030;
+}
+
+.staaf-grafiek {
+  height: 20vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: max-content auto max-content;
+  gap: 1rem;
+  text-align: center;
+  align-items: end;
+  position: relative;
+}
+.staaf-grafiek .staaf {
+  background-color: #1690e8;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.week-row {
+  display: contents;
+}
+
+.day-cell {
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.current-month {
+  background-color: #303030;
+  border-color: #303030;
+}
+
+.other-month {
+  background-color: #303030;
+  border-color: #303030;
+  opacity: 0.5;
+}
+
+.is-log-datum {
+  background-color: #1690e8;
+  border-color: #1690e8;
 }
 
 /*# sourceMappingURL=main.css.map */
