@@ -45,10 +45,16 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         }
     }
 
-    public async Task<PersoonlijkeGegevensLogFile?> LoadPersoonlijkeGegevensLogAsync()
+    public async Task<List<PersoonlijkeGegevensLogFile>> GetPersoonlijkeGegevensLogsAsync(int aantal = 5)
     {
-        var fileId = await GetLastFileIdAsync("persoonlijke info");
-        return !string.IsNullOrEmpty(fileId) ? await GetFileAsync<PersoonlijkeGegevensLogFile>(fileId) : null;
+        var fileIds = await GetFileIdsAsync("persoonlijke info", aantal);
+        var files = new List<PersoonlijkeGegevensLogFile>();
+        foreach (var fileId in fileIds)
+        {
+            var file = await GetFileAsync<PersoonlijkeGegevensLogFile>(fileId!);
+            files.Add(file);
+        }
+        return files.OrderBy(f => f.Changed).ToList();
     }
 
     public Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
@@ -83,6 +89,18 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
         var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>(jsonSerializerOptions.Value);
         var file = fileList.Files.FirstOrDefault();
         return file.Id;
+    }
+
+    private async Task<List<string?>> GetFileIdsAsync(string fileNameContains, int aantal = 100)
+    {
+        var url = "/drive/v3/files" +
+                  $"?q=trashed=false and name contains '{fileNameContains}'" +
+                  "&orderBy=modifiedTime desc" +
+                  $"&pageSize={aantal}";
+
+        using var response = await client.GetAsync(url);
+        var fileList = await response.Content.ReadFromJsonAsync<FileListJsonModel>(jsonSerializerOptions.Value);
+        return fileList.Files.Select(f => f.Id).ToList();
     }
 
     private async Task<T> GetFileAsync<T>(string fileId) where T : class

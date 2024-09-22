@@ -16,40 +16,153 @@
     </Right>
 </Header>
 
-@* -- grafiekje van afgelopen week of deze week? -- *@
-@* M D W D V Z Z *@
-@* 1 2 3 4 5 6 7 *@
-
-<div>
-    @* nth: log button opent popup, daarin getal tonen waarbij je omhoog en omlaag kan scrollen *@
-    @* per 0.1 van 40kg tot 200kg? *@
-    @* (zie screenshot in workout album) *@
-    <div class="gewicht-dropdown-container">
-        <label for="gewicht-dropdown">Gewicht:</label>
-        <InputSelect @bind-Value="gewicht" id="gewicht-dropdown">
+<div class="container gewicht-container">
+    <label for="dropdown">Gewicht:</label>
+    @if (isLoading)
+    {
+        <div class="gewicht-dropdown">
+            <Spinner Class="spinner-center" />
+        </div>
+    }
+    else
+    {
+        <InputSelect @bind-Value="gewicht" id="dropdown" class="gewicht-dropdown">
             @for (var i = 60.0m; i <= 80.0m; i += 0.1m)
             {
                 <option value="@i" selected="@(i == gewicht)">@i</option>
             }
         </InputSelect>
-    </div>
+    }
 
-    <Slider @bind-Value="@gewicht" Step=".1" Min="60" Max="80" ValueLabelFormat="0.# kg" Class="gewicht-slider" />
     <SpinnerButton Text="Log gewicht" Class="btn btn-log-gewicht" OnClick="GewichtLoggen" />
+</div>
+
+<div class="container grafiek-container">
+    <div class="staaf-grafiek">
+        @if (isLoading)
+        {
+            <Spinner Class="spinner-center" />
+        }
+        @foreach (var log in logs)
+        {
+            <div class="gewicht-label">@log.Gewicht kg</div>
+        }
+        @foreach (var log in logs)
+        {
+            var min = logs.Min(l => l.Gewicht) - 1;
+            var max = logs.Max(l => l.Gewicht);
+            var totaal = max - min;
+            var percentage = (log.Gewicht - min) / totaal * 100;
+            <div class="staaf" style="height: @(percentage.ToString(CultureInfo.InvariantCulture))%"></div>
+        }
+        @foreach (var log in logs)
+        {
+            <div class="dag-label">@log.Changed.ToString("d MMM")</div>
+        }
+    </div>
+</div>
+
+<div class="container calendar-grid">
+    @foreach (var week in CalendarDays)
+    {
+        <div class="week-row">
+            @foreach (var day in week)
+            {
+                <div class="day-cell @(day.IsCurrentMonth ? "current-month" : "other-month") @(logs.Any(l => l.Changed.Date == day.Date) ? "is-log-datum" : "")">
+                    @if (day.Date.HasValue)
+                    {
+                        @day.Date.Value.Day
+                    }
+                </div>
+            }
+        </div>
+    }
 </div>
 
 @code
 {
+    private List<PersoonlijkeGegevensLogFile> logs = [];
+    private readonly List<List<CalendarDay>> CalendarDays = [];
+    private readonly DateTime CurrentDate = DateTime.Now;
     private decimal gewicht;
+    private bool isLoading;
 
     protected override async Task OnInitializedAsync()
     {
-        var log = await GoogleClient.LoadPersoonlijkeGegevensLogAsync();
-        gewicht = log?.Gewicht ?? 70.0m;
+        isLoading = true;
+
+        GenerateCalendar();
+
+        logs = await GoogleClient.GetPersoonlijkeGegevensLogsAsync();
+        
+        // Laatst gelogde gewicht tonen
+        var laatsteLog = logs.MaxBy(l => l.Changed);
+        gewicht = laatsteLog?.Gewicht ?? 70.0m;
+
+        isLoading = false;
     }
 
     private Task GewichtLoggen()
     {
         return GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
+    }
+
+    private void GenerateCalendar()
+    {
+        var daysInMonth = DateTime.DaysInMonth(CurrentDate.Year, CurrentDate.Month);
+        var firstDayOfMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
+        var startDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+
+        var daysBeforeStart = startDayOfWeek == 0 ? 6 : startDayOfWeek - 1;
+
+        var previousMonth = firstDayOfMonth.AddMonths(-1);
+        var daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month);
+
+        var dayList = new List<CalendarDay>();
+
+        // Days from previous month
+        for (var i = daysInPreviousMonth - daysBeforeStart + 1; i <= daysInPreviousMonth; i++)
+        {
+            dayList.Add(new CalendarDay
+            {
+                Date = new DateTime(previousMonth.Year, previousMonth.Month, i),
+                IsCurrentMonth = false
+            });
+        }
+
+        // Days in current month
+        for (var i = 1; i <= daysInMonth; i++)
+        {
+            dayList.Add(new CalendarDay
+            {
+                Date = new DateTime(CurrentDate.Year, CurrentDate.Month, i),
+                IsCurrentMonth = true
+            });
+        }
+
+        // Days from next month to complete the grid
+        var remainingDays = 42 - dayList.Count; // Assuming 6 rows of 7 days
+        var nextMonth = firstDayOfMonth.AddMonths(1);
+
+        for (var i = 1; i <= remainingDays; i++)
+        {
+            dayList.Add(new CalendarDay
+            {
+                Date = new DateTime(nextMonth.Year, nextMonth.Month, i),
+                IsCurrentMonth = false
+            });
+        }
+
+        // Split into weeks (7 days per row)
+        for (var i = 0; i < dayList.Count; i += 7)
+        {
+            CalendarDays.Add(dayList.GetRange(i, 7));
+        }
+    }
+
+    private class CalendarDay
+    {
+        public DateTime? Date { get; init; }
+        public bool IsCurrentMonth { get; init; }
     }
 }
