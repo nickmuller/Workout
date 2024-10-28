@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Workout.Authentication;
 using Workout.HttpClients;
+using Workout.Services;
 
 namespace Workout;
 
@@ -34,6 +35,7 @@ public class Program
             .AddHttpMessageHandler<GoogleApiAuthorizationMessageHandler>();
 
         builder.Services.AddTransient<GoogleApiAuthorizationMessageHandler>();
+        builder.Services.AddScoped<CacheService>();
 
         await builder.Build().RunAsync();
     }

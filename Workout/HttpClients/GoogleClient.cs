@@ -4,10 +4,11 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using Workout.Models;
+using Workout.Services;
 
 namespace Workout.HttpClients;
 
-public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions)
+public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions, CacheService cacheService)
 {
     public async Task SaveWorkoutLogAsync(Player player)
     {
@@ -47,26 +48,43 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
 
     public async Task<List<PersoonlijkeGegevensLogFile>> GetPersoonlijkeGegevensLogsAsync(int aantal = 5)
     {
-        var fileIds = await GetFileIdsAsync("persoonlijke info", aantal);
-        var files = new List<PersoonlijkeGegevensLogFile>();
-        foreach (var fileId in fileIds)
+        if (cacheService.PersoonlijkeGegevensLogFileCache == null)
         {
-            var file = await GetFileAsync<PersoonlijkeGegevensLogFile>(fileId!);
-            files.Add(file);
+            var fileIds = await GetFileIdsAsync("persoonlijke info", aantal);
+            var files = new List<PersoonlijkeGegevensLogFile>();
+            foreach (var fileId in fileIds)
+            {
+                var file = await GetFileAsync<PersoonlijkeGegevensLogFile>(fileId!);
+                files.Add(file);
+            }
+
+            cacheService.PersoonlijkeGegevensLogFileCache = files.OrderBy(f => f.Changed).ToList();
         }
-        return files.OrderBy(f => f.Changed).ToList();
+
+        return cacheService.PersoonlijkeGegevensLogFileCache;
     }
 
     public Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} persoonlijke info.json";
+        var log = cacheService.PersoonlijkeGegevensLogFileCache?.SingleOrDefault(l => l.Changed.Date == DateTime.Today);
 
-        var log = new PersoonlijkeGegevensLogFile
+        if (log is not null)
         {
-            Created = DateTime.Now,
-            Changed = DateTime.Now,
-            Gewicht = gewicht
-        };
+            log.Gewicht = gewicht;
+        }
+        else
+        {
+            log = new PersoonlijkeGegevensLogFile
+            {
+                Created = DateTime.Now,
+                Changed = DateTime.Now,
+                Gewicht = gewicht
+            };
+
+            cacheService.PersoonlijkeGegevensLogFileCache?.RemoveAt(1);
+            cacheService.PersoonlijkeGegevensLogFileCache?.Add(log);
+        }
 
         return CreateOrUpdateFileAsync(fileName, log);
     }

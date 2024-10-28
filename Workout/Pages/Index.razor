@@ -1,5 +1,6 @@
 ﻿@page "/"
 @attribute [Authorize]
+@inject GoogleClient GoogleClient
 
 <div class="index">
     <Header>
@@ -44,3 +45,12 @@
         </ul>
     </nav>
 </div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await GoogleClient.GetPersoonlijkeGegevensLogsAsync(); // cache data
+    }
+}

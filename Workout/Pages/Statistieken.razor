@@ -102,22 +102,7 @@
     private async Task GewichtLoggen()
     {
         await GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
-
-        var log = logs.SingleOrDefault(l => l.Changed.Date == DateTime.Today);
-        if (log is not null)
-        {
-            log.Gewicht = gewicht;
-        }
-        else
-        {
-            logs.RemoveAt(1);
-            logs.Add(new PersoonlijkeGegevensLogFile
-            {
-                Changed = DateTime.Now,
-                Created = DateTime.Now,
-                Gewicht = gewicht
-            });
-        }
+        logs = await GoogleClient.GetPersoonlijkeGegevensLogsAsync();
     }
 
     private void GenerateCalendar()
