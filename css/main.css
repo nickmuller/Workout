@@ -299,6 +299,27 @@ fieldset:disabled a.btn {
   box-sizing: border-box;
 }
 
+.btn-blue {
+  color: #fff;
+  background-color: #1690e8;
+  border-color: #1690e8;
+}
+.btn-blue:hover {
+  color: #fff;
+  background-color: rgb(17.5826771654, 115.0866141732, 185.4173228346);
+  border-color: rgb(17.5826771654, 115.0866141732, 185.4173228346);
+}
+.btn-blue.disabled, .btn-blue:disabled {
+  color: #fff;
+  background-color: #1690e8;
+  border-color: #1690e8;
+}
+.btn-blue:not(:disabled):not(.disabled):active, .btn-blue:not(:disabled):not(.disabled).active {
+  color: #fff;
+  background-color: rgb(17.5826771654, 115.0866141732, 185.4173228346);
+  border-color: rgb(17.5826771654, 115.0866141732, 185.4173228346);
+}
+
 .btn-orange {
   color: #fff;
   background-color: #d6572b;
@@ -386,6 +407,10 @@ fieldset:disabled a.btn {
   color: #1690e8;
   background-color: transparent;
   border-color: transparent;
+}
+
+.btn .spinner {
+  top: 0;
 }
 
 .dropdown {
@@ -1069,8 +1094,8 @@ nav img {
 
 .gewicht-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "label dropdown" "button button";
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "label dropdown button";
   gap: 1rem;
 }
 
@@ -1084,6 +1109,7 @@ nav img {
 
 .btn-log-gewicht {
   grid-area: button;
+  margin: 0;
 }
 
 .gewicht-container label,
@@ -1162,6 +1188,11 @@ nav img {
 
 .is-log-datum {
   background-color: #1690e8;
+}
+
+.today {
+  border: 1px solid #1690e8;
+  padding: 9px;
 }
 
 /*# sourceMappingURL=main.css.map */
