@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: "${{ env.NODE }}"
     - name: Build CSS with Dart Sass
@@ -25,7 +25,7 @@ jobs:
         npx --package sass@latest sass Workout/Styles/main.scss:Workout/wwwroot/css/main.css --style expanded --source-map
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.x.x
     - name: dotnet publish
