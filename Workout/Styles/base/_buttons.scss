@@ -63,6 +63,32 @@ fieldset:disabled a.btn {
     box-sizing: border-box;
 }
 
+.btn-blue {
+    color: #fff;
+    background-color: $blue;
+    border-color: $blue;
+
+    &:hover {
+        color: #fff;
+        background-color: darken($blue, 10%);
+        border-color: darken($blue, 10%);
+    }
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+        color: #fff;
+        background-color: $blue;
+        border-color: $blue;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        color: #fff;
+        background-color: darken($blue, 10%);
+        border-color: darken($blue, 10%);
+    }
+}
+
 .btn-orange {
     color: #fff;
     background-color: $orange;
@@ -172,4 +198,8 @@ fieldset:disabled a.btn {
         background-color: transparent;
         border-color: transparent;
     }
+}
+
+.btn .spinner {
+    top: 0;
 }

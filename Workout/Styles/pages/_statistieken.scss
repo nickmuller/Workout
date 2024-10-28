@@ -1,9 +1,7 @@
 ﻿.gewicht-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-        "label dropdown"
-        "button button";
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "label dropdown button";
     gap: 1rem;
 }
 
@@ -17,6 +15,7 @@
 
 .btn-log-gewicht {
     grid-area: button;
+    margin: 0;
 }
 
 .gewicht-container label,
