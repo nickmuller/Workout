@@ -68,11 +68,8 @@
         <div class="week-row">
             @foreach (var day in week)
             {
-                <div class="day-cell @(day.IsCurrentMonth ? "current-month" : "other-month") @(logs.Any(l => l.Changed.Date == day.Date) ? "is-log-datum" : "")">
-                    @if (day.Date.HasValue)
-                    {
-                        @day.Date.Value.Day
-                    }
+                <div class="@DayCssClasses(day)">
+                    @day.Date.Day
                 </div>
             }
         </div>
@@ -141,7 +138,7 @@
         {
             dayList.Add(new CalendarDay
             {
-                Date = new DateTime(previousMonth.Year, previousMonth.Month, i),
+                Date = new DateOnly(previousMonth.Year, previousMonth.Month, i),
                 IsCurrentMonth = false
             });
         }
@@ -151,7 +148,7 @@
         {
             dayList.Add(new CalendarDay
             {
-                Date = new DateTime(CurrentDate.Year, CurrentDate.Month, i),
+                Date = new DateOnly(CurrentDate.Year, CurrentDate.Month, i),
                 IsCurrentMonth = true
             });
         }
@@ -164,7 +161,7 @@
         {
             dayList.Add(new CalendarDay
             {
-                Date = new DateTime(nextMonth.Year, nextMonth.Month, i),
+                Date = new DateOnly(nextMonth.Year, nextMonth.Month, i),
                 IsCurrentMonth = false
             });
         }
@@ -176,9 +173,26 @@
         }
     }
 
+    private string DayCssClasses(CalendarDay day)
+    {
+        List<string> classes =
+        [
+            "day-cell",
+            day.IsCurrentMonth ? "current-month" : "other-month",
+        ];
+
+        if (logs.Any(l => DateOnly.FromDateTime(l.Changed.Date) == day.Date))
+            classes.Add("is-log-datum");
+
+        if (day.Date == DateOnly.FromDateTime(DateTime.Today))
+            classes.Add("today");
+
+        return string.Join(" ", classes);
+    }
+
     private class CalendarDay
     {
-        public DateTime? Date { get; init; }
+        public DateOnly Date { get; init; }
         public bool IsCurrentMonth { get; init; }
     }
 }
