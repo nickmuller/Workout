@@ -10,6 +10,19 @@ namespace Workout.HttpClients;
 
 public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions, CacheService cacheService)
 {
+    public async Task<List<WorkoutLogFile>> GetWorkoutLogAsync(int aantal = 5)
+    {
+        var fileIds = await GetFileIdsAsync("workout.json", aantal);
+        var files = new List<WorkoutLogFile>();
+        foreach (var fileId in fileIds)
+        {
+            var file = await GetFileAsync<WorkoutLogFile>(fileId!);
+            files.Add(file);
+        }
+
+        return files.OrderBy(f => f.Changed).ToList();
+    }
+
     public async Task SaveWorkoutLogAsync(Player player)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} workout.json";

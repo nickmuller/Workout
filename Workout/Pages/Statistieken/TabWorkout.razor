@@ -1,0 +1,142 @@
+﻿@attribute [Authorize]
+@inject GoogleClient GoogleClient
+
+<div class="tab-header">
+    Voortgang
+</div>
+<div class="calendar-grid">
+    @foreach (var week in CalendarDays)
+    {
+        <div class="week-row">
+            @foreach (var day in week)
+            {
+                <div class="@DayCssClasses(day)">
+                    @day.Date.Day
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<table>
+    <tr>
+        <th>Dag</th>
+        <th>Tijd</th>
+        <th>Duur</th>
+        <th>Categorie</th>
+    </tr>
+    @if (isLoading)
+    {
+        <tr>
+            <td colspan="4">
+                <Spinner />
+            </td>
+        </tr>
+    }
+    else
+    {
+        @foreach (var log in logs)
+        {
+            <tr>
+                <td>@log.WorkoutStart.ToString("ddd d MMM")</td>
+                <td>@log.WorkoutStart.ToString("HH:mm") - @log.WorkoutEind?.ToString("HH:mm")</td>
+                <td>@log.Duur?.ToDum()</td>
+                <td>@log.Categorie.DisplayName()</td>
+            </tr>
+        }
+    }
+</table>
+
+@code
+{
+    private List<WorkoutLog> logs = [];
+    private readonly List<List<CalendarDay>> CalendarDays = [];
+    private readonly DateTime CurrentDate = DateTime.Now;
+    private bool isLoading;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        GenerateCalendar();
+        var files = await GoogleClient.GetWorkoutLogAsync();
+        logs = files.SelectMany(f => f.WorkoutLijst).Where(w => w.WorkoutEind.HasValue).ToList();
+        isLoading = false;
+    }
+
+
+    private void GenerateCalendar()
+    {
+        var daysInMonth = DateTime.DaysInMonth(CurrentDate.Year, CurrentDate.Month);
+        var firstDayOfMonth = new DateTime(CurrentDate.Year, CurrentDate.Month, 1);
+        var startDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
+
+        var daysBeforeStart = startDayOfWeek == 0 ? 6 : startDayOfWeek - 1;
+
+        var previousMonth = firstDayOfMonth.AddMonths(-1);
+        var daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month);
+
+        var dayList = new List<CalendarDay>();
+
+        // Days from previous month
+        for (var i = daysInPreviousMonth - daysBeforeStart + 1; i <= daysInPreviousMonth; i++)
+        {
+            dayList.Add(new CalendarDay
+                {
+                    Date = new DateOnly(previousMonth.Year, previousMonth.Month, i),
+                    IsCurrentMonth = false
+                });
+        }
+
+        // Days in current month
+        for (var i = 1; i <= daysInMonth; i++)
+        {
+            dayList.Add(new CalendarDay
+                {
+                    Date = new DateOnly(CurrentDate.Year, CurrentDate.Month, i),
+                    IsCurrentMonth = true
+                });
+        }
+
+        // Days from next month to complete the grid
+        var remainingDays = 42 - dayList.Count; // Assuming 6 rows of 7 days
+        var nextMonth = firstDayOfMonth.AddMonths(1);
+
+        for (var i = 1; i <= remainingDays; i++)
+        {
+            dayList.Add(new CalendarDay
+                {
+                    Date = new DateOnly(nextMonth.Year, nextMonth.Month, i),
+                    IsCurrentMonth = false
+                });
+        }
+
+        // Split into weeks (7 days per row)
+        for (var i = 0; i < dayList.Count; i += 7)
+        {
+            CalendarDays.Add(dayList.GetRange(i, 7));
+        }
+    }
+
+    private string DayCssClasses(CalendarDay day)
+    {
+        List<string> classes =
+        [
+            "day-cell",
+            day.IsCurrentMonth ? "current-month" : "other-month",
+        ];
+
+        if (logs.Any(l => DateOnly.FromDateTime(l.WorkoutStart.Date) == day.Date))
+            classes.Add("is-log-datum");
+
+        if (day.Date == DateOnly.FromDateTime(DateTime.Today))
+            classes.Add("today");
+
+        return string.Join(" ", classes);
+    }
+
+    private class CalendarDay
+    {
+        public DateOnly Date { get; init; }
+        public bool IsCurrentMonth { get; init; }
+    }
+}

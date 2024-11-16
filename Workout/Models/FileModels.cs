@@ -15,9 +15,10 @@ public class WorkoutLogFile : FileBaseModel
 
 public class WorkoutLog
 {
+    public required CategorieType Categorie { get; set; }
     public required DateTime WorkoutStart { get; set; }
     public DateTime? WorkoutEind { get; set; }
-    public required CategorieType Categorie { get; set; }
+    public TimeSpan? Duur => WorkoutEind - WorkoutStart;
 }
 
 public class PersoonlijkeGegevensLogFile : FileBaseModel

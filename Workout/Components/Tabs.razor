@@ -1,0 +1,49 @@
+﻿<ul class="tabs">
+    @foreach (var tab in tabs)
+    {
+        <li class="tab-item">
+            <a class="tab-link @GetActiveClass(tab)" @onclick="() => ActivateTab(tab)">
+                @if (tab.TitleContent != null)
+                {
+                    @tab.TitleContent
+                }
+                else
+                {
+                    @tab.Title
+                }
+            </a>
+        </li>
+    }
+</ul>
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback<TabItem> OnTabActivated { get; set; }
+
+    public TabItem? ActiveTab;
+    private readonly List<TabItem> tabs = [];
+
+    public void AddTab(TabItem tab)
+    {
+        tabs.Add(tab);
+        if (tabs.Count == 1)
+            ActiveTab = tab;
+        StateHasChanged();
+    }
+
+    private string GetActiveClass(TabItem tab)
+    {
+        return tab == ActiveTab ? "active" : string.Empty;
+    }
+
+    private async Task ActivateTab(TabItem tab)
+    {
+        ActiveTab = tab;
+        if (OnTabActivated.HasDelegate)
+            await OnTabActivated.InvokeAsync(tab);
+    }
+}

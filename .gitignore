@@ -399,5 +399,5 @@ FodyWeavers.xsd
 
 # Custom
 *.orig
-**/*.css.*
-**/*.css
+Workout/wwwroot/css/main.css
+Workout/wwwroot/css/main.min.css

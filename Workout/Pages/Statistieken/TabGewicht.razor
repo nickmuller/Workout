@@ -1,43 +1,10 @@
-﻿@page "/statistieken"
-@attribute [Authorize]
+﻿@attribute [Authorize]
 @inject GoogleClient GoogleClient
 
-<Header>
-    <Left>
-        <a href="" class="btn btn-link home-link"><i class="fa-solid fa-arrow-left"></i></a>
-    </Left>
-    <Middle>
-        <h1 class="header-title">
-            Statistieken
-        </h1>
-    </Middle>
-    <Right>
-        <LoginDisplay />
-    </Right>
-</Header>
-
-<div class="container gewicht-container">
-    <label for="dropdown">Gewicht:</label>
-    @if (isLoading)
-    {
-        <div class="gewicht-dropdown">
-            <Spinner Class="spinner-center" />
-        </div>
-    }
-    else
-    {
-        <InputSelect @bind-Value="gewicht" id="dropdown" class="gewicht-dropdown">
-            @for (var i = 60.0m; i <= 80.0m; i += 0.1m)
-            {
-                <option value="@i" selected="@(i == gewicht)">@i</option>
-            }
-        </InputSelect>
-    }
-
-    <SpinnerButton Text="Log" Class="btn btn-blue btn-log-gewicht" OnClick="GewichtLoggen" />
+<div class="tab-header">
+    Voortgang
 </div>
-
-<div class="container grafiek-container">
+<div class="grafiek-container">
     <div class="staaf-grafiek">
         @if (isLoading)
         {
@@ -61,8 +28,7 @@
         }
     </div>
 </div>
-
-<div class="container calendar-grid">
+<div class="calendar-grid">
     @foreach (var week in CalendarDays)
     {
         <div class="week-row">
@@ -74,6 +40,27 @@
             }
         </div>
     }
+</div>
+
+<div class="mt-3 gewicht-container">
+    <label for="dropdown">Gewicht:</label>
+    @if (isLoading)
+    {
+        <div class="gewicht-dropdown">
+            <Spinner Class="spinner-center" />
+        </div>
+    }
+    else
+    {
+        <InputSelect @bind-Value="gewicht" id="dropdown" class="gewicht-dropdown">
+            @for (var i = 60.0m; i <= 80.0m; i += 0.1m)
+            {
+                <option value="@i" selected="@(i == gewicht)">@i</option>
+            }
+        </InputSelect>
+    }
+
+    <SpinnerButton Text="Log" Class="btn btn-blue btn-log-gewicht" OnClick="GewichtLoggen" />
 </div>
 
 @code
