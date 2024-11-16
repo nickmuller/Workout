@@ -1,0 +1,17 @@
+/* /Pages/Statistieken/TabWorkout.razor.rz.scp.css */
+table[b-rddbfrgoce] {
+    color: #fff;
+    background-color: #303030;
+    width: 100%;
+
+    th, td {
+        padding: 0.75rem;
+        vertical-align: top;
+    }
+
+    th[b-rddbfrgoce] {
+        color: rgba(255, 255, 255, 0.87);
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+}

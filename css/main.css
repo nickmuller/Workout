@@ -900,6 +900,41 @@ nav img {
     stroke-dashoffset: 0;
   }
 }
+.tabs {
+  background-color: #303030;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.tabs .tab-item .tab-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  display: block;
+  padding: 10px 27px 10px 30px;
+  position: relative;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.tabs .tab-item .tab-link:hover, .tabs .tab-item .tab-link:focus {
+  color: #fff;
+}
+.tabs .tab-item .tab-link:active, .tabs .tab-item .tab-link.active {
+  color: #fff;
+  border-bottom: 2px solid #1690e8;
+}
+
+.tab-header {
+  color: rgba(255, 255, 255, 0.87);
+  font-weight: bold;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgb(36, 36, 36);
+}
+
 .workout-player {
   height: 100vh;
   display: grid;
@@ -1136,7 +1171,6 @@ nav img {
 
 .grafiek-container {
   padding: 0.75rem 0.75rem;
-  border-radius: 0.25rem;
   color: #fff;
   background-color: #303030;
   border-color: #303030;
@@ -1161,7 +1195,6 @@ nav img {
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
   padding: 1rem;
-  border-radius: 0.25rem;
   background-color: #303030;
   border-color: #303030;
 }
