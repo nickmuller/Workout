@@ -45,12 +45,3 @@
         </ul>
     </nav>
 </div>
-
-@code
-{
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        await GoogleClient.GetPersoonlijkeGegevensLogsAsync(); // cache data
-    }
-}

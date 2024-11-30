@@ -1,2 +1,12 @@
 ﻿@inherits LayoutComponentBase
+@inject PersistanceService PersistanceService
 @Body
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await PersistanceService.LoadAsync();
+    }
+}

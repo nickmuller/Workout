@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -22,6 +23,7 @@ public class Program
         builder.Logging.SetMinimumLevel(LogLevel.Warning);
         builder.Services.AddCascadingAuthenticationState();
         builder.Services.AddMemoryCache();
+        builder.Services.AddBlazoredLocalStorage();
         builder.Services.Configure<JsonSerializerOptions>(options =>
         {
             options.PropertyNameCaseInsensitive = true;
@@ -35,7 +37,7 @@ public class Program
             .AddHttpMessageHandler<GoogleApiAuthorizationMessageHandler>();
 
         builder.Services.AddTransient<GoogleApiAuthorizationMessageHandler>();
-        builder.Services.AddScoped<CacheService>();
+        builder.Services.AddScoped<PersistanceService>();
 
         await builder.Build().RunAsync();
     }

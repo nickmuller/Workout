@@ -8,19 +8,24 @@ using Workout.Services;
 
 namespace Workout.HttpClients;
 
-public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions, CacheService cacheService)
+public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jsonSerializerOptions, PersistanceService persistanceService)
 {
-    public async Task<List<WorkoutLogFile>> GetWorkoutLogAsync(int aantal = 5)
+    public async Task<IReadOnlyCollection<WorkoutLogFile>> GetWorkoutLogAsync(int aantal = 5)
     {
-        var fileIds = await GetFileIdsAsync("workout.json", aantal);
-        var files = new List<WorkoutLogFile>();
-        foreach (var fileId in fileIds)
+        if (!persistanceService.Data.WorkoutLogs.Any())
         {
-            var file = await GetFileAsync<WorkoutLogFile>(fileId!);
-            files.Add(file);
+            var fileIds = await GetFileIdsAsync("workout.json", aantal);
+            var files = new List<WorkoutLogFile>();
+            foreach (var fileId in fileIds)
+            {
+                var file = await GetFileAsync<WorkoutLogFile>(fileId!);
+                files.Add(file);
+            }
+
+            await persistanceService.SaveWorkoutLogsAsync(files.OrderBy(f => f.Changed).ToList());
         }
 
-        return files.OrderBy(f => f.Changed).ToList();
+        return persistanceService.Data.WorkoutLogs;
     }
 
     public async Task SaveWorkoutLogAsync(Player player)
@@ -48,20 +53,41 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
             };
 
             await CreateFileAsync(fileName, logFile);
+            await CreateOrUpdateFileCacheAsync(logFile);
         }
         else
         {
             var logFile = await GetFileAsync<WorkoutLogFile>(fileId);
             logFile.Changed = DateTime.Now;
+            logFile.WorkoutLijst.RemoveAll(l => l.WorkoutStart == log.WorkoutStart);
             logFile.WorkoutLijst.Add(log);
 
             await UpdateFileAsync(fileId, logFile);
+            await CreateOrUpdateFileCacheAsync(logFile);
         }
     }
 
-    public async Task<List<PersoonlijkeGegevensLogFile>> GetPersoonlijkeGegevensLogsAsync(int aantal = 5)
+    private Task CreateOrUpdateFileCacheAsync(WorkoutLogFile log)
     {
-        if (cacheService.PersoonlijkeGegevensLogFileCache == null)
+        var logs = persistanceService.Data.WorkoutLogs.ToList();
+        var cachedLog = logs.SingleOrDefault(l => l.Changed.Date == DateTime.Today);
+
+        if (cachedLog is not null)
+        {
+            cachedLog.WorkoutLijst = log.WorkoutLijst;
+            cachedLog.Changed = log.Changed;
+        }
+        else
+        {
+            logs.Add(log);
+        }
+
+        return persistanceService.SaveWorkoutLogsAsync(logs);
+    }
+
+    public async Task<IReadOnlyCollection<PersoonlijkeGegevensLogFile>> GetPersoonlijkeGegevensLogsAsync(int aantal = 5)
+    {
+        if (!persistanceService.Data.PersoonlijkeGegevensLogs.Any())
         {
             var fileIds = await GetFileIdsAsync("persoonlijke info", aantal);
             var files = new List<PersoonlijkeGegevensLogFile>();
@@ -71,35 +97,43 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
                 files.Add(file);
             }
 
-            cacheService.PersoonlijkeGegevensLogFileCache = files.OrderBy(f => f.Changed).ToList();
+            await persistanceService.SavePersoonlijkeGegevensLogsAsync(files.OrderBy(f => f.Changed).ToList());
         }
 
-        return cacheService.PersoonlijkeGegevensLogFileCache;
+        return persistanceService.Data.PersoonlijkeGegevensLogs;
     }
 
-    public Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
+    public async Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
     {
         var fileName = $"{DateTime.Now:yyyy-MM-dd} persoonlijke info.json";
-        var log = cacheService.PersoonlijkeGegevensLogFileCache?.SingleOrDefault(l => l.Changed.Date == DateTime.Today);
-
-        if (log is not null)
+        var log = new PersoonlijkeGegevensLogFile
         {
-            log.Gewicht = gewicht;
+            Created = DateTime.Now,
+            Changed = DateTime.Now,
+            Gewicht = gewicht
+        };
+
+        await CreateOrUpdateFileAsync(fileName, log);
+        await CreateOrUpdateFileCacheAsync(log);
+    }
+
+    private Task CreateOrUpdateFileCacheAsync(PersoonlijkeGegevensLogFile log)
+    {
+        var logs = persistanceService.Data.PersoonlijkeGegevensLogs.ToList();
+        var cachedLog = logs.SingleOrDefault(l => l.Changed.Date == DateTime.Today);
+
+        if (cachedLog is not null)
+        {
+            cachedLog.Gewicht = log.Gewicht;
+            cachedLog.Changed = log.Changed;
         }
         else
         {
-            log = new PersoonlijkeGegevensLogFile
-            {
-                Created = DateTime.Now,
-                Changed = DateTime.Now,
-                Gewicht = gewicht
-            };
-
-            cacheService.PersoonlijkeGegevensLogFileCache?.RemoveAt(1);
-            cacheService.PersoonlijkeGegevensLogFileCache?.Add(log);
+            logs.RemoveAt(0);
+            logs.Add(log);
         }
 
-        return CreateOrUpdateFileAsync(fileName, log);
+        return persistanceService.SavePersoonlijkeGegevensLogsAsync(logs);
     }
 
     private async Task<string?> GetFileIdAsync(string fileName)
