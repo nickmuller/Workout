@@ -70,6 +70,24 @@
         </div>
 
         <div class="oefening-footer">
+            @if (player.IsKlaar)
+            {
+                <div class="workout-opslaan">
+                    @if (saving)
+                    {
+                        <div>
+                            <Spinner/> Opslaan...
+                        </div>
+                    }
+                    else if (player.IsKlaar)
+                    {
+                        <div>
+                            Workout is opgeslagen!
+                        </div>
+                    }
+                </div>
+            }
+
             <div class="oefening-info">
                 <Stack Class="oefening-sets-en-herhalingen">
                     <p class="oefening-herhalingen">
@@ -148,6 +166,7 @@
     [Parameter, EditorRequired] public CategorieType Categorie { get; set; }
 
     private Player? player;
+    private bool saving;
 
     protected override void OnInitialized()
     {
@@ -189,7 +208,13 @@
         {
             try
             {
+                saving = true;
+                StateHasChanged();
+
                 await GoogleClient.SaveWorkoutLogAsync(player!);
+
+                saving = false;
+                StateHasChanged();
             }
             catch (Exception e)
             {

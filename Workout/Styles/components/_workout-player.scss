@@ -84,7 +84,12 @@
     color: #fff;
     background-color: #111;
     display: grid;
-    grid-template-rows: auto max-content max-content;
+    grid-template-rows: auto max-content max-content max-content;
+    position: relative;
+
+    .workout-opslaan {
+        margin: 1.5rem auto;
+    }
 
     .oefening-info {
         align-self: start;
