@@ -470,6 +470,9 @@ fieldset:disabled a.btn {
   color: #a8a8a8;
   background-color: transparent;
 }
+.dropdown-item:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
 
 .dropdown-header {
   display: block;
@@ -1013,7 +1016,11 @@ nav img {
   color: #fff;
   background-color: #111;
   display: grid;
-  grid-template-rows: auto max-content max-content;
+  grid-template-rows: auto max-content max-content max-content;
+  position: relative;
+}
+.oefening-footer .workout-opslaan {
+  margin: 1.5rem auto;
 }
 .oefening-footer .oefening-info {
   align-self: start;
