@@ -23,5 +23,11 @@ public class WorkoutLog
 
 public class PersoonlijkeGegevensLogFile : FileBaseModel
 {
+    public List<PersoonlijkeGegevensLog> PersoonlijkeGegevensLijst { get; set; } = [];
+}
+
+public class PersoonlijkeGegevensLog
+{
+    public required DateTime Datum { get; set; }
     public required decimal Gewicht { get; set; }
 }

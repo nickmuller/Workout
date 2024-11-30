@@ -30,7 +30,7 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
 
     public async Task SaveWorkoutLogAsync(Player player)
     {
-        var fileName = $"{DateTime.Now:yyyy-MM-dd} workout.json";
+        var fileName = $"{DateTime.Now:yyyy-MM} workout.json";
 
         if (player.WorkoutStart == null)
             throw new ArgumentException("WorkoutStart moet gevuld zijn!");
@@ -105,16 +105,37 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
 
     public async Task SavePersoonlijkeGegevensLogAsync(decimal gewicht)
     {
-        var fileName = $"{DateTime.Now:yyyy-MM-dd} persoonlijke info.json";
-        var log = new PersoonlijkeGegevensLogFile
+        var fileName = $"{DateTime.Now:yyyy-MM} persoonlijke info.json";
+
+        var log = new PersoonlijkeGegevensLog
         {
-            Created = DateTime.Now,
-            Changed = DateTime.Now,
+            Datum = DateTime.Now,
             Gewicht = gewicht
         };
 
-        await CreateOrUpdateFileAsync(fileName, log);
-        await CreateOrUpdateFileCacheAsync(log);
+        var fileId = await GetFileIdAsync(fileName);
+        if (string.IsNullOrEmpty(fileId))
+        {
+            var logFile = new PersoonlijkeGegevensLogFile
+            {
+                Created = DateTime.Now,
+                Changed = DateTime.Now,
+                PersoonlijkeGegevensLijst = [log]
+            };
+
+            await CreateFileAsync(fileName, logFile);
+            await CreateOrUpdateFileCacheAsync(logFile);
+        }
+        else
+        {
+            var logFile = await GetFileAsync<PersoonlijkeGegevensLogFile>(fileId);
+            logFile.Changed = DateTime.Now;
+            logFile.PersoonlijkeGegevensLijst.RemoveAll(l => l.Datum.Date == DateTime.Today);
+            logFile.PersoonlijkeGegevensLijst.Add(log);
+
+            await UpdateFileAsync(fileId, logFile);
+            await CreateOrUpdateFileCacheAsync(logFile);
+        }
     }
 
     private Task CreateOrUpdateFileCacheAsync(PersoonlijkeGegevensLogFile log)
@@ -124,12 +145,11 @@ public class GoogleClient(HttpClient client, IOptions<JsonSerializerOptions> jso
 
         if (cachedLog is not null)
         {
-            cachedLog.Gewicht = log.Gewicht;
+            cachedLog.PersoonlijkeGegevensLijst = log.PersoonlijkeGegevensLijst;
             cachedLog.Changed = log.Changed;
         }
         else
         {
-            logs.RemoveAt(0);
             logs.Add(log);
         }
 

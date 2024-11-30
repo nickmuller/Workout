@@ -59,10 +59,9 @@
         isLoading = true;
         GenerateCalendar();
         var files = await GoogleClient.GetWorkoutLogAsync();
-        logs = files.SelectMany(f => f.WorkoutLijst).Where(w => w.WorkoutEind.HasValue).ToList();
+        logs = files.SelectMany(f => f.WorkoutLijst).Where(w => w.WorkoutEind.HasValue).TakeLast(5).ToList();
         isLoading = false;
     }
-
 
     private void GenerateCalendar()
     {

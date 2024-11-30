@@ -24,7 +24,7 @@
         }
         @foreach (var log in logs)
         {
-            <div class="dag-label">@log.Changed.ToString("d MMM")</div>
+            <div class="dag-label">@log.Datum.ToString("d MMM")</div>
         }
     </div>
 </div>
@@ -65,7 +65,7 @@
 
 @code
 {
-    private IReadOnlyCollection<PersoonlijkeGegevensLogFile> logs = [];
+    private IReadOnlyCollection<PersoonlijkeGegevensLog> logs = [];
     private readonly List<List<CalendarDay>> CalendarDays = [];
     private readonly DateTime CurrentDate = DateTime.Now;
     private decimal gewicht;
@@ -77,10 +77,11 @@
 
         GenerateCalendar();
 
-        logs = await GoogleClient.GetPersoonlijkeGegevensLogsAsync();
+        var files = await GoogleClient.GetPersoonlijkeGegevensLogsAsync();
+        logs = files.SelectMany(f => f.PersoonlijkeGegevensLijst).TakeLast(5).ToList();
         
         // Laatst gelogde gewicht tonen
-        var laatsteLog = logs.MaxBy(l => l.Changed);
+        var laatsteLog = logs.MaxBy(l => l.Datum);
         gewicht = laatsteLog?.Gewicht ?? 70.0m;
 
         isLoading = false;
@@ -89,7 +90,8 @@
     private async Task GewichtLoggen()
     {
         await GoogleClient.SavePersoonlijkeGegevensLogAsync(gewicht);
-        logs = await GoogleClient.GetPersoonlijkeGegevensLogsAsync();
+        var files = await GoogleClient.GetPersoonlijkeGegevensLogsAsync();
+        logs = files.SelectMany(f => f.PersoonlijkeGegevensLijst).TakeLast(5).ToList();
     }
 
     private void GenerateCalendar()
@@ -153,7 +155,7 @@
             day.IsCurrentMonth ? "current-month" : "other-month",
         ];
 
-        if (logs.Any(l => DateOnly.FromDateTime(l.Changed.Date) == day.Date))
+        if (logs.Any(l => DateOnly.FromDateTime(l.Datum.Date) == day.Date))
             classes.Add("is-log-datum");
 
         if (day.Date == DateOnly.FromDateTime(DateTime.Today))
