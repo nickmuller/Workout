@@ -37,5 +37,11 @@ public class PersistanceService(ILocalStorageService localStorage)
         return SaveAsync();
     }
 
+    public async Task DeleteAsync()
+    {
+        Data = new PersistedData();
+        await localStorage.RemoveItemAsync(LocalstorageKey);
+    }
+
     private async Task SaveAsync() => await localStorage.SetItemAsync(LocalstorageKey, Data);
 }

@@ -60,6 +60,10 @@
         color: #a8a8a8;
         background-color: transparent;
     }
+
+    &:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
 }
 
 .dropdown-header {

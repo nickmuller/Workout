@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager Navigation
+@inject PersistanceService PersistanceService
 
 <div class="login-display">
     <AuthorizeView>
@@ -7,6 +8,7 @@
                 <button class="btn btn-link dropdown-toggle">@(string.Concat(context.User.Identity!.Name!.Where(char.IsUpper).Take(2)))</button>
                 <div class="dropdown-menu dropdown-menu-right-aligned">
                     <h6 class="dropdown-header">@context.User.Identity?.Name</h6>
+                    <SpinnerButton Text="Cache legen" Class="dropdown-item" OnClick="CacheLegen" />
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="" @onclick="Logout">Logout</a>
                 </div>
@@ -21,6 +23,12 @@
 </div>
 
 @code{
+    private async Task CacheLegen()
+    {
+        await PersistanceService.DeleteAsync();
+        await Task.Delay(200);
+    }
+
     private void Logout()
     {
         Navigation.NavigateToLogout("authentication/logout");
