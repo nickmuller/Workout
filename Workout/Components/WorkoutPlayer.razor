@@ -2,6 +2,7 @@
 @inject NavigationManager Navigation
 @inject GoogleClient GoogleClient
 @inject ILogger<WorkoutPlayer> Logger
+@inject IJSRuntime jsRuntime
 
 @if (player != null)
 {
@@ -177,13 +178,34 @@
         
         player = new Player(Categorie, oefeningnummer, set);
         player.OnTick += PlayerTick;
+        player.OnSetChange += PlayerSetChange;
         player.OnStart += PlayerStart;
         player.OnEind += PlayerEind;
     }
 
     private void PlayerTick()
     {
-        InvokeAsync(StateHasChanged);
+        InvokeAsync(async () =>
+        {
+            StateHasChanged();
+
+            if (player!.ResterendeTijdPauze <= TimeSpan.FromSeconds(3))
+            {
+                await jsRuntime.InvokeVoidAsync("workout.say", player!.ResterendeTijdPauze.Seconds);
+            }
+        });
+    }
+
+    private void PlayerSetChange()
+    {
+        if (player!.Oefening.DuurSet > TimeSpan.Zero)
+        {
+            InvokeAsync(async () =>
+            {
+                var melding = $"{player!.Oefening.Naam}, {player.Oefening.AantalHerhalingen} herhaling{(player.Oefening.AantalHerhalingen == 1 ? "" : "en")}";
+                await jsRuntime.InvokeVoidAsync("workout.say", melding);
+            });
+        }
     }
 
     private void PlayerStart()
